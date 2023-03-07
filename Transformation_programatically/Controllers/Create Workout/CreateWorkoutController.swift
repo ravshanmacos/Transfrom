@@ -9,6 +9,7 @@ import UIKit
 
 protocol CreateWorkoutControllerDelegate: AnyObject{
     func showAlertMessage(message: String)
+    func workoutDidCreate(_ workout: WorkoutModel)
 }
 
 class CreateWorkoutController: UIViewController, CreateWorkoutControllerDelegate {
@@ -45,6 +46,12 @@ class CreateWorkoutController: UIViewController, CreateWorkoutControllerDelegate
         let action = UIAlertAction(title: "Cancel", style: .default)
         alert.addAction(action)
         present(alert, animated: true)
+    }
+    
+    func workoutDidCreate(_ workout: WorkoutModel) {
+        let editWorkoutPartsVC = EditWorkoutPartsController()
+        editWorkoutPartsVC.workout = workout
+        navigationController?.pushViewController(editWorkoutPartsVC, animated: true)
     }
 
 }

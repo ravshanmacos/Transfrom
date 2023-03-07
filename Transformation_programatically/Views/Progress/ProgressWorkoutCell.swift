@@ -9,12 +9,13 @@ import UIKit
 
 class ProgressWorkoutCell: UITableViewCell{
     
+    private let components = UIComponents.shared
     private var baseFontSize: CGFloat{
         return Constants.baseFontSize
     }
     
     lazy var title: UILabel = {
-        return createLabel(type: .medium)
+        return components.createLabel(with: "")
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -35,24 +36,5 @@ class ProgressWorkoutCell: UITableViewCell{
     
     private func setupConstraints(){
         
-    }
-}
-
-extension ProgressWorkoutCell{
-    private func createLabel(type:LabelType)-> UILabel{
-       let label = UILabel()
-       
-        switch type {
-        case .large:
-            label.font = UIFont.systemFont(ofSize: baseFontSize*1.5, weight: .bold)
-        case .medium:
-            label.textColor = .darkGray
-            label.font = UIFont.systemFont(ofSize: baseFontSize, weight: .medium)
-        case .small:
-            label.textColor = .darkGray
-            label.font = UIFont.systemFont(ofSize: baseFontSize*0.7, weight: .regular)
-            
-        }
-       return label
     }
 }

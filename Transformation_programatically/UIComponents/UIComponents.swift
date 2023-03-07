@@ -6,39 +6,81 @@
 //
 
 import UIKit
+import TinyConstraints
 
 class UIComponents{
     
     static let shared = UIComponents()
     private let baseFontSize:CGFloat = 16
     private init(){}
-    func createButton(type: ButtonType, image: UIImage? = nil, text: String? = nil,
-                              state isEnabled: Bool = true
-    )->UIButton{
-        let button = UIButton()
-        if let image {button.setImage(image, for: .normal)}
-        if let text {button.setTitle(text, for: .normal)}
-        
+    
+    func createLabel(type: LabelType = .medium,with text: String, centered: Bool = false)->UILabel{
+        let label = UILabel()
+        if centered {label.textAlignment = .center}
+        label.text = text
+        label.textColor = .darkGray
         switch type {
-        case .filled:
-            button.backgroundColor = UIColor.systemBlue
-            button.tintColor = .white
-        case .outlined:
-            button.layer.borderWidth = 1
-            button.tintColor = UIColor.systemBlue
+        case .extraLarge:
+            label.font = UIFont.systemFont(ofSize: baseFontSize * 3, weight: .bold)
+        case .large:
+            label.font = UIFont.systemFont(ofSize: baseFontSize * 1.5, weight: .medium)
+        case .medium:
+            label.font = UIFont.systemFont(ofSize: baseFontSize, weight: .medium)
+        case .small:
+            label.textColor = .lightGray
+            label.font = UIFont.systemFont(ofSize: baseFontSize * 0.8, weight: .regular)
         }
-        button.isEnabled = isEnabled
-        button.layer.cornerRadius = 5
-        return button
+        return label
     }
     
-    func createButton(text: String, state isEnabled: Bool = true)->UIButton{
+    func createHeaderTitle(title: String)-> UILabel{
+        let titleLabel = UILabel()
+        titleLabel.text = title
+        titleLabel.font = UIFont.systemFont(ofSize: baseFontSize, weight: .semibold)
+        titleLabel.textColor = UIColor.darkGray
+        return titleLabel
+    }
+    
+    func createTexField(placeholder: String)->UITextField{
+        let textfield = UITextField()
+        textfield.placeholder = placeholder
+        textfield.borderStyle = .roundedRect
+        return textfield
+    }
+ 
+    func createButton(text: String, state isEnabled: Bool = true)-> UIButton{
         let button = UIButton()
         button.setTitle(text, for: .normal)
         button.layer.cornerRadius = 5
+        button.backgroundColor = UIColor.systemBlue
         button.isEnabled = isEnabled
         return button
     }
+    
+    func createCicularButton(image: UIImage)->UIButton{
+        let button = UIButton()
+        button.setImage(image, for: .normal)
+        button.tintColor = .white
+        button.backgroundColor = UIColor.systemBlue
+        return button
+    }
+    
+    func createStack(axis: NSLayoutConstraint.Axis = .horizontal,
+                     spacing: CGFloat = 0,
+                     views: [UIView]? = nil,
+                     fillEqually: Bool = false
+    )->UIStackView{
+        var stack = UIStackView()
+        if let views{
+            stack = UIStackView(arrangedSubviews: views)
+        }
+        if fillEqually {stack.distribution = .fillEqually}
+        stack.axis = axis
+        stack.spacing = spacing
+        return stack
+    }
+    
+   
 }
 
 extension UIComponents{
@@ -49,5 +91,11 @@ extension UIComponents{
     enum ButtonColor{
         case dark
         case light
+    }
+    enum LabelType{
+        case extraLarge
+        case large
+        case medium
+        case small
     }
 }
