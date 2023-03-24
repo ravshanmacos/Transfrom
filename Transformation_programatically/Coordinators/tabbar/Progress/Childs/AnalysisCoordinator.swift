@@ -1,26 +1,26 @@
 //
-//  TabbarCoordinator.swift
+//  AnalysisCoordinator.swift
 //  Transformation_programatically
 //
-//  Created by Ravshanbek Tursunbaev on 2023/03/14.
+//  Created by Ravshanbek Tursunbaev on 2023/03/15.
 //
 
 import UIKit
 
-class TabbarCoordinator: Coordinator{
-    
+class AnalysisCoordinator: Coordinator{
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    weak var parentCoordinator: MainCoordinator?
+    weak var parentCoordinator: WorkoutProgressCoordinator?
+    var workoutType: String?
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        let vc = TabBarController(nibName: nil, bundle: nil)
+        let vc = AnalysisController(nibName: nil, bundle: nil)
         vc.coordinator = self
+        vc.workoutType = workoutType
         navigationController.pushViewController(vc, animated: true)
     }
 }
-

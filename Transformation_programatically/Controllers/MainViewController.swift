@@ -6,18 +6,16 @@
 //
 
 import UIKit
+import Combine
 
 class MainViewController: UIViewController {
-    
     private let components = UIComponents.shared
-    
     private lazy var nextButton: UIButton = {
         let btn = components.createButton(text: "Next")
         btn.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
         return btn
     }()
-    
-    var isTapped: (()->Void)?
+    weak var coordinator: MainCoordinator?
     
     //MARK: - LifeCycle Methods
     override func viewDidLoad() {
@@ -42,9 +40,7 @@ class MainViewController: UIViewController {
     private func setupConstraints(){}
 
     @objc func buttonTapped(){
-        if let isTapped{
-            isTapped()
-        }
+        coordinator?.openTabbar()
     }
 
 }

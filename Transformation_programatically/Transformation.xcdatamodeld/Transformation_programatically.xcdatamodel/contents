@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22D68" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Workout" representedClassName="Workout" syncable="YES">
+        <attribute name="date" attributeType="Date" defaultDateTimeInterval="701171400" usesScalarValueType="NO"/>
+        <attribute name="done" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="workoutParts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WorkoutPart" inverseName="workout" inverseEntity="WorkoutPart"/>
+    </entity>
+    <entity name="WorkoutPart" representedClassName="WorkoutPart" syncable="YES">
+        <attribute name="date" attributeType="Date" defaultDateTimeInterval="701171460" usesScalarValueType="NO"/>
+        <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Workout" inverseName="workoutParts" inverseEntity="Workout"/>
+    </entity>
+</model>

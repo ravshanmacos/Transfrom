@@ -1,5 +1,5 @@
 //
-//  TabbarCoordinator.swift
+//  StartWorkoutCoordinator.swift
 //  Transformation_programatically
 //
 //  Created by Ravshanbek Tursunbaev on 2023/03/14.
@@ -7,20 +7,22 @@
 
 import UIKit
 
-class TabbarCoordinator: Coordinator{
-    
+class StartWorkoutCoordinator: Coordinator{
+    weak var parentCoordinator: WorkoutCategoryCoordinator?
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    weak var parentCoordinator: MainCoordinator?
+    var selectedWorkoutTitle: String?
+    
     
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
     func start() {
-        let vc = TabBarController(nibName: nil, bundle: nil)
+        let vc = StartWorkoutController(nibName: nil, bundle: nil)
         vc.coordinator = self
+        vc.title = "Start"
+        vc.selectedWorkout = selectedWorkoutTitle
         navigationController.pushViewController(vc, animated: true)
     }
 }
-

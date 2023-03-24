@@ -7,35 +7,43 @@
 
 import UIKit
 import TinyConstraints
+import Combine
 
 protocol WorkoutCategoryDelegate: AnyObject{
-    func workoutDidSelect(_ workout: String)
+    func workoutDidSelect(_ title: String)
 }
 
 class WorkoutCategoryController: UIViewController, WorkoutCategoryDelegate {
 
     //MARK: - Properties
-    private let dummyData: [String] = ["New York", "New Jersey","California","Texas","Chicago"]
-    
-    private lazy var workoutCategoryView = {
-       return WorkoutCategoryView(data: dummyData)
+    private let coredataHelper = CoreDataHelper.shared
+    private lazy var workouts: [Workout] = {
+        return coredataHelper.fetchAll()
     }()
+    private lazy var workoutCategoryView = {
+        var view: WorkoutCategoryView
+        if workouts.isEmpty{
+            view = WorkoutCategoryView(data: [])
+        }else{
+            view = WorkoutCategoryView(data: workouts.map{$0.name!})
+        }
+        view.delegate = self
+       return view
+    }()
+    
+    weak var coordinator: WorkoutCategoryCoordinator?
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.navigationController?.isNavigationBarHidden = true
         setupDelegates()
         setupViews()
         setupConstraints()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tabBarController?.navigationItem.title = "Workout Category"
-    }
-    
     private func setupDelegates(){
-        workoutCategoryView.delegate = self
+     
     }
     
     private func setupViews(){
@@ -45,10 +53,8 @@ class WorkoutCategoryController: UIViewController, WorkoutCategoryDelegate {
         workoutCategoryView.edgesToSuperview()
     }
     
-    func workoutDidSelect(_ workout: String){
-        let startWorkoutVC = StartWorkoutController()
-        startWorkoutVC.selectedWorkout = workout
-        navigationController?.pushViewController(startWorkoutVC, animated: true)
+    func workoutDidSelect(_ title: String) {
+        coordinator?.workoutDidSelect(title)
     }
     
 }

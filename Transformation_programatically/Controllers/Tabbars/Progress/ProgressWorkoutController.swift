@@ -12,6 +12,7 @@ class ProgressWorkoutController: UIViewController {
     private let dummyData: [String] = ["New York", "New Jersey","California","Texas","Chicago"]
     private let tableView = UITableView()
     private let reuseIdentifier = "progressCell"
+    weak var coordinator: WorkoutProgressCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +54,6 @@ extension ProgressWorkoutController: UITableViewDelegate{
         defer{
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        let analysisVC = AnalysisController()
-        navigationController?.pushViewController(analysisVC, animated: true)
+        coordinator?.workoutTypeDidSelect(dummyData[indexPath.row])
     }
 }

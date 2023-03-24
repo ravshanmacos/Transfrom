@@ -6,49 +6,52 @@
 //
 
 import UIKit
+import CoreData
 
 protocol EditWorkoutPartControllerDelegate: AnyObject{
     func editWorkoutPartControllerDidCancel()
+    func editWorkoutPartControllerSaveTapped(data: [String: Any])
 }
 
 class EditWorkoutPartController: UIViewController {
     
-    private lazy var createWorkoutPartView: UIView = {
+    private lazy var updateWorkoutPartView: UIView = {
         if let workoutPart{
-            let view = CreateWorkoutPartView(model: workoutPart)
+            let view = UpdateWorkoutPartView(model: workoutPart)
             view.delegate = self
             return view
         }
-        return CreateWorkoutView()
+        return AddWorkoutView()
     }()
-    
     var workoutPart: WorkoutPart?
+    weak var coordinator: UpdateCoordinator?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMainView()
-        setupViews()
         setupConstraints()
+        setupDelegates()
     }
     
     private func setupMainView(){
         view.backgroundColor = .white
-        view.addSubview(createWorkoutPartView)
+        view.addSubview(updateWorkoutPartView)
         
     }
-    
-    private func setupViews(){
-        
-    }
-    
     private func setupConstraints(){
-        createWorkoutPartView.edgesToSuperview(usingSafeArea: true)
+        updateWorkoutPartView.edgesToSuperview(usingSafeArea: true)
     }
+    
+    private func setupDelegates(){}
+    
+    
 
 }
 
 extension EditWorkoutPartController: EditWorkoutPartControllerDelegate{
-    func editWorkoutPartControllerDidCancel() {
-        dismiss(animated: true)
+    func editWorkoutPartControllerDidCancel() {}
+    func editWorkoutPartControllerSaveTapped(data: [String: Any]) {
+        guard let workoutPart = workoutPart else{return}
+        coordinator?.workoutPartDidUpdate(workoutPart, data: data)
     }
 }

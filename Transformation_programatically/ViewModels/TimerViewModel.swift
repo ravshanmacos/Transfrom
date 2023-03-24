@@ -22,7 +22,7 @@ class TimerViewModel{
         return workouts[0]
     }()
     lazy var timerModel: TimerModel = {
-        let duration = configureDuration(duration: currentWorkout.duration)
+        let duration = configureDuration(duration: 120)
         let timerModel =
         TimerModel(minutes: duration.minutes, seconds: duration.seconds, length: workouts.count)
         return timerModel
@@ -60,11 +60,11 @@ class TimerViewModel{
     }
     
     func getCurrentWorkout()->String{
-        return currentWorkout.name
+        return "hello"
     }
     
     func getNextWorkout()->String{
-        return nextWorkout.name
+        return "hello2"
     }
     
     func startTimer(){
@@ -91,12 +91,11 @@ extension TimerViewModel{
         }
         currentWorkout = workouts[index]
         if index + 1 > workouts.count-1{
-            nextWorkout = Workout(name: "End ", duration: 0)
-            
+            //nextWorkout = Workout(name: "End ", duration: 0)
         } else{
-            nextWorkout = workouts[index+1]
+           // nextWorkout = workouts[index+1]
         }
-        let duration = configureDuration(duration: currentWorkout.duration)
+        let duration = configureDuration(duration: 120)
         timerModel.updateWorkout(minutes: duration.minutes, seconds: duration.seconds)
     }
 }

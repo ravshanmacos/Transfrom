@@ -11,7 +11,8 @@ import TinyConstraints
 class UIComponents{
     
     static let shared = UIComponents()
-    private let baseFontSize:CGFloat = 16
+    private let baseSize: CGFloat = Constants.baseSize
+    private let baseFontSize:CGFloat = Constants.baseFontSize
     private init(){}
     
     func createLabel(type: LabelType = .medium,with text: String, centered: Bool = false)->UILabel{
@@ -41,9 +42,10 @@ class UIComponents{
         return titleLabel
     }
     
-    func createTexField(placeholder: String)->UITextField{
+    func createTexField(placeholder: String = "", text: String = "")->UITextField{
         let textfield = UITextField()
-        textfield.placeholder = placeholder
+        if placeholder != "" {textfield.placeholder = placeholder}
+        if text != "" {textfield.text = text}
         textfield.borderStyle = .roundedRect
         return textfield
     }
@@ -79,7 +81,6 @@ class UIComponents{
         stack.spacing = spacing
         return stack
     }
-    
    
 }
 

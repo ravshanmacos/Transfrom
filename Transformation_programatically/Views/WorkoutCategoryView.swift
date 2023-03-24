@@ -22,19 +22,24 @@ class WorkoutCategoryView: UIView {
     
     private lazy var startWorkoutButton: UIButton = {
         let button = components.createButton(text: "Start Workout")
+        print(data.isEmpty)
+        if data.isEmpty{
+            button.isEnabled = false
+            button.backgroundColor = UIColor.white
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor.lightGray.cgColor
+            button.setTitleColor(UIColor.lightGray, for: .normal)
+        }
         button.addTarget(self, action: #selector(startTapped), for: .touchUpInside)
         return button
     }()
     private var data:[String] = []
     private var selectedWorkout: String?
-    weak var delegate: WorkoutCategoryDelegate?
+    var delegate: WorkoutCategoryDelegate?
     
     //MARK: - Lifecycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupDelegates()
-        setupViews()
-        setupConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -44,7 +49,10 @@ class WorkoutCategoryView: UIView {
     
     convenience init(data: [String]) {
         self.init(frame: CGRect.zero)
-        self.data = data
+        if !data.isEmpty{self.data = data}
+        setupDelegates()
+        setupViews()
+        setupConstraints()
     }
     
     @objc private func startTapped(){
@@ -84,16 +92,27 @@ extension WorkoutCategoryView: UIPickerViewDataSource, UIPickerViewDelegate{
         return 1
     }
     
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        data.count
+        guard data.isEmpty else{
+            return data.count
+        }
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        data[row]
+        guard data.isEmpty else{
+            return data[row]
+        }
+        return "Oops! Empty"
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-       selectedWorkout = data[row]
+        guard data.isEmpty else{
+            selectedWorkout = data[row]
+            return
+        }
+       return
     }
     
 }

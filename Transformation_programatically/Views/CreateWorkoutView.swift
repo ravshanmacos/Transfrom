@@ -2,161 +2,118 @@
 //  CreateWorkoutView.swift
 //  Transformation_programatically
 //
-//  Created by Ravshanbek Tursunbaev on 2023/03/03.
+//  Created by Ravshanbek Tursunbaev on 2023/03/21.
 //
 
 import UIKit
+import CoreData
 import TinyConstraints
-import Combine
 
-class CreateWorkoutView: UIView {
+class CreateWorkoutView: UIView{
     
     //MARK: - Properties
-    private let components = UIComponents.shared
-    private var baseFontSize: CGFloat {
-        return Constants.baseFontSize
-    }
-    private var baseSize: CGFloat{
-        return Constants.baseSize
-    }
-    
-    private lazy var workoutTypeTextfield = {
-        return components.createTexField(placeholder: "Example: Morning Workout")
+    private let baseSize = Constants.baseSize
+    private let baseFontSize = Constants.baseFontSize
+    private let uiComponents = UIComponents.shared
+    private lazy var headerView: UIView = {
+        let view = UIView()
+        return view
     }()
     
-    private lazy var datePicker: UIDatePicker = {
-        let picker = UIDatePicker()
-        picker.datePickerMode = .countDownTimer
-        return picker
+    private lazy var tableView: UITableView = {
+       let tableView = UITableView()
+        return tableView
     }()
     
-    private lazy var stepper: UIStepper = {
-       let stepper = UIStepper()
-        stepper.addTarget(self, action: #selector(stepperDidChange), for: .touchUpInside)
-       return stepper
+    private lazy var addWorkoutBtn: UIButton = {
+        let button = uiComponents.createButton(text: "Add Workout")
+        button.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
+        return button
     }()
+    private var fetchedResultsController: NSFetchedResultsController<Workout>?
+    weak var delegate: CreateWorkoutControllerDelegate?
     
-    private lazy var stepperLabel:UILabel = {
-        let label = UILabel()
-        label.text = String(stepperCount)
-        label.font = UIFont.systemFont(ofSize: baseFontSize * 1.5, weight: .medium)
-        return label
-    }()
-    
-    private lazy var continueBtn: UIButton = {
-        let btn = components.createButton(text: "Continue")
-        btn.addTarget(self, action: #selector(continueBtnTapped), for: .touchUpInside)
-        return btn
-    }()
-    
-    @Published private var stepperCount: Int = 0
-    private var cancellables: [AnyCancellable] = []
-    var delegate: CreateWorkoutControllerDelegate?
-    
-    //MARK: - LifeCycle Methods
+    //MARK: - LifeCycle
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
-        setupDelegates()
-        setupPublishers()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        fatalError("this view should not be implemented from storyboard")
+        fatalError("this should be implemented storyboard")
     }
     
-    convenience init() {
+    convenience init(fetchedResultsController: NSFetchedResultsController<Workout>) {
         self.init(frame: CGRect.zero)
+        self.fetchedResultsController = fetchedResultsController
+        fetchedResultsController.delegate = self
+        setupViews()
         setupDelegates()
     }
     
-    private func setupPublishers(){
-        $stepperCount.sink {[weak self] value in
-            self?.stepperLabel.text = String(value)
-        }.store(in: &cancellables)
-    }
-    
-    @objc private func stepperDidChange(sender: UIStepper){
-        stepperCount = Int(sender.value)
-    }
-    
-    @objc private func continueBtnTapped(){
-        guard workoutTypeTextfield.hasText,
-              stepperCount > 0 else{
-            delegate?.showAlertMessage(message: "Please choose and fill carefully")
-            return
-        }
-        let workoutType = workoutTypeTextfield.text!
-        let workoutDuration = datePicker.countDownDuration
-        let workoutParts = stepperCount
-        let workoutModel = WorkoutModel(type: workoutType, duration: workoutDuration,parts: workoutParts)
-        delegate?.workoutDidCreate(workoutModel)
+    //MARK: - Setups
+    private func setupViews(){
+        let verticalStack = uiComponents.createStack(axis: .vertical, spacing: 0, views: [tableView, headerView])
+        
+        //Inserting
+        headerView.addSubview(addWorkoutBtn)
+        addSubview(verticalStack)
+        
+        //constraints
+        headerView.height(60)
+        addWorkoutBtn.edgesToSuperview(insets: TinyEdgeInsets(
+            top: baseSize / 2,left: baseSize * 2, bottom: baseSize / 2, right: baseSize * 2))
+        verticalStack.edgesToSuperview(insets: TinyEdgeInsets(top: 0, left: 0, bottom: baseSize * 2, right: 0))
     }
     
     private func setupDelegates(){
-        workoutTypeTextfield.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "workoutCell")
     }
     
-    private func setupViews(){
-        //setup input field
-        let workoutTypeTitle = components.createHeaderTitle(title: "Workout Type")
-        let workoutTypeStack = components.createStack(axis: .vertical, spacing: baseSize,
-                                                      views: [workoutTypeTitle, workoutTypeTextfield])
-        workoutTypeStack.distribution = .fillProportionally
-        
-        
-        //setup date picker
-        let datePickerTitle = components.createHeaderTitle(title: "Workout Duration")
-        let datePickerWrapper = components.createStack(axis: .vertical,
-                                                       views: [datePickerTitle, datePicker])
-        
-        //setup division field
-        let workoutPartTitle = components.createHeaderTitle(title: "Workout Part")
-        let stepperStack = components.createStack(axis: .horizontal,
-                                                  spacing: baseSize * 4,
-                                                  views: [stepperLabel, stepper])
-        let workoutPartStack = components.createStack(axis: .vertical,
-                                                      spacing: baseSize,
-                                                       views: [workoutPartTitle, stepperStack])
-        stepperStack.alignment = .center
-        
-        //buttons stack
-        let buttonsStack = components.createStack()
-        buttonsStack.addArrangedSubview(continueBtn)
-        
-        //adding into view
-        [workoutTypeStack, datePickerWrapper, workoutPartStack, buttonsStack].forEach{addSubview($0)}
-        
-        workoutTypeStack.topToSuperview(offset: baseSize * 3)
-        workoutTypeStack.leftToSuperview(offset: baseSize * 2)
-        workoutTypeStack.rightToSuperview(offset: -1 * baseSize * 2)
-        workoutTypeTextfield.height(50)
-        
-        datePickerWrapper.topToBottom(of: workoutTypeStack, offset: baseSize * 3)
-        datePickerWrapper.leftToSuperview(offset: baseSize * 2)
-        datePickerWrapper.rightToSuperview(offset: -1 * baseSize * 2)
-        
-        workoutPartStack.topToBottom(of: datePickerWrapper, offset: baseSize * 3)
-        workoutPartStack.leftToSuperview(offset: baseSize * 2)
-        workoutPartStack.rightToSuperview(offset: -1 * baseSize * 2)
-        
-        buttonsStack.leftToSuperview(offset: baseSize * 2)
-        buttonsStack.rightToSuperview(offset: -1 * baseSize * 3)
-        buttonsStack.height(50)
-        buttonsStack.bottomToSuperview(offset: -Constants.baseSize * 2, usingSafeArea: true)
+    //MARK: - Actions
+    @objc private func addTapped(){
+        delegate?.addTapped()
     }
-
 }
 
-extension CreateWorkoutView: UITextFieldDelegate{
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        dissmissTexfield()
-      return true
+//MARK: - UITableView Datasource
+extension CreateWorkoutView: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        fetchedResultsController?.fetchedObjects?.count ?? 0
     }
     
-    private func dissmissTexfield(){
-        workoutTypeTextfield.endEditing(true)
-        workoutTypeTextfield.resignFirstResponder()
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath)
+        let workout = fetchedResultsController?.object(at: indexPath)
+        cell.textLabel?.text = workout?.name
+        return cell
+    }
+}
+
+//MARK: - UITableViewDelegate
+extension CreateWorkoutView: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        defer{
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+        guard let workout = fetchedResultsController?.object(at: indexPath) else{return}
+        delegate?.workoutDidSelect(workout)
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete,
+              let workout = fetchedResultsController?.object(at: indexPath) else {return}
+        delegate?.workoutDidDelete(workout)
+        tableView.reloadData()
+    }
+}
+
+//MARK: - NSFetchedResultsControllerDelegate
+
+extension CreateWorkoutView: NSFetchedResultsControllerDelegate{
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        tableView.reloadData()
     }
 }

@@ -47,9 +47,12 @@ class AnalysisController: UIViewController {
     private lazy var imageCollectionView: UIView = {
        return ImageCollectionView()
     }()
+    weak var coordinator: AnalysisCoordinator?
+    var workoutType: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(workoutType)
         setupViews()
         setupConstraints()
     }
