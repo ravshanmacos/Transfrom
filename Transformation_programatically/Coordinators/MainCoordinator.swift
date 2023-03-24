@@ -6,40 +6,31 @@
 //
 
 import UIKit
+import Combine
 
 class MainCoordinator: Coordinator{
     
     //MARK: - Properties
-    private let presenter: UINavigationController
-    private var mainViewController: MainViewController?
-    private var tabbarCoordinator: TabbarCoordinator?
+    var childCoordinators: [Coordinator] = []
+    var navigationController: UINavigationController
     
     //MARK: - Lifecycle
     init(presenter: UINavigationController) {
-        self.presenter = presenter
+        self.navigationController = presenter
     }
     
     //MARK: - Methods
     func start() {
-        let mainViewController = MainViewController(nibName: nil, bundle: nil)
-        mainViewController.title = "Main"
-        presenter.pushViewController(mainViewController, animated: true)
-        self.mainViewController = mainViewController
-        setObserving()
+        let vc = MainViewController(nibName: nil, bundle: nil)
+        vc.coordinator = self
+        navigationController.pushViewController(vc, animated: true)
     }
     
-    deinit{
-        print("de init")
-    }
-
-}
-
-extension MainCoordinator{
-    private func setObserving(){
-        guard mainViewController != nil else{return}
-        mainViewController!.isTapped = {[weak self] in
-            let tabbarVC = TabBarController(nibName: nil, bundle: nil)
-            self?.presenter.pushViewController(tabbarVC, animated: true)
-        }
+    func openTabbar(){
+        let child = TabbarCoordinator(navigationController: navigationController)
+        child.parentCoordinator = self
+        childCoordinators.append(child)
+        child.start()
     }
 }
+

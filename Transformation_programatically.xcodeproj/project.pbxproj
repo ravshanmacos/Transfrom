@@ -95,7 +95,7 @@
 		B79D289A29C96CAD000E7CFB /* CreateWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutController.swift; sourceTree = "<group>"; };
 		B79D289C29C96D48000E7CFB /* AddWorkoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutCoordinator.swift; sourceTree = "<group>"; };
 		B79D28A029C9801A000E7CFB /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
-		B7AB24C229AF216C00310151 /* Transformation_programatically.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transformation_programatically.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7AB24C229AF216C00310151 /* Transformation_programatically.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Transformation_programatically.app; path = "/Users/ravshanbektursunbaev/Desktop/Programming/1.1 Practice Projects/Transformation_programatically/build/Debug-iphoneos/Transformation_programatically.app"; sourceTree = "<absolute>"; };
 		B7AB24C529AF216C00310151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7AB24C729AF216C00310151 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B7AB24C929AF216C00310151 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -258,37 +258,28 @@
 			isa = PBXGroup;
 			children = (
 				B7AB24C429AF216C00310151 /* Transformation_programatically */,
-				B7AB24C329AF216C00310151 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		B7AB24C329AF216C00310151 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				B7AB24C229AF216C00310151 /* Transformation_programatically.app */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		B7AB24C429AF216C00310151 /* Transformation_programatically */ = {
 			isa = PBXGroup;
 			children = (
-				B7861D5529C81FCF00A680E6 /* CoreDataClasses */,
-				B7861D5A29C836EF00A680E6 /* CoreData */,
 				B7744E9429B05F0E0014DB3E /* App */,
+				B7861D5A29C836EF00A680E6 /* CoreData */,
+				B7861D5529C81FCF00A680E6 /* CoreDataClasses */,
 				B7B1D04429B447D4006DF2C0 /* Coordinators */,
-				B7744E9029B05EC80014DB3E /* Models */,
-				B7744E9229B05EE60014DB3E /* ViewModels */,
 				B7744E9329B05EED0014DB3E /* Controllers */,
-				B7744E9129B05ED50014DB3E /* Views */,
 				B7744EA929B1BE4E0014DB3E /* Extensions */,
 				B7432DD129B624590041A8AB /* Helpers */,
-				B7744EA429B1B1FA0014DB3E /* UIComponents */,
+				B7744E9029B05EC80014DB3E /* Models */,
 				B7744E9529B05F1A0014DB3E /* Resources */,
-				B7AB24D329AF216D00310151 /* LaunchScreen.storyboard */,
-				B7AB24D629AF216D00310151 /* Info.plist */,
-				B7AB24CE29AF216C00310151 /* Transformation.xcdatamodeld */,
+				B7744EA429B1B1FA0014DB3E /* UIComponents */,
+				B7744E9229B05EE60014DB3E /* ViewModels */,
+				B7744E9129B05ED50014DB3E /* Views */,
 				B7D00F7329B1C96100CED308 /* Constants.swift */,
+				B7AB24D329AF216D00310151 /* LaunchScreen.storyboard */,
+				B7AB24CE29AF216C00310151 /* Transformation.xcdatamodeld */,
+				B7AB24D629AF216D00310151 /* Info.plist */,
 			);
 			path = Transformation_programatically;
 			sourceTree = "<group>";
@@ -449,7 +440,7 @@
 			packageReferences = (
 				B7744E8D29B05D040014DB3E /* XCRemoteSwiftPackageReference "TinyConstraints" */,
 			);
-			productRefGroup = B7AB24C329AF216C00310151 /* Products */;
+			productRefGroup = B7AB24B929AF216C00310151;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (

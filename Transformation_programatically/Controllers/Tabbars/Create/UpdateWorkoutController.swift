@@ -16,6 +16,9 @@ class UpdateWorkoutController: UIViewController, NSFetchedResultsControllerDeleg
     private let reuseIdentifier = "Cell"
     var tableview = UITableView()
     private lazy var headerView = UIView()
+    private lazy var workoutNameTextfield: UITextField = uiComponents.createTexField(placeholder: "Enter workout name", text: workoutName)
+    private lazy var workoutDurationTextfield: UITextField = uiComponents.createTexField(placeholder: "Enter workout duration", text: "\(workoutDuration) min")
+    
     var workoutName: String = ""
     var workoutDuration: Double = 0
     var workoutParts: [WorkoutPart] = []
@@ -44,12 +47,10 @@ class UpdateWorkoutController: UIViewController, NSFetchedResultsControllerDeleg
     //MARK: - Setups
     func setupViews(){
         view.backgroundColor = .white
-        guard let workout = workout, let name = workout.name else{return}
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(doneTapped))
         //attributes
-        let totalDuration = workout.duration
-        let workoutNameField = infoField(title: "Workout Name", text: name)
-        let workoutDurationField = infoField(title: "Total Duration", text: "\(totalDuration) min")
+        let workoutNameField = infoField(title: "Workout Name", textfield: workoutNameTextfield)
+        let workoutDurationField = infoField(title: "Total Duration", textfield: workoutDurationTextfield)
         
         
         //adding
@@ -78,15 +79,23 @@ class UpdateWorkoutController: UIViewController, NSFetchedResultsControllerDeleg
     }
     
     @objc private func doneTapped(){
-        guard let workout, let coredataHelper else{return}
-        let totalDuration = workout.duration
+        guard let workout, let coredataHelper, let totalDuration = workoutDurationTextfield.text,
+        let stringDuration = totalDuration.first, let doubleDuration = Double(stringDuration.description)
+        else{return}
+        
         let partsDuration = workoutParts.map{$0.duration}.reduce(0, +)
         print(totalDuration, partsDuration)
-        if totalDuration == partsDuration{
+        if doubleDuration == partsDuration{
             let orederedSet = NSOrderedSet(array: workoutParts)
+            guard let stringDuration = workoutDurationTextfield.text,
+                  let clippedDuration = stringDuration.first,
+                  let doubleDuration = Double(clippedDuration.description)
+            else{return}
+            
+            let submittableDuration = doubleDuration * 60
             let data: [String: Any] = [
-                "name": workoutName,
-                "duration": totalDuration,
+                "name": workoutNameTextfield.text!,
+                "duration": submittableDuration,
                 "workoutParts": orederedSet
             ]
             coredataHelper.update(workout, data: data)
@@ -101,12 +110,11 @@ class UpdateWorkoutController: UIViewController, NSFetchedResultsControllerDeleg
 
 //MARK: - Seperate Functions
 extension UpdateWorkoutController{
-    func infoField(title: String, text: String)-> UIStackView{
+    func infoField(title: String, textfield: UITextField)-> UIStackView{
         let titleLabel = uiComponents.createLabel(type: .medium, with: title)
-        let textLabel = uiComponents.createTexField(placeholder: "Enter \(text)",text: text)
-        textLabel.textAlignment = .right
+        textfield.textAlignment = .right
         let wrapper = uiComponents.createStack(
-            axis: .horizontal,views: [titleLabel, textLabel], fillEqually: true)
+            axis: .horizontal,views: [titleLabel, textfield], fillEqually: true)
         return wrapper
     }
 }
