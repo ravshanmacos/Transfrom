@@ -10,8 +10,10 @@ import Combine
 
 class WorkoutCategoryCoordinator: Coordinator{
     var title: String = "Start"
-    var image: UIImage = UIImage.init(systemName: Constants.TabbarItemImages.runImageString)!
-    var selectedStateImage: UIImage = UIImage.init(systemName: "\(Constants.TabbarItemImages.runImageString).fill")!
+    var image: UIImage = UIImage
+        .init(systemName: Constants.TabbarItemImages.runImageString)!
+    var selectedStateImage: UIImage = UIImage
+        .init(systemName: "\(Constants.TabbarItemImages.runImageString).fill")!
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
