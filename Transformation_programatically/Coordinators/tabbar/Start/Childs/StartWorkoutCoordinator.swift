@@ -8,16 +8,21 @@
 import UIKit
 
 class StartWorkoutCoordinator: Coordinator{
-    weak var parentCoordinator: WorkoutCategoryCoordinator?
+    //MARK: - Properties
+    //required
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    
+    //optionals
+    weak var parentCoordinator: WorkoutCategoryCoordinator?
     var selectedWorkoutTitle: String?
     
-    
+    //MARK: - Life Cycle
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     
+    //MARK: - Actions
     func start() {
         let vc = StartWorkoutController(nibName: nil, bundle: nil)
         vc.coordinator = self

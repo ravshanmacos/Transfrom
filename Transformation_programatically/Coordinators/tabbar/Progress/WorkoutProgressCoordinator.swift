@@ -8,16 +8,25 @@
 import UIKit
 
 class WorkoutProgressCoordinator: Coordinator{
+    //MARK: - Properties
+    
+    //tabbar item
     private var title: String = "Progress"
-    private var image: UIImage = UIImage.init(systemName: Constants.TabbarItemImages.chartImageString)!
-    private var selectedStateImage: UIImage = UIImage.init(systemName: "\(Constants.TabbarItemImages.chartImageString).fill")!
+    private var image: UIImage = UIImage
+        .init(systemName: Constants.TabbarItemImages.chartImageString)!
+    private var selectedStateImage: UIImage = UIImage
+        .init(systemName: "\(Constants.TabbarItemImages.chartImageString).fill")!
+    
+    //required
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
+    //MARK: - LifeCycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
     }
     
+   //MARK: - Actions
     func start() {
         let vc = ProgressWorkoutController(nibName: nil, bundle: nil)
         vc.coordinator = self
@@ -29,7 +38,10 @@ class WorkoutProgressCoordinator: Coordinator{
         vc.tabBarItem = tabbarItem
         navigationController.pushViewController(vc, animated: true)
     }
-    
+}
+
+//MARK: - Coordinating
+extension WorkoutProgressCoordinator{
     func workoutTypeDidSelect(_ workoutType: String){
         let child = AnalysisCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
@@ -37,5 +49,4 @@ class WorkoutProgressCoordinator: Coordinator{
         childCoordinators.append(child)
         child.start()
     }
-    
 }

@@ -9,17 +9,24 @@ import UIKit
 import CoreData
 
 class UpdateWorkoutCoordinator: UpdateCoordinator{
+    //MARK: - Properties
+    
+    //required
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    
+    //optionals
     var updateWorkoutVC: UpdateWorkoutController?
     var coredataHelper: CoreDataHelper?
     var workout: Workout?
     weak var parentCoordinator: CreateWorkoutCoordinator?
     
+    //MARK: - Life Cycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
     }
     
+    //MARK: - Actions
     func start() {
         let vc = UpdateWorkoutController(nibName: nil, bundle: nil)
         vc.title = "Update"
@@ -30,11 +37,8 @@ class UpdateWorkoutCoordinator: UpdateCoordinator{
         self.updateWorkoutVC = vc
     }
     
-    func EditWorkoutPart(_ workoutPart: WorkoutPart){
-        let vc = EditWorkoutPartController(nibName: nil, bundle: nil)
-        vc.coordinator = self
-        vc.workoutPart = workoutPart
-        navigationController.present(vc, animated: true)
+    func workoutDidSave(){
+        parentCoordinator?.onSaveTap()
     }
     
     func workoutPartDidUpdate(_ workoutPart: WorkoutPart, data: [String:Any]) {
@@ -48,12 +52,19 @@ class UpdateWorkoutCoordinator: UpdateCoordinator{
         navigationController.dismiss(animated: true)
     }
     
-    func workoutDidSave(){
-        parentCoordinator?.onSaveTap()
-    }
-    
 }
 
+//MARK: - Coordinating
+extension UpdateWorkoutCoordinator{
+    func EditWorkoutPart(_ workoutPart: WorkoutPart){
+        let vc = EditWorkoutPartController(nibName: nil, bundle: nil)
+        vc.coordinator = self
+        vc.workoutPart = workoutPart
+        navigationController.present(vc, animated: true)
+    }
+}
+
+//MARK: - Helper methods
 extension UpdateWorkoutCoordinator{
     private func getWorkoutPartFetchedResultsController()-> NSFetchedResultsController<WorkoutPart>{
         let fetchRequest: NSFetchRequest<WorkoutPart> = WorkoutPart.fetchRequest()

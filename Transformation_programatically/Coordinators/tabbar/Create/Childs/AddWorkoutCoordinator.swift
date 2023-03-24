@@ -12,16 +12,23 @@ import CoreData
 import Combine
 
 class AddWorkoutCoordinator: Coordinator{
+    
+    //MARK: - Properties
+    //required
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    var coredataHelper: CoreDataHelper?
+    
+    // optionals
     weak var parentCoordinator: CreateWorkoutCoordinator?
+    var coredataHelper: CoreDataHelper?
     var addWorkoutVC: AddWorkoutController?
     
+    //MARK: - Life Cycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
     }
     
+    //MARK: - Actions
     func start() {
         let vc = AddWorkoutController(nibName: nil, bundle: nil)
         vc.coredataHelper = coredataHelper
@@ -30,6 +37,14 @@ class AddWorkoutCoordinator: Coordinator{
         self.addWorkoutVC = vc
     }
     
+    func onSaveTap(){
+        parentCoordinator?.onSaveTap()
+    }
+}
+
+//MARK: - Coordinating
+
+extension AddWorkoutCoordinator{
     func workoutDidCreate(_ workout: Workout){
         let child = UpdateWorkoutPartsCoordinator(presenter: navigationController)
         child.parentCoordinator = self
@@ -37,10 +52,6 @@ class AddWorkoutCoordinator: Coordinator{
         child.coredataHelper = coredataHelper
         childCoordinators.append(child)
         child.start()
-    }
-    
-    func onSaveTap(){
-        parentCoordinator?.onSaveTap()
     }
 }
 

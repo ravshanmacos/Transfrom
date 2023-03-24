@@ -11,8 +11,12 @@ import CoreData
 class UpdateWorkoutPartsCoordinator: UpdateCoordinator{
     
     //MARK: - Properties
+    
+    //required
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    
+    //optionals
     var updateWorkoutPartsVC: UpdateWorkoutPartsController?
     weak var parentCoordinator: AddWorkoutCoordinator?
     var coredataHelper: CoreDataHelper?
@@ -23,7 +27,7 @@ class UpdateWorkoutPartsCoordinator: UpdateCoordinator{
         self.navigationController = presenter
     }
     
-    //MARK: - Navigation Methods
+   //MARK: - Actions
     func start() {
         let vc = UpdateWorkoutPartsController(nibName: nil, bundle: nil)
         vc.coordinator = self
@@ -33,11 +37,8 @@ class UpdateWorkoutPartsCoordinator: UpdateCoordinator{
         self.updateWorkoutPartsVC = vc
     }
     
-    func EditWorkoutPart(_ workoutPart: WorkoutPart){
-        let vc = EditWorkoutPartController(nibName: nil, bundle: nil)
-        vc.coordinator = self
-        vc.workoutPart = workoutPart
-        navigationController.present(vc, animated: true)
+    func workoutDidSave(){
+        parentCoordinator?.onSaveTap()
     }
     
     func workoutPartDidUpdate(_ workoutPart: WorkoutPart, data: [String:Any]){
@@ -50,11 +51,18 @@ class UpdateWorkoutPartsCoordinator: UpdateCoordinator{
         updateWorkoutPartsVC.tableview.reloadData()
         navigationController.dismiss(animated: true)
     }
-    
-    func workoutDidSave(){
-        parentCoordinator?.onSaveTap()
+}
+
+//MARK: - Coordinating
+extension UpdateWorkoutPartsCoordinator{
+    func EditWorkoutPart(_ workoutPart: WorkoutPart){
+        let vc = EditWorkoutPartController(nibName: nil, bundle: nil)
+        vc.coordinator = self
+        vc.workoutPart = workoutPart
+        navigationController.present(vc, animated: true)
     }
 }
+
 
 //MARK: - Helper methods
 extension UpdateWorkoutPartsCoordinator{

@@ -12,28 +12,30 @@ import Combine
 class CreateWorkoutCoordinator: Coordinator{
     
     //MARK: - Properties
-    
-    //tabItem properties
+    //tabbar item properties
     private var title: String = "Create"
     private var image: UIImage = UIImage.init(
         systemName: Constants.TabbarItemImages.plusImageString)!
     private var selectedStateImage: UIImage = UIImage.init(
         systemName: "\(Constants.TabbarItemImages.plusImageString).fill")!
     
-    //Core Data properties
+    //core data properties
     private lazy var coredataHelper = CoreDataHelper.shared
     private lazy var fetchedResultsController: NSFetchedResultsController<Workout> = getWorkoutFetchedResultsController()
     
-    //Coordinator Properties
+    //required
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
+    
+    //optionals
     var createWorkoutVC:  CreateWorkoutController?
     
-    //MARK: - LifeCycle
+    //MARK: - Life Cycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
     }
     
+    //MARK: - Actions
     func start() {
         //initializing view controller
         let vc = CreateWorkoutController(nibName: nil, bundle: nil)
@@ -53,26 +55,14 @@ class CreateWorkoutCoordinator: Coordinator{
         navigationController.pushViewController(vc, animated: true)
         self.createWorkoutVC = vc
     }
-}
-
-//MARK: - Helper Methods
-extension CreateWorkoutCoordinator{
     
-    private func getWorkoutFetchedResultsController()-> NSFetchedResultsController<Workout>{
-        let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
-        let sort = NSSortDescriptor(key: #keyPath(Workout.date), ascending: true)
-        fetchRequest.sortDescriptors = [sort]
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: coredataHelper.getManagedContext(),
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        return fetchedResultsController
+    func onSaveTap(){
+        guard let createWorkoutVC else{return}
+        navigationController.popToViewController(createWorkoutVC, animated: true)
     }
-    
 }
 
-//MARK: - Calling other coordinators
+//MARK: - Coordinating
 extension CreateWorkoutCoordinator{
     func addWorkout(){
         let child = AddWorkoutCoordinator(presenter: navigationController)
@@ -90,9 +80,21 @@ extension CreateWorkoutCoordinator{
         childCoordinators.append(child)
         child.start()
     }
+}
+
+//MARK: - Helper Methods
+extension CreateWorkoutCoordinator{
     
-    func onSaveTap(){
-        guard let createWorkoutVC else{return}
-        navigationController.popToViewController(createWorkoutVC, animated: true)
+    private func getWorkoutFetchedResultsController()-> NSFetchedResultsController<Workout>{
+        let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
+        let sort = NSSortDescriptor(key: #keyPath(Workout.date), ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        let fetchedResultsController = NSFetchedResultsController(
+            fetchRequest: fetchRequest,
+            managedObjectContext: coredataHelper.getManagedContext(),
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        return fetchedResultsController
     }
+    
 }

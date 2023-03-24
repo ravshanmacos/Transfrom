@@ -19,13 +19,16 @@ class MainCoordinator: Coordinator{
         self.navigationController = presenter
     }
     
-    //MARK: - Methods
+    //MARK: - Actions
     func start() {
         let vc = MainViewController(nibName: nil, bundle: nil)
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: true)
     }
-    
+}
+
+//MARK: - Coordinating
+extension MainCoordinator{
     func openTabbar(){
         let child = TabbarCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
