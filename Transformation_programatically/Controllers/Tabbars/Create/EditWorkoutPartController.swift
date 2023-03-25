@@ -15,17 +15,14 @@ protocol EditWorkoutPartControllerDelegate: AnyObject{
 
 class EditWorkoutPartController: UIViewController {
     
-    private lazy var updateWorkoutPartView: UIView = {
-        if let workoutPart{
-            let view = UpdateWorkoutPartView(model: workoutPart)
-            view.delegate = self
-            return view
-        }
-        return AddWorkoutView()
-    }()
+    //MARK: - Properties
+    private lazy var updateWorkoutPartView: EditWorkoutPartView = configureEditWorkoutPartView()
+   
+    //optionals
     var workoutPart: WorkoutPart?
     weak var coordinator: UpdateCoordinator?
 
+    //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupMainView()
@@ -33,6 +30,7 @@ class EditWorkoutPartController: UIViewController {
         setupDelegates()
     }
     
+    //MARK: - Setups
     private func setupMainView(){
         view.backgroundColor = .white
         view.addSubview(updateWorkoutPartView)
@@ -41,13 +39,22 @@ class EditWorkoutPartController: UIViewController {
     private func setupConstraints(){
         updateWorkoutPartView.edgesToSuperview(usingSafeArea: true)
     }
-    
     private func setupDelegates(){}
-    
-    
-
 }
 
+//MARK: - UI Helper Functions
+extension EditWorkoutPartController{
+    private func configureEditWorkoutPartView()-> EditWorkoutPartView{
+        if let workoutPart{
+            let view = EditWorkoutPartView(model: workoutPart)
+            view.delegate = self
+            return view
+        }
+        return EditWorkoutPartView()
+    }
+}
+
+//MARK: - EditWorkoutPartControllerDelegate
 extension EditWorkoutPartController: EditWorkoutPartControllerDelegate{
     func editWorkoutPartControllerDidCancel() {}
     func editWorkoutPartControllerSaveTapped(data: [String: Any]) {

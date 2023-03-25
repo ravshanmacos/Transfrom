@@ -26,7 +26,7 @@ class CoreDataHelper{
         workout.done = false
         for index in 0..<numberOfParts{
             let workoutPart = WorkoutPart(context: coreDataStack.managedContext)
-            let formattedDuration = formatDurationInMinutes(with: duration, numberOfParts: numberOfParts)
+            let formattedDuration = averageMinute(minutes: duration, numberOfParts: numberOfParts)
             workoutPart.name = "Edit Part - \(index)"
             workoutPart.duration = formattedDuration
             workoutPart.workout = workout
@@ -76,12 +76,6 @@ class CoreDataHelper{
 
 //MARK: - helper Methods
 extension CoreDataHelper{
-    func formatDurationInMinutes(with seconds: Double, numberOfParts: Int)-> Double{
-        var minutes = seconds / 60
-        minutes = averageMinute(minutes: minutes, numberOfParts: numberOfParts)
-        return minutes
-    }
-    
     func averageMinute(minutes: Double,numberOfParts: Int)->Double{
         return minutes/Double(numberOfParts)
     }

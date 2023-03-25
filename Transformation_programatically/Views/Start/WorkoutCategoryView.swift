@@ -15,6 +15,8 @@ class WorkoutCategoryView: UIView {
     private var baseSize:CGFloat {
         return Constants.baseSize
     }
+    
+    //lazy properties 
     private lazy var pickerView: UIPickerView = {
         let pickerView = UIPickerView()
         return pickerView

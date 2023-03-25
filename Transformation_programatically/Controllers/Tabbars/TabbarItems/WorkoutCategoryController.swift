@@ -20,41 +20,41 @@ class WorkoutCategoryController: UIViewController, WorkoutCategoryDelegate {
     private lazy var workouts: [Workout] = {
         return coredataHelper.fetchAll()
     }()
-    private lazy var workoutCategoryView = {
-        var view: WorkoutCategoryView
-        if workouts.isEmpty{
-            view = WorkoutCategoryView(data: [])
-        }else{
-            view = WorkoutCategoryView(data: workouts.map{$0.name!})
-        }
-        view.delegate = self
-       return view
-    }()
+    private lazy var workoutCategoryView = configureWorkoutCategoryView()
     
     weak var coordinator: WorkoutCategoryCoordinator?
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.navigationController?.isNavigationBarHidden = true
-        setupDelegates()
         setupViews()
-        setupConstraints()
+        setupDelegates()
     }
     
-    private func setupDelegates(){
-     
-    }
-    
+    //MARK: - Setups
     private func setupViews(){
+        tabBarController?.navigationController?.isNavigationBarHidden = true
         view.addSubview(workoutCategoryView)
-    }
-    private func setupConstraints(){
         workoutCategoryView.edgesToSuperview()
     }
-    
+    private func setupDelegates(){}
+}
+
+//MARK: - UI Helper Functions
+extension WorkoutCategoryController{
+    private func configureWorkoutCategoryView()-> WorkoutCategoryView{
+        var view = WorkoutCategoryView(data: workouts.map{$0.name!})
+        if workouts.isEmpty{
+            view = WorkoutCategoryView(data: [])
+        }
+        view.delegate = self
+       return view
+    }
+}
+
+//MARK: - Helper Functions
+extension WorkoutCategoryController{
     func workoutDidSelect(_ title: String) {
         coordinator?.workoutDidSelect(title)
     }
-    
 }

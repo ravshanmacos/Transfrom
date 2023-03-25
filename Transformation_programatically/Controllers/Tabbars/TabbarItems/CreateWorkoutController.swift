@@ -16,18 +16,14 @@ protocol CreateWorkoutControllerDelegate: AnyObject{
 
 class CreateWorkoutController: UIViewController {
     //MARK: - Properties
-    private lazy var createWorkoutView: UIView = {
-        guard let fetchedResultsController = fetchedResultsController else{
-            print("fetched results controller does not exist")
-            return CreateWorkoutView()
-        }
-        let view = CreateWorkoutView(fetchedResultsController: fetchedResultsController)
-        view.delegate = self
-        return view
-    }()
-    var fetchedResultsController: NSFetchedResultsController<Workout>?
+    
+    //UI properties
+    private lazy var createWorkoutView: UIView = setupCreateWorkoutView()
+    
+    //optionals
     var coredataHelper: CoreDataHelper?
     weak var coordinator: CreateWorkoutCoordinator?
+    var fetchedResultsController: NSFetchedResultsController<Workout>?
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -37,17 +33,10 @@ class CreateWorkoutController: UIViewController {
         setupDelegates()
     }
     
-    //MARK: - Setups
-    private func setupViews(){
-        view.backgroundColor = .white
-        view.addSubview(createWorkoutView)
-        createWorkoutView.edgesToSuperview(usingSafeArea: true)
-    }
-    
-    private func setupDelegates(){}
+    //MARK: - Actions
     
     private func loadWorkouts(){
-        guard let fetchedResultsController = fetchedResultsController else{
+        guard let fetchedResultsController else{
             print("fetched results controller does not exist")
             return
         }
@@ -59,12 +48,29 @@ class CreateWorkoutController: UIViewController {
     }
     
 }
+//MARK: - UI Helper Methods
+extension CreateWorkoutController{
+    private func setupViews(){
+        view.backgroundColor = .white
+        view.addSubview(createWorkoutView)
+        createWorkoutView.edgesToSuperview(usingSafeArea: true)
+    }
+    private func setupDelegates(){}
+    
+    private func setupCreateWorkoutView()-> CreateWorkoutView{
+        if let fetchedResultsController{
+            let view = CreateWorkoutView(fetchedResultsController: fetchedResultsController)
+            view.delegate = self
+            return view
+        }
+        print("fetched results controller does not exist")
+        return CreateWorkoutView()
+    }
+}
 
 
 //MARK: - CreateWorkoutViewControllerDelegate
-
 extension CreateWorkoutController: CreateWorkoutControllerDelegate{
-    
     func workoutDidSelect(_ workout: Workout) {
         coordinator?.updateWorkout(for: workout)
     }

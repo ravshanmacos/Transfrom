@@ -24,7 +24,6 @@ class EditWorkoutPartsCell: UITableViewCell{
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -38,7 +37,5 @@ class EditWorkoutPartsCell: UITableViewCell{
         addSubview(vrStack)
         vrStack.edgesToSuperview()
     }
-    
-    private func setupConstraints(){}
 }
 

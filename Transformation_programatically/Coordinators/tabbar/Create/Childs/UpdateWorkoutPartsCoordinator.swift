@@ -43,12 +43,7 @@ class UpdateWorkoutPartsCoordinator: UpdateCoordinator{
     
     func workoutPartDidUpdate(_ workoutPart: WorkoutPart, data: [String:Any]){
         guard let updateWorkoutPartsVC else{return}
-        let index = updateWorkoutPartsVC.workoutParts.firstIndex(of: workoutPart)!
-        updateWorkoutPartsVC.workoutParts.remove(at: index)
-        workoutPart.name = (data["name"] as! String)
-        workoutPart.duration = data["duration"] as! Double
-        updateWorkoutPartsVC.workoutParts.insert(workoutPart, at: index)
-        updateWorkoutPartsVC.tableview.reloadData()
+        updateWorkoutPartsVC.updateWorkoutParts(with: workoutPart, data)
         navigationController.dismiss(animated: true)
     }
 }

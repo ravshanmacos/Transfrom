@@ -79,6 +79,7 @@ class AddWorkoutView: UIView {
         }.store(in: &cancellables)
     }
     
+    //MARK: - Actions
     @objc private func stepperDidChange(sender: UIStepper){
         stepperCount = Int(sender.value)
     }
@@ -93,7 +94,10 @@ class AddWorkoutView: UIView {
         let workoutDuration = datePicker.countDownDuration
         delegate?.workoutDidCreate(workoutName, workoutDuration, stepperCount)
     }
-    
+}
+
+//MARK: - Setups
+extension AddWorkoutView{
     private func setupDelegates(){
         workoutTypeTextfield.delegate = self
     }
@@ -146,9 +150,9 @@ class AddWorkoutView: UIView {
         buttonsStack.height(50)
         buttonsStack.bottomToSuperview(offset: -Constants.baseSize * 2, usingSafeArea: true)
     }
-
 }
 
+//MARK: - UITextFieldDelegate
 extension AddWorkoutView: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         dissmissTexfield()

@@ -81,7 +81,43 @@ class UIComponents{
         stack.spacing = spacing
         return stack
     }
-   
+    
+    func infoField(type: InfoFieldType = .normal, title: String, text: String) -> UIStackView{
+        let titleLabel = createLabel(type: .medium, with: title)
+        let mainWrapper = createStack(
+            axis: .horizontal,views: [titleLabel], fillEqually: true)
+        if type == .withInfo {
+            let infoView = UIView()
+            let infoLabel = createLabel(type: .medium, with: text)
+            let extLabel = createLabel(type: .medium, with: "minutes")
+            let childWrapper = createStack(
+                axis: .horizontal,spacing: 5,views: [infoLabel, extLabel])
+            infoView.addSubview(childWrapper)
+            childWrapper.centerYToSuperview()
+            childWrapper.rightToSuperview()
+            mainWrapper.addArrangedSubview(infoView)
+        }else{
+            let infoLabel = createLabel(type: .medium, with: text)
+            infoLabel.textAlignment = .right
+            mainWrapper.addArrangedSubview(infoLabel)
+        }
+        return mainWrapper
+    }
+    
+    func infoTextField(type: InfoFieldType = .normal,title: String, textfield: UITextField)-> UIStackView{
+        let titleLabel = createLabel(type: .medium, with: title)
+        textfield.textAlignment = .right
+        let wrapper = createStack(
+            axis: .horizontal,views: [titleLabel, textfield], fillEqually: true)
+        if type == .withInfo {
+            let label = UILabel()
+            label.text = " min"
+            label.textColor = .darkGray
+            wrapper.addArrangedSubview(label)
+            wrapper.distribution = .fillProportionally
+        }
+        return wrapper
+    }
 }
 
 extension UIComponents{
@@ -98,5 +134,10 @@ extension UIComponents{
         case large
         case medium
         case small
+    }
+    
+    enum InfoFieldType{
+        case normal
+        case withInfo
     }
 }

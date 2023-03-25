@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import TinyConstraints
 
-class UpdateWorkoutPartView: UIView {
+class EditWorkoutPartView: UIView {
     
     //MARK: - Properties
     private let components = UIComponents.shared
@@ -61,7 +61,7 @@ class UpdateWorkoutPartView: UIView {
     
     @objc private func doneBtnTapped(){
         guard let workoutPartName = workoutPartTextfield.text else{return}
-        let duration = datePicker.countDownDuration / 60
+        let duration = datePicker.countDownDuration
         let data:[String: Any] = ["name": workoutPartName, "duration": duration]
         delegate?.editWorkoutPartControllerSaveTapped(data: data)
     }
@@ -104,14 +104,14 @@ class UpdateWorkoutPartView: UIView {
 
 }
 
-extension UpdateWorkoutPartView{
+extension EditWorkoutPartView{
     private func configure(_ model: WorkoutPart){
         workoutPartTextfield.text = model.name
-        datePicker.countDownDuration = model.duration * 60
+        datePicker.countDownDuration = model.duration
     }
 }
 
-extension UpdateWorkoutPartView: UITextFieldDelegate{
+extension EditWorkoutPartView: UITextFieldDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         dissmissTexfield()
       return true

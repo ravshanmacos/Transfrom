@@ -8,23 +8,37 @@
 import UIKit
 
 class TabBarController: UITabBarController {
+    //MARK: - Properties
     
-    weak var coordinator: TabbarCoordinator?
+    //coordinators
     let startWorkout = WorkoutCategoryCoordinator(presenter: UINavigationController())
     let createWorkout = CreateWorkoutCoordinator(presenter: UINavigationController())
     let workoutProgress = WorkoutProgressCoordinator(presenter: UINavigationController())
     
+    //optionals
+    weak var coordinator: TabbarCoordinator?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupStarters()
+        setupTabbarControllers()
+    }
+}
+
+//MARK: - UIHelper Functions
+extension TabBarController{
+    
+    private func setupStarters(){
         startWorkout.start()
         createWorkout.start()
         workoutProgress.start()
+    }
+    
+    private func setupTabbarControllers(){
         viewControllers = [
             startWorkout.navigationController,
             createWorkout.navigationController,
             workoutProgress.navigationController
         ]
     }
-    
-    private func setupTabbarControllers(){}
 }
