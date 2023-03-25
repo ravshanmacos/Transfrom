@@ -12,17 +12,20 @@ class StartWorkoutController: UIViewController {
     //MARK: - Properties
     
     private var timerViewModel: TimerViewModel{
-        return TimerViewModel(workouts: [])
+        return TimerViewModel(workoutParts: workoutParts)
     }
     private lazy var timerView: TimerView = {
        return TimerView(model: timerViewModel)
     }()
+    
+    private var workoutParts:[WorkoutPart] = []
+    //optionals
     weak var coordinator: StartWorkoutCoordinator?
-    var selectedWorkout: String!
+    var selectedWorkout: Workout?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(selectedWorkout)
+        configureWorkout()
         setupViews()
         setupConstraints()
     }
@@ -36,4 +39,14 @@ class StartWorkoutController: UIViewController {
         timerView.edgesToSuperview()
     }
 
+}
+
+extension StartWorkoutController{
+    private func configureWorkout(){
+        guard let selectedWorkout, let workoutPartsSet = selectedWorkout.workoutParts else{return}
+        workoutPartsSet.forEach({ el in
+            let workoutPart = el as! WorkoutPart
+            workoutParts.append(workoutPart)
+        })
+    }
 }

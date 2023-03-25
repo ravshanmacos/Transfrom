@@ -70,10 +70,12 @@ class TimerView: UIView {
         setupPublishers()
         configureView(with: model)
     }
-    
+
     func setupPublishers(){
         model!.timerModel.$index.sink {[weak self] value in
-            self?.updateTimerView()
+            if value != 0{
+                self?.updateTimerView()
+            }
         }.store(in: &cancellables)
         
         model!.timerModel.$minutes.sink { [weak self] value in

@@ -11,27 +11,28 @@ import Combine
 class TimerViewModel{
     
     //MARK: - Properties
-    
+    private let coreDataStack = CoreDataStack(modelName: "Transformation")
     private var index = 0{didSet{updateTimer()}}
     private var cancellables: [AnyCancellable] = []
-    private var workouts: [Workout]
-    private lazy var currentWorkout: Workout = {
-        return workouts[0]
+    private var workoutParts: [WorkoutPart]
+    private lazy var currentWorkout: WorkoutPart = {
+        return workoutParts[index]
     }()
-    private lazy var nextWorkout: Workout = {
-        return workouts[0]
+    private lazy var nextWorkout: WorkoutPart = {
+        return workoutParts[index + 1]
     }()
     lazy var timerModel: TimerModel = {
-        let duration = configureDuration(duration: 120)
+        let workoutPart = workoutParts[index]
+        let duration = configureDuration(duration: Int(workoutPart.duration))
         let timerModel =
-        TimerModel(minutes: duration.minutes, seconds: duration.seconds, length: workouts.count)
+        TimerModel(minutes: duration.minutes, seconds: duration.seconds, length: workoutParts.count)
         return timerModel
     }()
     
     //MARK: - LifeCycle
     
-    init(workouts: [Workout]) {
-        self.workouts = workouts
+    init(workoutParts: [WorkoutPart]) {
+        self.workoutParts = workoutParts
         setupPublishers()
     }
     
@@ -60,11 +61,13 @@ class TimerViewModel{
     }
     
     func getCurrentWorkout()->String{
-        return "hello"
+        print("current workout called")
+        return currentWorkout.name!
     }
     
     func getNextWorkout()->String{
-        return "hello2"
+        print("next workout called")
+        return nextWorkout.name!
     }
     
     func startTimer(){
@@ -76,26 +79,31 @@ class TimerViewModel{
 }
 
 extension TimerViewModel{
+    
+    //called when index changed
+    private func updateTimer(){
+        guard index < workoutParts.count else{
+            timerModel.timer.invalidate();
+            return
+        }
+        currentWorkout = workoutParts[index]
+        if index + 1 > workoutParts.count-1{
+            let endWorkoutPart = WorkoutPart(context: coreDataStack.managedContext)
+            endWorkoutPart.name = "End"
+            endWorkoutPart.duration = 0
+            nextWorkout = endWorkoutPart
+        } else{
+            nextWorkout = workoutParts[index+1]
+        }
+        let duration = configureDuration(duration: Int(currentWorkout.duration))
+        timerModel.updateWorkout(minutes: duration.minutes, seconds: duration.seconds)
+    }
+    
     private func configureDuration(duration: Int)-> (minutes: Int, seconds: Int){
         if duration % 60 == 0{
             return (minutes: duration / 60, seconds: 0)
         }else{
             return (minutes: duration / 60, seconds: 60 * (duration % 60))
         }
-    }
-    
-    private func updateTimer(){
-        guard index < workouts.count else{
-            timerModel.timer.invalidate();
-            return
-        }
-        currentWorkout = workouts[index]
-        if index + 1 > workouts.count-1{
-            //nextWorkout = Workout(name: "End ", duration: 0)
-        } else{
-           // nextWorkout = workouts[index+1]
-        }
-        let duration = configureDuration(duration: 120)
-        timerModel.updateWorkout(minutes: duration.minutes, seconds: duration.seconds)
     }
 }

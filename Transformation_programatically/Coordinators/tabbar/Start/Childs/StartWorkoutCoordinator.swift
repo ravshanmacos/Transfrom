@@ -15,7 +15,7 @@ class StartWorkoutCoordinator: Coordinator{
     
     //optionals
     weak var parentCoordinator: WorkoutCategoryCoordinator?
-    var selectedWorkoutTitle: String?
+    var selectedWorkout: Workout?
     
     //MARK: - Life Cycle
     init(navigationController: UINavigationController) {
@@ -27,7 +27,7 @@ class StartWorkoutCoordinator: Coordinator{
         let vc = StartWorkoutController(nibName: nil, bundle: nil)
         vc.coordinator = self
         vc.title = "Start"
-        vc.selectedWorkout = selectedWorkoutTitle
+        vc.selectedWorkout = selectedWorkout
         navigationController.pushViewController(vc, animated: true)
     }
 }

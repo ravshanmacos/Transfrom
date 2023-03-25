@@ -8,20 +8,20 @@
 import UIKit
 import TinyConstraints
 import Combine
+import CoreData
 
 protocol WorkoutCategoryDelegate: AnyObject{
-    func workoutDidSelect(_ title: String)
+    func workoutDidSelect(_ workout: Workout)
 }
 
 class WorkoutCategoryController: UIViewController, WorkoutCategoryDelegate {
 
     //MARK: - Properties
-    private let coredataHelper = CoreDataHelper.shared
-    private lazy var workouts: [Workout] = {
-        return coredataHelper.fetchAll()
-    }()
     private lazy var workoutCategoryView = configureWorkoutCategoryView()
+    private let coredataHelper = CoreDataHelper.shared
     
+    //optionals
+    var fetchedResultsController: NSFetchedResultsController<Workout>?
     weak var coordinator: WorkoutCategoryCoordinator?
 
     //MARK: - LifeCycle
@@ -43,10 +43,7 @@ class WorkoutCategoryController: UIViewController, WorkoutCategoryDelegate {
 //MARK: - UI Helper Functions
 extension WorkoutCategoryController{
     private func configureWorkoutCategoryView()-> WorkoutCategoryView{
-        var view = WorkoutCategoryView(data: workouts.map{$0.name!})
-        if workouts.isEmpty{
-            view = WorkoutCategoryView(data: [])
-        }
+        let view = WorkoutCategoryView(fetchedResultsController)
         view.delegate = self
        return view
     }
@@ -54,7 +51,7 @@ extension WorkoutCategoryController{
 
 //MARK: - Helper Functions
 extension WorkoutCategoryController{
-    func workoutDidSelect(_ title: String) {
-        coordinator?.workoutDidSelect(title)
+    func workoutDidSelect(_ workout: Workout) {
+        coordinator?.workoutDidSelect(workout)
     }
 }
