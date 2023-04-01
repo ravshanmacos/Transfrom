@@ -8,7 +8,7 @@
 import UIKit
 import CoreData
 
-class UpdateWorkoutPartsCoordinator: UpdateCoordinator{
+class UpdateWorkoutPartsCoordinator: UpdateCoordinatorProtocol{
     
     //MARK: - Properties
     

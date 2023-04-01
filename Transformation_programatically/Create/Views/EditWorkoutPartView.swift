@@ -73,17 +73,17 @@ class EditWorkoutPartView: UIView {
     private func setupViews(){
         //setup input field
         let workoutTypeTitle = components.createHeaderTitle(title: "Workout Type")
-        let workoutTypeStack = components.createStack(axis: .vertical, spacing: baseSize,
-                                                      views: [workoutTypeTitle, workoutPartTextfield])
+        let workoutTypeStack = components.createStack(axis: .vertical, spacing: baseSize)
         workoutTypeStack.distribution = .fillProportionally
         
         //setup date picker
         let datePickerTitle = components.createHeaderTitle(title: "Workout Duration")
-        let datePickerWrapper = components.createStack(axis: .vertical, views: [datePickerTitle, datePicker])
+        let datePickerWrapper = components.createStack(axis: .vertical)
         
         let buttonsStack = components.createStack()
         buttonsStack.addArrangedSubview(doneBtn)
-        
+        workoutTypeStack.addArrangedSubviews([workoutTypeTitle, workoutPartTextfield])
+        datePickerWrapper.addArrangedSubviews([datePickerTitle, datePicker])
         [workoutTypeStack, datePickerWrapper, buttonsStack].forEach{addSubview($0)}
         
         //Constraints

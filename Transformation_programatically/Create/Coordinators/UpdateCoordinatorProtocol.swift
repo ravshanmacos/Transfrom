@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol UpdateCoordinator: Coordinator{
+protocol UpdateCoordinatorProtocol: Coordinator{
     func workoutPartDidUpdate(_ workoutPart: WorkoutPart, data: [String:Any])
 }

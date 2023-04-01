@@ -47,7 +47,8 @@ class WeeklyCalendarView: UIView{
             weekStack.addArrangedSubview(circleView)
             circularProgressStack.addArrangedSubview(circularProgress)
         }
-        let wrapperStack = components.createStack(axis: .vertical, views: [weekStack, circularProgressStack] ,fillEqually: true)
+        let wrapperStack = components.createStack(axis: .vertical ,fillEqually: true)
+        wrapperStack.addArrangedSubviews([weekStack, circularProgressStack])
         addSubview(wrapperStack)
         wrapperStack.edgesToSuperview()
         circularProgressStack.height(40)

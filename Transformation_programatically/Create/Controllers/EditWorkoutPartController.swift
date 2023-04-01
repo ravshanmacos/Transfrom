@@ -20,7 +20,7 @@ class EditWorkoutPartController: UIViewController {
    
     //optionals
     var workoutPart: WorkoutPart?
-    weak var coordinator: UpdateCoordinator?
+    weak var coordinator: UpdateCoordinatorProtocol?
 
     //MARK: - Life Cycle
     override func viewDidLoad() {

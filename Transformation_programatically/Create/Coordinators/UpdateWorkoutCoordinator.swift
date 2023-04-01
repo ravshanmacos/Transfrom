@@ -8,10 +8,11 @@
 import UIKit
 import CoreData
 
-class UpdateWorkoutCoordinator: UpdateCoordinator{
+class UpdateWorkoutCoordinator: UpdateCoordinatorProtocol{
     //MARK: - Properties
     
     //required
+    private let viewModel: UpdateWorkoutViewModel
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -19,26 +20,23 @@ class UpdateWorkoutCoordinator: UpdateCoordinator{
     var updateWorkoutVC: UpdateWorkoutController?
     var coredataHelper: CoreDataHelper?
     var workout: Workout?
-    weak var parentCoordinator: CreateWorkoutCoordinator?
+    
     
     //MARK: - Life Cycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
+        viewModel = UpdateWorkoutViewModel()
+        viewModel.workout = workout
+        viewModel.coredataHelper = coredataHelper
     }
     
     //MARK: - Actions
     func start() {
         let vc = UpdateWorkoutController(nibName: nil, bundle: nil)
         vc.title = "Update"
-        vc.coordinator = self
-        vc.coredataHelper = coredataHelper
-        vc.workout = workout
+        vc.viewModel = viewModel
         navigationController.pushViewController(vc, animated: true)
         self.updateWorkoutVC = vc
-    }
-    
-    func workoutDidSave(){
-        parentCoordinator?.onSaveTap()
     }
     
     func workoutPartDidUpdate(_ workoutPart: WorkoutPart, data: [String:Any]) {
@@ -59,14 +57,4 @@ extension UpdateWorkoutCoordinator{
     }
 }
 
-//MARK: - Helper methods
-extension UpdateWorkoutCoordinator{
-    private func getWorkoutPartFetchedResultsController()-> NSFetchedResultsController<WorkoutPart>{
-        let fetchRequest: NSFetchRequest<WorkoutPart> = WorkoutPart.fetchRequest()
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(WorkoutPart.workout), workout!)
-        let sort = NSSortDescriptor(key: #keyPath(WorkoutPart.date), ascending: true)
-        fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = [sort]
-        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coredataHelper!.getManagedContext(), sectionNameKeyPath: nil, cacheName: nil)
-    }
-}
+

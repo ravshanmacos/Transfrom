@@ -120,22 +120,24 @@ class TimerView: UIView {
         //labels stack
         let labelsStackWrapper = UIView()
         let colonLabel = components.createLabel(type: .extraLarge, with: ":")
-        let labelsStack = components.createStack(axis: .horizontal, spacing: baseSize * 1.5,
-                                                 views: [minutesLabel, colonLabel, secondsLabel])
+        let labelsStack = components.createStack(axis: .horizontal, spacing: baseSize * 1.5)
+        
+        labelsStack.addArrangedSubviews([minutesLabel, colonLabel, secondsLabel])
         labelsStackWrapper.addSubview(labelsStack)
         
         //buttons stack
-        let buttonsStack = components.createStack(axis: .horizontal, spacing: baseSize * 6, views: [startBtn, stopBtn])
+        let buttonsStack = components.createStack(axis: .horizontal, spacing: baseSize * 6)
         buttonsStack.distribution = .fillEqually
         
         //timerStack
         let timerWrapper = UIView()
         timerWrapper.layer.borderWidth = 4
         timerWrapper.layer.borderColor = UIColor.systemBlue.cgColor
+        let vrStack = components.createStack(axis: .vertical, spacing: baseSize * 4)
         
-        let vrStack = components.createStack(axis: .vertical, spacing: baseSize * 4,
-                                             views: [currentWorkoutLabel, labelsStackWrapper, nextWorkoutLabel])
         
+        buttonsStack.addArrangedSubviews([startBtn, stopBtn])
+        vrStack.addArrangedSubviews([currentWorkoutLabel, labelsStackWrapper, nextWorkoutLabel])
         timerWrapper.addSubview(vrStack)
         [timerWrapper,buttonsStack].forEach{addSubview($0)}
         

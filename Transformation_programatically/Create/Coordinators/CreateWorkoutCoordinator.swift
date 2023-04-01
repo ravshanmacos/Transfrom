@@ -19,11 +19,9 @@ class CreateWorkoutCoordinator: Coordinator{
     private var selectedStateImage: UIImage = UIImage.init(
         systemName: "\(Constants.TabbarItemImages.plusImageString).fill")!
     
-    //core data properties
-    private lazy var coredataHelper = CoreDataHelper.shared
-    private lazy var fetchedResultsController: NSFetchedResultsController<Workout> = getWorkoutFetchedResultsController()
-    
     //required
+    private var viewModel = CreateWorkoutViewModel()
+    private var cancellables: [AnyCancellable] = []
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
@@ -33,6 +31,21 @@ class CreateWorkoutCoordinator: Coordinator{
     //MARK: - Life Cycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
+        setupPublishers()
+    }
+    
+    private func setupPublishers(){
+        viewModel.$workout.dropFirst(1).sink {[weak self] value in
+            guard let self, let value else {return}
+            self.updateWorkout(for: value)
+        }.store(in: &cancellables)
+        
+        viewModel.$isAddTapped.dropFirst(1).sink {[weak self] value in
+            guard let self else {return}
+            if value {
+                self.addWorkout()
+            }
+        }.store(in: &cancellables)
     }
     
     //MARK: - Actions
@@ -40,18 +53,8 @@ class CreateWorkoutCoordinator: Coordinator{
         //initializing view controller
         let vc = CreateWorkoutController(nibName: nil, bundle: nil)
         vc.title = "Workouts"
-        vc.coordinator = self
-        vc.coredataHelper = coredataHelper
-        vc.fetchedResultsController = fetchedResultsController
-        
-        //initializng tabbar item
-        let tabbarItem = UITabBarItem()
-        tabbarItem.title = title
-        tabbarItem.image = image
-        tabbarItem.selectedImage = selectedStateImage
-        vc.tabBarItem = tabbarItem
-        
-        //navigating
+        vc.viewModel = viewModel
+        vc.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: selectedStateImage)
         navigationController.pushViewController(vc, animated: true)
         self.createWorkoutVC = vc
     }
@@ -67,34 +70,18 @@ extension CreateWorkoutCoordinator{
     func addWorkout(){
         let child = AddWorkoutCoordinator(presenter: navigationController)
         child.parentCoordinator = self
-        child.coredataHelper = coredataHelper
+        child.coredataHelper = viewModel.coredataHelper
         childCoordinators.append(child)
         child.start()
     }
     
     func updateWorkout(for workout: Workout){
         let child = UpdateWorkoutCoordinator(presenter: navigationController)
-        child.parentCoordinator = self
-        child.coredataHelper = coredataHelper
+        child.coredataHelper = viewModel.coredataHelper
         child.workout = workout
         childCoordinators.append(child)
         child.start()
     }
 }
 
-//MARK: - Helper Methods
-extension CreateWorkoutCoordinator{
-    
-    private func getWorkoutFetchedResultsController()-> NSFetchedResultsController<Workout>{
-        let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
-        let sort = NSSortDescriptor(key: #keyPath(Workout.date), ascending: true)
-        fetchRequest.sortDescriptors = [sort]
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: coredataHelper.getManagedContext(),
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        return fetchedResultsController
-    }
-    
-}
+

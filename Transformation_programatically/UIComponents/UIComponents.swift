@@ -69,13 +69,9 @@ class UIComponents{
     
     func createStack(axis: NSLayoutConstraint.Axis = .horizontal,
                      spacing: CGFloat = 0,
-                     views: [UIView]? = nil,
                      fillEqually: Bool = false
     )->UIStackView{
-        var stack = UIStackView()
-        if let views{
-            stack = UIStackView(arrangedSubviews: views)
-        }
+        let stack = UIStackView()
         if fillEqually {stack.distribution = .fillEqually}
         stack.axis = axis
         stack.spacing = spacing
@@ -84,14 +80,14 @@ class UIComponents{
     
     func infoField(type: InfoFieldType = .normal, title: String, text: String) -> UIStackView{
         let titleLabel = createLabel(type: .medium, with: title)
-        let mainWrapper = createStack(
-            axis: .horizontal,views: [titleLabel], fillEqually: true)
+        let mainWrapper = createStack(axis: .horizontal, fillEqually: true)
+        mainWrapper.addArrangedSubviews([titleLabel])
         if type == .withInfo {
             let infoView = UIView()
             let infoLabel = createLabel(type: .medium, with: text)
             let extLabel = createLabel(type: .medium, with: "minutes")
-            let childWrapper = createStack(
-                axis: .horizontal,spacing: 5,views: [infoLabel, extLabel])
+            let childWrapper = createStack(axis: .horizontal,spacing: 5)
+            childWrapper.addArrangedSubviews([infoLabel, extLabel])
             infoView.addSubview(childWrapper)
             childWrapper.centerYToSuperview()
             childWrapper.rightToSuperview()
@@ -108,7 +104,8 @@ class UIComponents{
         let titleLabel = createLabel(type: .medium, with: title)
         textfield.textAlignment = .right
         let wrapper = createStack(
-            axis: .horizontal,views: [titleLabel, textfield], fillEqually: true)
+            axis: .horizontal, fillEqually: true)
+        wrapper.addArrangedSubviews([titleLabel, textfield])
         if type == .withInfo {
             let label = UILabel()
             label.text = " min"

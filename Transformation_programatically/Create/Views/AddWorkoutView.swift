@@ -105,24 +105,20 @@ extension AddWorkoutView{
     private func setupViews(){
         //setup input field
         let workoutTypeTitle = components.createHeaderTitle(title: "Workout Type")
-        let workoutTypeStack = components.createStack(axis: .vertical, spacing: baseSize,
-                                                      views: [workoutTypeTitle, workoutTypeTextfield])
+        let workoutTypeStack = components.createStack(axis: .vertical, spacing: baseSize)
         workoutTypeStack.distribution = .fillProportionally
         
         
         //setup date picker
         let datePickerTitle = components.createHeaderTitle(title: "Workout Duration")
-        let datePickerWrapper = components.createStack(axis: .vertical,
-                                                       views: [datePickerTitle, datePicker])
+        let datePickerWrapper = components.createStack(axis: .vertical)
         
         //setup division field
         let workoutPartTitle = components.createHeaderTitle(title: "Workout Part")
         let stepperStack = components.createStack(axis: .horizontal,
-                                                  spacing: baseSize * 4,
-                                                  views: [stepperLabel, stepper])
+                                                  spacing: baseSize * 4)
         let workoutPartStack = components.createStack(axis: .vertical,
-                                                      spacing: baseSize,
-                                                       views: [workoutPartTitle, stepperStack])
+                                                      spacing: baseSize)
         stepperStack.alignment = .center
         
         //buttons stack
@@ -130,6 +126,10 @@ extension AddWorkoutView{
         buttonsStack.addArrangedSubview(continueBtn)
         
         //adding into view
+        stepperStack.addArrangedSubviews([stepperLabel, stepper])
+        workoutPartStack.addArrangedSubviews([workoutPartTitle, stepperStack])
+        workoutTypeStack.addArrangedSubviews([workoutTypeTitle, workoutTypeTextfield])
+        datePickerWrapper.addArrangedSubviews([datePickerTitle, datePicker])
         [workoutTypeStack, datePickerWrapper, workoutPartStack, buttonsStack].forEach{addSubview($0)}
         
         workoutTypeStack.topToSuperview(offset: baseSize * 3)

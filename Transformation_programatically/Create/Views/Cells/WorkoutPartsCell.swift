@@ -31,9 +31,10 @@ class EditWorkoutPartsCell: UITableViewCell{
     }
     
     private func setupViews(){
-        let vrStack = components.createStack(axis: .horizontal, views: [title, secondaryTitle])
+        let vrStack = components.createStack(axis: .horizontal)
         vrStack.layoutMargins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         vrStack.isLayoutMarginsRelativeArrangement = true
+        vrStack.addArrangedSubviews([title, secondaryTitle])
         addSubview(vrStack)
         vrStack.edgesToSuperview()
     }

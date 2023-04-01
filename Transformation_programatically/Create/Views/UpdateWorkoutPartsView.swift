@@ -48,8 +48,8 @@ class UpdateWorkoutPartsView: UIView {
         let headerViewDurationField = uiComponents.infoField(type: .withInfo, title: "Total Duration", text: durationString)
 
         let headerView = uiComponents
-            .createStack(axis: .vertical, spacing: 15,
-            views: [headerViewTitleField, headerViewDurationField], fillEqually: true)
+            .createStack(axis: .vertical, spacing: 15, fillEqually: true)
+        headerView.addArrangedSubviews([headerViewTitleField, headerViewDurationField])
         addSubview(headerView)
         addSubview(tableview)
 
@@ -78,7 +78,8 @@ extension UpdateWorkoutPartsView{
         let textLabel = uiComponents.createLabel(type: .medium, with: text)
         textLabel.textAlignment = .right
         let wrapper = uiComponents.createStack(
-            axis: .horizontal,views: [titleLabel, textLabel], fillEqually: true)
+            axis: .horizontal, fillEqually: true)
+        wrapper.addArrangedSubviews([titleLabel, textLabel])
         return wrapper
     }
 }
