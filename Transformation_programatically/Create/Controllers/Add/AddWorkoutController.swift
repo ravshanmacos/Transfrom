@@ -36,6 +36,7 @@ class AddWorkoutController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Create Workout"
+        tabBarController?.tabBar.isHidden = true
     }
     
     private func setupViews(){

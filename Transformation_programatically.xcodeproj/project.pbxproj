@@ -152,10 +152,10 @@
 		B70B938229D7ED4800702A6F /* Create */ = {
 			isa = PBXGroup;
 			children = (
+				B7FEB05F29C0A42E003C7766 /* Coordinators */,
+				B70B938429D7EDC900702A6F /* Controllers */,
 				B70B938B29D7EF1200702A6F /* ViewModels */,
 				B70B938729D7EEF400702A6F /* Views */,
-				B70B938429D7EDC900702A6F /* Controllers */,
-				B7FEB05F29C0A42E003C7766 /* Coordinators */,
 			);
 			path = Create;
 			sourceTree = "<group>";

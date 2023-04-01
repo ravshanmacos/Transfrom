@@ -27,6 +27,11 @@ class StartWorkoutController: UIViewController {
         setupConstraints()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     private func setupViews(){
         view.addSubview(timerView)
         

@@ -40,9 +40,10 @@ class WeeklyCalendarView: UIView{
         let weekStack = components.createStack(axis: .horizontal, spacing: 20, fillEqually: true)
         let circularProgressStack = components.createStack(axis: .horizontal, spacing: 20, fillEqually: true)
         for (index, weekSym) in weekDaySymbols.enumerated(){
+            let dayOfMonth = cldHelper.getWeekday(date: Date())
             let sym = components.createLabel(with: weekSym, centered: true)
             let circularProgress = createCircularProgress(progress: progresses[index])
-            let circleView = index == 2 ? createCircleView(childView: sym, active: true) : createCircleView(childView: sym)
+            let circleView = index == dayOfMonth ? createCircleView(childView: sym, active: true) : createCircleView(childView: sym)
             weekStack.addArrangedSubview(circleView)
             circularProgressStack.addArrangedSubview(circularProgress)
         }

@@ -20,6 +20,7 @@ class ProgressTableViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Workout Progress"
+        tabBarController?.tabBar.isHidden = false
     }
     
     private func setupTableView(){

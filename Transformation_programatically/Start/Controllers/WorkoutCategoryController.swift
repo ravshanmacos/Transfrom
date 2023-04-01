@@ -31,6 +31,11 @@ class WorkoutCategoryController: UIViewController, WorkoutCategoryDelegate {
         setupDelegates()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
     //MARK: - Setups
     private func setupViews(){
         tabBarController?.navigationController?.isNavigationBarHidden = true

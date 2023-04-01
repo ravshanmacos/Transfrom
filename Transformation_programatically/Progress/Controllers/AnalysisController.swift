@@ -11,7 +11,7 @@ import TinyConstraints
 class AnalysisController: UIViewController {
     
     private let components = UIComponents.shared
-    
+    let cldHelper = CalendarHelper.shared
     private var baseSize: CGFloat{
         return Constants.baseSize
     }
@@ -25,7 +25,6 @@ class AnalysisController: UIViewController {
     }()
     
     private lazy var dateTitle: String = {
-        let cldHelper = CalendarHelper.shared
         let date = Date()
         let monthName = cldHelper.getMonthName(date: date)
         let yearName = cldHelper.getYearName(date: date)
@@ -52,7 +51,6 @@ class AnalysisController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(workout)
         setupViews()
         setupConstraints()
     }
@@ -60,6 +58,7 @@ class AnalysisController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = dateTitle
+        tabBarController?.tabBar.isHidden = true
     }
     
     private func setupViews(){
