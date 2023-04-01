@@ -56,6 +56,7 @@ extension WorkoutCategoryCoordinator{
     func workoutDidSelect(_ workout: Workout){
         let child = StartWorkoutCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
+        child.coredataHelper = coredataHelper
         child.selectedWorkout = workout
         childCoordinators.append(child)
         child.start()

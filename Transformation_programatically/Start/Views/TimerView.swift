@@ -68,14 +68,13 @@ class TimerView: UIView {
         self.init(frame: CGRect.zero)
         self.model = model
         setupPublishers()
-        configureView(with: model)
+       //
     }
 
+    //MARK: - Setting Publishers
     func setupPublishers(){
         model!.timerModel.$index.sink {[weak self] value in
-            if value != 0{
-                self?.updateTimerView()
-            }
+            self?.updateTimerView()
         }.store(in: &cancellables)
         
         model!.timerModel.$minutes.sink { [weak self] value in
@@ -87,24 +86,15 @@ class TimerView: UIView {
         }.store(in: &cancellables)
         
         model!.timerModel.$seconds.sink {[weak self] value in
-            
             guard String(value).count >= 2 else{
                 self?.secondsLabel.text = "0\(value)"
                 return
             }
-            
             self?.secondsLabel.text = String(value)
         }.store(in: &cancellables)
     }
     
-    func updateTimerView(){
-        guard let model = model else{return}
-        minutesLabel.text = model.getMinutesString()
-        secondsLabel.text = model.getSecondsString()
-        currentWorkoutLabel.text = model.getCurrentWorkout()
-        nextWorkoutLabel.text = model.getNextWorkout()
-    }
-    
+    //MARK: - Actions
     @objc private func startTapped(){
         model?.startTimer()
     }
@@ -113,10 +103,16 @@ class TimerView: UIView {
         model?.stopTimer()
     }
     
-    //MARK: - Custom Methods
+    //MARK: - UI Helper Methods
     
     private func setupViewStyle(){
         backgroundColor = .white
+    }
+    
+    func updateTimerView(){
+        guard let model = model else{return}
+        currentWorkoutLabel.text = model.getCurrentWorkout()
+        nextWorkoutLabel.text = model.getNextWorkout()
     }
     
     private func setupViews(){
@@ -159,15 +155,5 @@ class TimerView: UIView {
         stopBtn.width(60); stopBtn.height(60); stopBtn.layer.cornerRadius = 30
         buttonsStack.topToBottom(of: timerWrapper, offset: baseSize*2)
         
-    }
-}
-//MARK: - Configuration
-
-extension TimerView{
-    private func configureView(with model: TimerViewModel){
-        minutesLabel.text = model.getMinutesString()
-        secondsLabel.text = model.getSecondsString()
-        currentWorkoutLabel.text = model.getCurrentWorkout()
-        nextWorkoutLabel.text = model.getNextWorkout()
     }
 }

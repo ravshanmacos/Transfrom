@@ -29,6 +29,8 @@ class TimerViewModel{
         return timerModel
     }()
     
+    var coredataHelper: CoreDataHelper?
+    
     //MARK: - LifeCycle
     
     init(workoutParts: [WorkoutPart]) {
@@ -61,12 +63,10 @@ class TimerViewModel{
     }
     
     func getCurrentWorkout()->String{
-        print("current workout called")
         return currentWorkout.name!
     }
     
     func getNextWorkout()->String{
-        print("next workout called")
         return nextWorkout.name!
     }
     
@@ -88,10 +88,8 @@ extension TimerViewModel{
         }
         currentWorkout = workoutParts[index]
         if index + 1 > workoutParts.count-1{
-            let endWorkoutPart = WorkoutPart(context: coreDataStack.managedContext)
-            endWorkoutPart.name = "End"
-            endWorkoutPart.duration = 0
-            nextWorkout = endWorkoutPart
+            guard let coredataHelper else{return}
+            nextWorkout = coredataHelper.createWorkoutPart("End", 0)
         } else{
             nextWorkout = workoutParts[index+1]
         }

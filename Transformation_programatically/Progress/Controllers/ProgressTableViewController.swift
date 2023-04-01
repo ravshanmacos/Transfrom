@@ -1,5 +1,5 @@
 //
-//  ProgressViewController.swift
+//  ProgressTableViewController.swift
 //  Transformation_programatically
 //
 //  Created by Ravshanbek Tursunbaev on 2023/03/03.
@@ -8,12 +8,10 @@
 import UIKit
 import TinyConstraints
 
-class ProgressWorkoutController: UIViewController {
-    private let dummyData: [String] = ["New York", "New Jersey","California","Texas","Chicago"]
+class ProgressTableViewController: UIViewController {
     private let tableView = UITableView()
     private let reuseIdentifier = "progressCell"
-    weak var coordinator: WorkoutProgressCoordinator?
-
+    var viewModel: ProgressTableviewViewModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -37,23 +35,26 @@ class ProgressWorkoutController: UIViewController {
     }
 }
 
-extension ProgressWorkoutController: UITableViewDataSource{
+extension ProgressTableViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        dummyData.count
+        viewModel?.fetchedResultsController.fetchedObjects?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ProgressWorkoutCell
-        cell.title.text = dummyData[indexPath.row]
+        guard let viewModel else {return cell}
+        let workout = viewModel.fetchedResultsController.object(at: indexPath)
+        cell.title.text = workout.name
         return cell
     }
 }
 
-extension ProgressWorkoutController: UITableViewDelegate{
+extension ProgressTableViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         defer{
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        coordinator?.workoutTypeDidSelect(dummyData[indexPath.row])
+        guard let viewModel else {return}
+        viewModel.setSelectedWorkout(with: indexPath)
     }
 }

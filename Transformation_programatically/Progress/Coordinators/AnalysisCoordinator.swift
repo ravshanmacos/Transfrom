@@ -15,7 +15,7 @@ class AnalysisCoordinator: Coordinator{
     
     //optionals
     weak var parentCoordinator: WorkoutProgressCoordinator?
-    var workoutType: String?
+    var workout: Workout?
     
     //MARK: - Life Cycle
     init(navigationController: UINavigationController) {
@@ -26,7 +26,7 @@ class AnalysisCoordinator: Coordinator{
     func start() {
         let vc = AnalysisController(nibName: nil, bundle: nil)
         vc.coordinator = self
-        vc.workoutType = workoutType
+        vc.workout = workout
         navigationController.pushViewController(vc, animated: true)
     }
 }

@@ -36,6 +36,15 @@ class CoreDataHelper{
         return workout
     }
     
+    func createWorkoutPart(_ name: String, _ duration: Double, date: Date = Date() )-> WorkoutPart{
+        let workoutPart = WorkoutPart(context: coreDataStack.managedContext)
+        workoutPart.name = name
+        workoutPart.duration = duration
+        workoutPart.date = date
+        coreDataStack.saveContext()
+        return workoutPart
+    }
+    
     func fetchWithPredicate(predicate: NSPredicate)->[Workout]{
         let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
         fetchRequest.predicate = predicate

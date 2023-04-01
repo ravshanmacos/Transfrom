@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70B938F29D7F0F600702A6F /* ProgressTableviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70B938E29D7F0F600702A6F /* ProgressTableviewViewModel.swift */; };
 		B713A6B229C9C45200DCAD95 /* UpdateWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713A6B129C9C45200DCAD95 /* UpdateWorkoutController.swift */; };
 		B713A6B429C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713A6B329C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift */; };
 		B7432DD029B5C0140041A8AB /* ProgressWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */; };
@@ -56,7 +57,7 @@
 		B7B31E8329CDEB6C009E7A51 /* UpdateWorkoutPartsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B31E8229CDEB6C009E7A51 /* UpdateWorkoutPartsView.swift */; };
 		B7D00F7429B1C96100CED308 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F7329B1C96100CED308 /* Constants.swift */; };
 		B7D00F7629B1CDDD00CED308 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F7529B1CDDD00CED308 /* TabBarController.swift */; };
-		B7D00F7829B1DE4F00CED308 /* ProgressWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F7729B1DE4F00CED308 /* ProgressWorkoutController.swift */; };
+		B7D00F7829B1DE4F00CED308 /* ProgressTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F7729B1DE4F00CED308 /* ProgressTableViewController.swift */; };
 		B7D00F7B29B1DFCD00CED308 /* AddWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F7A29B1DFCD00CED308 /* AddWorkoutController.swift */; };
 		B7D00F7D29B1E3F200CED308 /* AddWorkoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F7C29B1E3F200CED308 /* AddWorkoutView.swift */; };
 		B7D00F8229B2107900CED308 /* UpdateWorkoutPartsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F8129B2107900CED308 /* UpdateWorkoutPartsController.swift */; };
@@ -65,6 +66,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B70B938029D7E9DA00702A6F /* Transformation_programatically.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Transformation_programatically.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B70B938E29D7F0F600702A6F /* ProgressTableviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTableviewViewModel.swift; sourceTree = "<group>"; };
 		B713A6B129C9C45200DCAD95 /* UpdateWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutController.swift; sourceTree = "<group>"; };
 		B713A6B329C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutCoordinator.swift; sourceTree = "<group>"; };
 		B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWorkoutCell.swift; sourceTree = "<group>"; };
@@ -97,7 +100,6 @@
 		B79D289A29C96CAD000E7CFB /* CreateWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutController.swift; sourceTree = "<group>"; };
 		B79D289C29C96D48000E7CFB /* AddWorkoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutCoordinator.swift; sourceTree = "<group>"; };
 		B79D28A029C9801A000E7CFB /* CreateWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateWorkoutView.swift; sourceTree = "<group>"; };
-		B7AB24C229AF216C00310151 /* Transformation_programatically.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Transformation_programatically.app; path = "/Users/ravshanbektursunbaev/Desktop/Programming/1.1 Practice Projects/Transformation_programatically/build/Debug-iphoneos/Transformation_programatically.app"; sourceTree = "<absolute>"; };
 		B7AB24C529AF216C00310151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B7AB24C729AF216C00310151 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B7AB24C929AF216C00310151 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -115,7 +117,7 @@
 		B7B31E8229CDEB6C009E7A51 /* UpdateWorkoutPartsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutPartsView.swift; sourceTree = "<group>"; };
 		B7D00F7329B1C96100CED308 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B7D00F7529B1CDDD00CED308 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		B7D00F7729B1DE4F00CED308 /* ProgressWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWorkoutController.swift; sourceTree = "<group>"; };
+		B7D00F7729B1DE4F00CED308 /* ProgressTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTableViewController.swift; sourceTree = "<group>"; };
 		B7D00F7A29B1DFCD00CED308 /* AddWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutController.swift; sourceTree = "<group>"; };
 		B7D00F7C29B1E3F200CED308 /* AddWorkoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutView.swift; sourceTree = "<group>"; };
 		B7D00F8129B2107900CED308 /* UpdateWorkoutPartsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutPartsController.swift; sourceTree = "<group>"; };
@@ -135,15 +137,92 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		B7432DD129B624590041A8AB /* Helpers */ = {
+		B70B938129D7ED3D00702A6F /* Start */ = {
 			isa = PBXGroup;
 			children = (
-				B7432DD229B625F60041A8AB /* CalendarHelper.swift */,
+				B7FEB05E29C0A410003C7766 /* Coordinators */,
+				B70B938529D7EE1300702A6F /* Controllers */,
+				B70B938A29D7EF0B00702A6F /* ViewModels */,
+				B70B938D29D7EFFC00702A6F /* Models */,
+				B70B938829D7EEFE00702A6F /* Views */,
 			);
-			path = Helpers;
+			path = Start;
 			sourceTree = "<group>";
 		};
-		B7432DD829B62C740041A8AB /* Progress */ = {
+		B70B938229D7ED4800702A6F /* Create */ = {
+			isa = PBXGroup;
+			children = (
+				B70B938B29D7EF1200702A6F /* ViewModels */,
+				B70B938729D7EEF400702A6F /* Views */,
+				B70B938429D7EDC900702A6F /* Controllers */,
+				B7FEB05F29C0A42E003C7766 /* Coordinators */,
+			);
+			path = Create;
+			sourceTree = "<group>";
+		};
+		B70B938329D7ED4E00702A6F /* Progress */ = {
+			isa = PBXGroup;
+			children = (
+				B7FEB06029C0A436003C7766 /* Coordinators */,
+				B70B938629D7EE9900702A6F /* Controllers */,
+				B70B938C29D7EF1800702A6F /* ViewModels */,
+				B70B938929D7EF0500702A6F /* Views */,
+			);
+			path = Progress;
+			sourceTree = "<group>";
+		};
+		B70B938429D7EDC900702A6F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B79D289A29C96CAD000E7CFB /* CreateWorkoutController.swift */,
+				B7B31E7B29CD75D2009E7A51 /* Add */,
+				B7B31E7C29CD75E0009E7A51 /* Update */,
+				B7B1D00929B30EAA006DF2C0 /* EditWorkoutPartController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B70B938529D7EE1300702A6F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B7744EA029B102F30014DB3E /* WorkoutCategoryController.swift */,
+				B7744E9E29B102B70014DB3E /* StartWorkoutController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B70B938629D7EE9900702A6F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B7D00F7729B1DE4F00CED308 /* ProgressTableViewController.swift */,
+				B7432DD429B628180041A8AB /* AnalysisController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		B70B938729D7EEF400702A6F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B7B31E7F29CD898F009E7A51 /* Cells */,
+				B79D28A029C9801A000E7CFB /* CreateWorkoutView.swift */,
+				B7D00F7C29B1E3F200CED308 /* AddWorkoutView.swift */,
+				B7B31E8029CD89E8009E7A51 /* UpdateWorkoutView.swift */,
+				B7B31E8229CDEB6C009E7A51 /* UpdateWorkoutPartsView.swift */,
+				B7B1D00B29B3139D006DF2C0 /* EditWorkoutPartView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B70B938829D7EEFE00702A6F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B7744EA229B1ACA10014DB3E /* WorkoutCategoryView.swift */,
+				B7744E9629B0622F0014DB3E /* TimerView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B70B938929D7EF0500702A6F /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				B7432DD929B62C880041A8AB /* WeeklyCalendarView.swift */,
@@ -152,38 +231,10 @@
 				B7432DDD29B71F540041A8AB /* ImageCollectionViewCell.swift */,
 				B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */,
 			);
-			path = Progress;
-			sourceTree = "<group>";
-		};
-		B7704C7729BDB7E20046FE80 /* tabbar */ = {
-			isa = PBXGroup;
-			children = (
-				B7FEB05E29C0A410003C7766 /* Start */,
-				B7FEB05F29C0A42E003C7766 /* Create */,
-				B7FEB06029C0A436003C7766 /* Progress */,
-			);
-			path = tabbar;
-			sourceTree = "<group>";
-		};
-		B7744E9029B05EC80014DB3E /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				B7744E9829B063710014DB3E /* TimerModel.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		B7744E9129B05ED50014DB3E /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				B7B31E7D29CD8969009E7A51 /* Create */,
-				B7B31E7E29CD8976009E7A51 /* Start */,
-				B7432DD829B62C740041A8AB /* Progress */,
-			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B7744E9229B05EE60014DB3E /* ViewModels */ = {
+		B70B938A29D7EF0B00702A6F /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
 				B7744E9A29B065E90014DB3E /* TimerViewModel.swift */,
@@ -191,14 +242,44 @@
 			path = ViewModels;
 			sourceTree = "<group>";
 		};
-		B7744E9329B05EED0014DB3E /* Controllers */ = {
+		B70B938B29D7EF1200702A6F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B70B938C29D7EF1800702A6F /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B70B938E29D7F0F600702A6F /* ProgressTableviewViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B70B938D29D7EFFC00702A6F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B7744E9829B063710014DB3E /* TimerModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B7432DD129B624590041A8AB /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				B7432DD229B625F60041A8AB /* CalendarHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		B7744E9329B05EED0014DB3E /* MainControllers */ = {
 			isa = PBXGroup;
 			children = (
 				B7AB24C929AF216C00310151 /* MainViewController.swift */,
 				B7D00F7529B1CDDD00CED308 /* TabBarController.swift */,
-				B7FEB05D29C0A3F2003C7766 /* Tabbars */,
 			);
-			path = Controllers;
+			path = MainControllers;
 			sourceTree = "<group>";
 		};
 		B7744E9429B05F0E0014DB3E /* App */ = {
@@ -257,24 +338,25 @@
 			isa = PBXGroup;
 			children = (
 				B7AB24C429AF216C00310151 /* Transformation_programatically */,
+				B70B938029D7E9DA00702A6F /* Transformation_programatically.app */,
 			);
 			sourceTree = "<group>";
 		};
 		B7AB24C429AF216C00310151 /* Transformation_programatically */ = {
 			isa = PBXGroup;
 			children = (
-				B7744E9429B05F0E0014DB3E /* App */,
 				B7861D5A29C836EF00A680E6 /* CoreData */,
 				B7861D5529C81FCF00A680E6 /* CoreDataClasses */,
+				B7744E9429B05F0E0014DB3E /* App */,
 				B7B1D04429B447D4006DF2C0 /* Coordinators */,
-				B7744E9329B05EED0014DB3E /* Controllers */,
+				B70B938129D7ED3D00702A6F /* Start */,
+				B70B938229D7ED4800702A6F /* Create */,
+				B70B938329D7ED4E00702A6F /* Progress */,
+				B7744E9329B05EED0014DB3E /* MainControllers */,
 				B7744EA929B1BE4E0014DB3E /* Extensions */,
 				B7432DD129B624590041A8AB /* Helpers */,
-				B7744E9029B05EC80014DB3E /* Models */,
 				B7744E9529B05F1A0014DB3E /* Resources */,
 				B7744EA429B1B1FA0014DB3E /* UIComponents */,
-				B7744E9229B05EE60014DB3E /* ViewModels */,
-				B7744E9129B05ED50014DB3E /* Views */,
 				B7D00F7329B1C96100CED308 /* Constants.swift */,
 				B7AB24D329AF216D00310151 /* LaunchScreen.storyboard */,
 				B7AB24D129AF216D00310151 /* Assets.xcassets */,
@@ -291,19 +373,8 @@
 				B7B1D04729B44815006DF2C0 /* ApplicationCoordinator.swift */,
 				B7B1D04929B44933006DF2C0 /* MainCoordinator.swift */,
 				B7FEB05A29C09F9F003C7766 /* TabbarCoordinator.swift */,
-				B7704C7729BDB7E20046FE80 /* tabbar */,
 			);
 			path = Coordinators;
-			sourceTree = "<group>";
-		};
-		B7B31E7A29CD7585009E7A51 /* TabbarItems */ = {
-			isa = PBXGroup;
-			children = (
-				B7744EA029B102F30014DB3E /* WorkoutCategoryController.swift */,
-				B79D289A29C96CAD000E7CFB /* CreateWorkoutController.swift */,
-				B7D00F7729B1DE4F00CED308 /* ProgressWorkoutController.swift */,
-			);
-			path = TabbarItems;
 			sourceTree = "<group>";
 		};
 		B7B31E7B29CD75D2009E7A51 /* Add */ = {
@@ -323,125 +394,42 @@
 			path = Update;
 			sourceTree = "<group>";
 		};
-		B7B31E7D29CD8969009E7A51 /* Create */ = {
-			isa = PBXGroup;
-			children = (
-				B79D28A029C9801A000E7CFB /* CreateWorkoutView.swift */,
-				B7D00F7C29B1E3F200CED308 /* AddWorkoutView.swift */,
-				B7B31E8029CD89E8009E7A51 /* UpdateWorkoutView.swift */,
-				B7B31E8229CDEB6C009E7A51 /* UpdateWorkoutPartsView.swift */,
-				B7B1D00B29B3139D006DF2C0 /* EditWorkoutPartView.swift */,
-				B7B31E7F29CD898F009E7A51 /* Cell */,
-			);
-			path = Create;
-			sourceTree = "<group>";
-		};
-		B7B31E7E29CD8976009E7A51 /* Start */ = {
-			isa = PBXGroup;
-			children = (
-				B7744EA229B1ACA10014DB3E /* WorkoutCategoryView.swift */,
-				B7744E9629B0622F0014DB3E /* TimerView.swift */,
-			);
-			path = Start;
-			sourceTree = "<group>";
-		};
-		B7B31E7F29CD898F009E7A51 /* Cell */ = {
+		B7B31E7F29CD898F009E7A51 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				B7B1D00729B30566006DF2C0 /* WorkoutPartsCell.swift */,
 			);
-			path = Cell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
-		B7D00F7929B1DF9500CED308 /* Start */ = {
-			isa = PBXGroup;
-			children = (
-				B7744E9E29B102B70014DB3E /* StartWorkoutController.swift */,
-			);
-			path = Start;
-			sourceTree = "<group>";
-		};
-		B7D00F7F29B2102900CED308 /* Create */ = {
-			isa = PBXGroup;
-			children = (
-				B7B31E7C29CD75E0009E7A51 /* Update */,
-				B7B31E7B29CD75D2009E7A51 /* Add */,
-				B7B1D00929B30EAA006DF2C0 /* EditWorkoutPartController.swift */,
-			);
-			path = Create;
-			sourceTree = "<group>";
-		};
-		B7D00F8029B2103E00CED308 /* Progress */ = {
-			isa = PBXGroup;
-			children = (
-				B7432DD429B628180041A8AB /* AnalysisController.swift */,
-			);
-			path = Progress;
-			sourceTree = "<group>";
-		};
-		B7FEB05D29C0A3F2003C7766 /* Tabbars */ = {
-			isa = PBXGroup;
-			children = (
-				B7B31E7A29CD7585009E7A51 /* TabbarItems */,
-				B7D00F7929B1DF9500CED308 /* Start */,
-				B7D00F7F29B2102900CED308 /* Create */,
-				B7D00F8029B2103E00CED308 /* Progress */,
-			);
-			path = Tabbars;
-			sourceTree = "<group>";
-		};
-		B7FEB05E29C0A410003C7766 /* Start */ = {
+		B7FEB05E29C0A410003C7766 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
 				B7704C7829BDB80C0046FE80 /* WorkoutCategoryCoordinator.swift */,
-				B7FEB06129C0A44B003C7766 /* Childs */,
+				B7FEB06429C0AB1A003C7766 /* StartWorkoutCoordinator.swift */,
 			);
-			path = Start;
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		B7FEB05F29C0A42E003C7766 /* Create */ = {
+		B7FEB05F29C0A42E003C7766 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
 				B7704C7B29BDB82B0046FE80 /* CreateWorkoutCoordinator.swift */,
-				B7FEB06229C0A45C003C7766 /* Childs */,
-			);
-			path = Create;
-			sourceTree = "<group>";
-		};
-		B7FEB06029C0A436003C7766 /* Progress */ = {
-			isa = PBXGroup;
-			children = (
-				B7704C7D29BDB8420046FE80 /* WorkoutProgressCoordinator.swift */,
-				B7FEB06329C0A468003C7766 /* Childs */,
-			);
-			path = Progress;
-			sourceTree = "<group>";
-		};
-		B7FEB06129C0A44B003C7766 /* Childs */ = {
-			isa = PBXGroup;
-			children = (
-				B7FEB06429C0AB1A003C7766 /* StartWorkoutCoordinator.swift */,
-			);
-			path = Childs;
-			sourceTree = "<group>";
-		};
-		B7FEB06229C0A45C003C7766 /* Childs */ = {
-			isa = PBXGroup;
-			children = (
 				B77AC5FA29CC3796005F87ED /* UpdateCoordinator.swift */,
 				B79D289C29C96D48000E7CFB /* AddWorkoutCoordinator.swift */,
 				B713A6B329C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift */,
 				B789E94229C17DF900384BAD /* UpdateWorkoutPartsCoordinator.swift */,
 			);
-			path = Childs;
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
-		B7FEB06329C0A468003C7766 /* Childs */ = {
+		B7FEB06029C0A436003C7766 /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
+				B7704C7D29BDB8420046FE80 /* WorkoutProgressCoordinator.swift */,
 				B789E94629C186C500384BAD /* AnalysisCoordinator.swift */,
 			);
-			path = Childs;
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -464,7 +452,7 @@
 				B7744E8E29B05D040014DB3E /* TinyConstraints */,
 			);
 			productName = Transformation_programatically;
-			productReference = B7AB24C229AF216C00310151 /* Transformation_programatically.app */;
+			productReference = B70B938029D7E9DA00702A6F /* Transformation_programatically.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -550,7 +538,7 @@
 				B7432DD029B5C0140041A8AB /* ProgressWorkoutCell.swift in Sources */,
 				B79D289B29C96CAD000E7CFB /* CreateWorkoutController.swift in Sources */,
 				B7D00F7429B1C96100CED308 /* Constants.swift in Sources */,
-				B7D00F7829B1DE4F00CED308 /* ProgressWorkoutController.swift in Sources */,
+				B7D00F7829B1DE4F00CED308 /* ProgressTableViewController.swift in Sources */,
 				B7B1D00C29B3139D006DF2C0 /* EditWorkoutPartView.swift in Sources */,
 				B7B1D04629B447EC006DF2C0 /* Coordinator.swift in Sources */,
 				B77AC5F729CB072C005F87ED /* Workout+CoreDataProperties.swift in Sources */,
@@ -565,6 +553,7 @@
 				B7704C7C29BDB82B0046FE80 /* CreateWorkoutCoordinator.swift in Sources */,
 				B7744E9F29B102B70014DB3E /* StartWorkoutController.swift in Sources */,
 				B7FEB06529C0AB1A003C7766 /* StartWorkoutCoordinator.swift in Sources */,
+				B70B938F29D7F0F600702A6F /* ProgressTableviewViewModel.swift in Sources */,
 				B77AC5F929CC250A005F87ED /* UIHelperFunctions.swift in Sources */,
 				B7704C7E29BDB8420046FE80 /* WorkoutProgressCoordinator.swift in Sources */,
 				B7432DD729B62B930041A8AB /* CircularProgressView.swift in Sources */,

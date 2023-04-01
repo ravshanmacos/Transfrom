@@ -48,11 +48,11 @@ class AnalysisController: UIViewController {
        return ImageCollectionView()
     }()
     weak var coordinator: AnalysisCoordinator?
-    var workoutType: String?
+    var workout: Workout?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(workoutType)
+        print(workout)
         setupViews()
         setupConstraints()
     }

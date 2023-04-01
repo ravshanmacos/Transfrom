@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 class WorkoutProgressCoordinator: Coordinator{
     //MARK: - Properties
@@ -18,34 +19,40 @@ class WorkoutProgressCoordinator: Coordinator{
         .init(systemName: "\(Constants.TabbarItemImages.chartImageString).fill")!
     
     //required
+    private let viewModel = ProgressTableviewViewModel()
+    private var cancellables: [AnyCancellable] = []
     var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
     
     //MARK: - LifeCycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
+        setubPublishers()
     }
     
    //MARK: - Actions
     func start() {
-        let vc = ProgressWorkoutController(nibName: nil, bundle: nil)
-        vc.coordinator = self
+        let vc = ProgressTableViewController(nibName: nil, bundle: nil)
         vc.title = "Progress"
-        let tabbarItem = UITabBarItem()
-        tabbarItem.title = title
-        tabbarItem.image = image
-        tabbarItem.selectedImage = selectedStateImage
-        vc.tabBarItem = tabbarItem
+        vc.viewModel = viewModel
+        vc.tabBarItem = UITabBarItem(title: title, image: image, selectedImage: selectedStateImage)
         navigationController.pushViewController(vc, animated: true)
+    }
+    
+    private func setubPublishers(){
+        viewModel.$workout.dropFirst(1).sink {[weak self] value in
+            guard let self, let value else {return}
+            self.workoutTypeDidSelect(value)
+        }.store(in: &cancellables)
     }
 }
 
 //MARK: - Coordinating
 extension WorkoutProgressCoordinator{
-    func workoutTypeDidSelect(_ workoutType: String){
+    private func workoutTypeDidSelect(_ workout: Workout){
         let child = AnalysisCoordinator(navigationController: navigationController)
         child.parentCoordinator = self
-        child.workoutType = workoutType
+        child.workout = workout
         childCoordinators.append(child)
         child.start()
     }
