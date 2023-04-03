@@ -7,10 +7,10 @@
 
 import UIKit
 
-class StartWorkoutCoordinator: Coordinator{
+class StartWorkoutCoordinator: CoordinatorProtocol{
     //MARK: - Properties
     //required
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //optionals

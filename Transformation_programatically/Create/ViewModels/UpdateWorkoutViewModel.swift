@@ -11,13 +11,16 @@ import CoreData
 
 class UpdateWorkoutViewModel: ObservableObject{
     lazy var fetchedResultsController: NSFetchedResultsController<WorkoutPart>? = getFetchedResultsController()
-    var workout: Workout?
-    var coredataHelper: CoreDataHelper?
+    private let workout: Workout
+    private let coredataHelper: CoreDataHelper
     
+    var workoutParts: [WorkoutPart] = []
     @Published var workoutPart: WorkoutPart?
-    @Published var isWorkoutTapped: Bool = false
+    @Published var isAddWorkoutTapped: Bool = false
     
-    init() {
+    init(_ workout: Workout, coredataHelper: CoreDataHelper) {
+        self.workout = workout
+        self.coredataHelper = coredataHelper
         loadData()
     }
     
@@ -30,21 +33,50 @@ class UpdateWorkoutViewModel: ObservableObject{
         }
     }
     
-    func workoutDidUpdate(data: [String: Any]){
-        guard let coredataHelper, let workout else{return}
-        coredataHelper.update(workout, data: data)
-        isWorkoutTapped = true
+    func updateWorkoutParts(_ workoutPart: WorkoutPart, data: [String: Any]){
+        let index = workoutParts.firstIndex(of: workoutPart)!
+        workoutParts[index].name = (data["name"] as! String)
+        workoutParts[index].duration = data["duration"] as! Double
+        workoutParts.insert(workoutPart, at: index)
     }
     
-    func workoutPartDidSelect(workoutPart: WorkoutPart){
-        self.workoutPart = workoutPart
+    func getWorkout(_ indexPath: IndexPath)->WorkoutPart?{
+        if let fetchedResultsController, let fetchedObjects = fetchedResultsController.fetchedObjects{
+            self.workoutParts = fetchedObjects
+            return workoutParts[indexPath.row]
+        }
+        return nil
+    }
+    
+    func getWorkoutName()->String{
+        return workout.name == nil ? "" : workout.name!
+    }
+    
+    func getWorkoutDuration()->String{
+        return String(workout.duration/60)
+    }
+    
+    func getWorkoutPartsCount()-> Int{
+        guard let fetchedResultsController, let fetchedObjects = fetchedResultsController.fetchedObjects else{
+            return 0
+        }
+        return fetchedObjects.count
     }
 }
 
 //MARK: - Helper methods
 extension UpdateWorkoutViewModel{
+    
+    func workoutDidUpdate(data: [String: Any]){
+        coredataHelper.update(workout, data: data)
+        isAddWorkoutTapped = true
+    }
+    
+    func workoutPartDidSelect(workoutPart: WorkoutPart){
+        self.workoutPart = workoutPart
+    }
+    
     private func getFetchedResultsController()-> NSFetchedResultsController<WorkoutPart>?{
-        guard let coredataHelper, let workout else { return nil}
         let fetchRequest: NSFetchRequest<WorkoutPart> = WorkoutPart.fetchRequest()
         let predicate = NSPredicate(format: "%K == %@", #keyPath(WorkoutPart.workout), workout)
         let sort = NSSortDescriptor(key: #keyPath(WorkoutPart.date), ascending: true)

@@ -6,28 +6,39 @@
 //
 
 import UIKit
-import CoreData
+import Combine
 
-class UpdateWorkoutCoordinator: UpdateCoordinatorProtocol{
+class UpdateWorkoutCoordinator: CoordinatorProtocol{
     //MARK: - Properties
-    
     //required
     private let viewModel: UpdateWorkoutViewModel
-    var childCoordinators: [Coordinator] = []
     var navigationController: UINavigationController
-    
-    //optionals
-    var updateWorkoutVC: UpdateWorkoutController?
-    var coredataHelper: CoreDataHelper?
-    var workout: Workout?
-    
+    var childCoordinators: [CoordinatorProtocol] = []
+    private var cancellables: [AnyCancellable] = []
+    private var updateWorkoutVC: UpdateWorkoutController?
     
     //MARK: - Life Cycle
-    init(presenter: UINavigationController) {
+    init(presenter: UINavigationController, _ workout: Workout, _ coredataHelper: CoreDataHelper) {
         self.navigationController = presenter
-        viewModel = UpdateWorkoutViewModel()
-        viewModel.workout = workout
-        viewModel.coredataHelper = coredataHelper
+        viewModel = UpdateWorkoutViewModel(workout, coredataHelper: coredataHelper)
+        setupPublishers()
+    }
+    
+    func setupPublishers(){
+        viewModel.$workoutPart.dropFirst(1).sink {[weak self] value in
+            guard let self else { return }
+            if let value{
+                self.editWorkoutPart(value)
+            }
+        }.store(in: &cancellables)
+        
+        viewModel.$isAddWorkoutTapped.dropFirst(1)
+            .sink {[weak self] value in
+                guard let self else {return}
+                if value {
+                    self.navigationController.popToRootViewController(animated: true)
+                }
+            }.store(in: &cancellables)
     }
     
     //MARK: - Actions
@@ -39,22 +50,22 @@ class UpdateWorkoutCoordinator: UpdateCoordinatorProtocol{
         self.updateWorkoutVC = vc
     }
     
-    func workoutPartDidUpdate(_ workoutPart: WorkoutPart, data: [String:Any]) {
-        guard let updateWorkoutVC else{return}
-        updateWorkoutVC.updateWorkoutParts(with: workoutPart, data)
-        navigationController.dismiss(animated: true)
+    func editWorkoutPart(_ workoutPart: WorkoutPart){
+        let child = EditWorkoutPartCoordinator(presenter: navigationController, workoutPart: workoutPart)
+        child.parentCoordinator = self
+        child.start()
     }
-    
 }
 
-//MARK: - Coordinating
-extension UpdateWorkoutCoordinator{
-    func EditWorkoutPart(_ workoutPart: WorkoutPart){
-        let vc = EditWorkoutPartController(nibName: nil, bundle: nil)
-        vc.coordinator = self
-        vc.workoutPart = workoutPart
-        navigationController.present(vc, animated: true)
+
+//MARK: - UpdateCoordinatorProtocol
+extension UpdateWorkoutCoordinator: UpdateCoordinatorProtocol{
+    func workoutPartDidUpdate(_ workoutPart: WorkoutPart, data: [String:Any]) {
+        guard let updateWorkoutVC else{return}
+        updateWorkoutVC.updateWorkoutParts(with: workoutPart, data: data)
+        navigationController.dismiss(animated: true)
     }
 }
+
 
 

@@ -8,10 +8,10 @@
 import UIKit
 import Combine
 
-class MainCoordinator: Coordinator{
+class MainCoordinator: CoordinatorProtocol{
     
     //MARK: - Properties
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //MARK: - Lifecycle

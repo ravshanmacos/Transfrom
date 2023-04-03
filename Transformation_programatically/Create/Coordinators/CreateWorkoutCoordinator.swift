@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import CoreData
 import Combine
 
-class CreateWorkoutCoordinator: Coordinator{
+class CreateWorkoutCoordinator: CoordinatorProtocol{
     
     //MARK: - Properties
     //tabbar item properties
@@ -20,9 +19,9 @@ class CreateWorkoutCoordinator: Coordinator{
         systemName: "\(Constants.TabbarItemImages.plusImageString).fill")!
     
     //required
-    private var viewModel = CreateWorkoutViewModel()
+    private let viewModel: CreateWorkoutViewModel
     private var cancellables: [AnyCancellable] = []
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //optionals
@@ -31,6 +30,7 @@ class CreateWorkoutCoordinator: Coordinator{
     //MARK: - Life Cycle
     init(presenter: UINavigationController) {
         self.navigationController = presenter
+        self.viewModel = CreateWorkoutViewModel()
         setupPublishers()
     }
     
@@ -76,9 +76,7 @@ extension CreateWorkoutCoordinator{
     }
     
     func updateWorkout(for workout: Workout){
-        let child = UpdateWorkoutCoordinator(presenter: navigationController)
-        child.coredataHelper = viewModel.coredataHelper
-        child.workout = workout
+        let child = UpdateWorkoutCoordinator(presenter: navigationController, workout, viewModel.coredataHelper)
         childCoordinators.append(child)
         child.start()
     }

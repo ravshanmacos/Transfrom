@@ -9,7 +9,7 @@ import UIKit
 import Combine
 import CoreData
 
-class WorkoutCategoryCoordinator: Coordinator{
+class WorkoutCategoryCoordinator: CoordinatorProtocol{
     //MARK: - Properties
     //tabbar item
     var title: String = "Start"
@@ -19,7 +19,7 @@ class WorkoutCategoryCoordinator: Coordinator{
         .init(systemName: "\(Constants.TabbarItemImages.runImageString).fill")!
     
     //required
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //core data properties

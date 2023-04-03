@@ -13,7 +13,7 @@ class UpdateWorkoutPartsCoordinator: UpdateCoordinatorProtocol{
     //MARK: - Properties
     
     //required
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //optionals
@@ -52,8 +52,6 @@ class UpdateWorkoutPartsCoordinator: UpdateCoordinatorProtocol{
 extension UpdateWorkoutPartsCoordinator{
     func EditWorkoutPart(_ workoutPart: WorkoutPart){
         let vc = EditWorkoutPartController(nibName: nil, bundle: nil)
-        vc.coordinator = self
-        vc.workoutPart = workoutPart
         navigationController.present(vc, animated: true)
     }
 }

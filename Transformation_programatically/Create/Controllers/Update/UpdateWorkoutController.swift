@@ -20,13 +20,13 @@ class UpdateWorkoutController: UIViewController, NSFetchedResultsControllerDeleg
     // Constants
     private let uiComponents = UIComponents.shared
     private let reuseIdentifier = "Cell"
-    private var workoutParts: [WorkoutPart] = []
-    
     var viewModel: UpdateWorkoutViewModel?
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureMainView()
+        configureMainView()
         setupViews()
     }
     
@@ -61,7 +61,9 @@ class UpdateWorkoutController: UIViewController, NSFetchedResultsControllerDeleg
     
     //MARK: - Actions
     @objc private func updatingDidFinish(){
-        guard let viewModel else {return}
+        guard let viewModel, let FRController = viewModel.fetchedResultsController,
+                let workoutParts = FRController.fetchedObjects else {return}
+        
         guard let editedWorkoutName = nameField.text, let editedWorkoutDurationString = durationField.text
         else{
             print("nil found"); return
@@ -107,49 +109,28 @@ extension UpdateWorkoutController{
     private func configureNameField()-> UITextField{
         let textField = UITextField()
         textField.placeholder = "Enter workout name"
+        if let viewModel { textField.text = viewModel.getWorkoutName() }
         return textField
     }
     private func configureDurationField()-> UITextField{
         let textField = UITextField()
          textField.keyboardType = .numberPad
          textField.placeholder = "Enter workout duration"
+        if let viewModel { textField.text = viewModel.getWorkoutDuration() }
          return textField
-    }
-}
-
-//MARK: - Configuring UI
-extension UpdateWorkoutController{
-    private func configureWorkout(workout: Workout){
-        guard let name = workout.name, let workoutPartsSet = workout.workoutParts else{return}
-        nameField.text = name
-        durationField.text = String(workout.duration / 60)
-        for workoutPart in workoutPartsSet{
-            let part = workoutPart as! WorkoutPart
-            workoutParts.append(part)
-        }
-    }
-    
-    func updateWorkoutParts(with workoutPart: WorkoutPart, _ data: [String:Any]){
-        let index = workoutParts.firstIndex(of: workoutPart)!
-        workoutParts.remove(at: index)
-        workoutPart.name = (data["name"] as! String)
-        workoutPart.duration = data["duration"] as! Double
-        workoutParts.insert(workoutPart, at: index)
-        tableview.reloadData()
     }
 }
 
 //MARK: - UITableViewDataSource
 extension UpdateWorkoutController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.fetchedResultsController?.fetchedObjects?.count ?? 0
+        viewModel?.getWorkoutPartsCount() ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableview.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
         as! EditWorkoutPartsCell
-        guard let viewModel, let FRController = viewModel.fetchedResultsController else {return cell}
-        let workoutPart = FRController.object(at: indexPath)
+        guard let workoutPart = viewModel?.getWorkout(indexPath) else {return cell}
         cell.title.text = workoutPart.name
         cell.secondaryTitle.text = "\(workoutPart.duration/60) minutes"
         return cell
@@ -160,27 +141,17 @@ extension UpdateWorkoutController: UITableViewDataSource{
     }
 }
 
-//MARK: - UITableViewDelegate
+//MARK: - Delegates
 extension UpdateWorkoutController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         defer {tableview.deselectRow(at: indexPath, animated: true)}
-        guard let viewModel else {return}
-        let workoutPart = workoutParts[indexPath.row]
+        guard let viewModel, let workoutPart = viewModel.getWorkout(indexPath) else {return}
         viewModel.workoutPartDidSelect(workoutPart: workoutPart)
     }
+    
+    func updateWorkoutParts(with workoutPart: WorkoutPart, data: [String: Any]){
+        guard let viewModel else {return}
+        viewModel.updateWorkoutParts(workoutPart, data: data)
+        tableview.reloadData()
+    }
 }
-
-//MARK: - Helper Functions
-//extension UpdateWorkoutController{
-//    private func configureWorkout()-> (name: String, duration: Double)?{
-//        guard let workout, let name = workout.name else{
-//            print("Workout does not exist");
-//            return nil
-//        }
-//        let data = (name: name, duration: workout.duration)
-//        return data
-//    }
-//    func updateWorkoutParts(with workoutPart: WorkoutPart, _ data: [String:Any]){
-//        updateWorkoutView.updateWorkoutParts(with: workoutPart, data)
-//    }
-//}

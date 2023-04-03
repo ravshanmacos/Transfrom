@@ -11,11 +11,11 @@ import UIKit
 import CoreData
 import Combine
 
-class AddWorkoutCoordinator: Coordinator{
+class AddWorkoutCoordinator: CoordinatorProtocol{
     
     //MARK: - Properties
     //required
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     // optionals

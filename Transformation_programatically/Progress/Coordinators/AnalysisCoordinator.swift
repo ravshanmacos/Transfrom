@@ -7,10 +7,10 @@
 
 import UIKit
 
-class AnalysisCoordinator: Coordinator{
+class AnalysisCoordinator: CoordinatorProtocol{
     //MARK: - Properties
     //required
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //optionals

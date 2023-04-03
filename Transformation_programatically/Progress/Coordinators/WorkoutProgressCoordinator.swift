@@ -8,7 +8,7 @@
 import UIKit
 import Combine
 
-class WorkoutProgressCoordinator: Coordinator{
+class WorkoutProgressCoordinator: CoordinatorProtocol{
     //MARK: - Properties
     
     //tabbar item
@@ -21,7 +21,7 @@ class WorkoutProgressCoordinator: Coordinator{
     //required
     private let viewModel = ProgressTableviewViewModel()
     private var cancellables: [AnyCancellable] = []
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //MARK: - LifeCycle

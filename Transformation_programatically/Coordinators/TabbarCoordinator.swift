@@ -7,10 +7,10 @@
 
 import UIKit
 
-class TabbarCoordinator: Coordinator{
+class TabbarCoordinator: CoordinatorProtocol{
     //MARK: - Properties
     //required
-    var childCoordinators: [Coordinator] = []
+    var childCoordinators: [CoordinatorProtocol] = []
     var navigationController: UINavigationController
     
     //optionals
