@@ -25,7 +25,8 @@ class UpdateWorkoutCoordinator: CoordinatorProtocol{
     }
     
     func setupPublishers(){
-        viewModel.$workoutPart.dropFirst(1).sink {[weak self] value in
+        viewModel.$workoutPart.dropFirst(1)
+            .sink {[weak self] value in
             guard let self else { return }
             if let value{
                 self.editWorkoutPart(value)
@@ -53,7 +54,12 @@ class UpdateWorkoutCoordinator: CoordinatorProtocol{
     func editWorkoutPart(_ workoutPart: WorkoutPart){
         let child = EditWorkoutPartCoordinator(presenter: navigationController, workoutPart: workoutPart)
         child.parentCoordinator = self
+        childCoordinators.append(child)
         child.start()
+    }
+    
+    deinit {
+        print("deinit UpdateWorkoutCoordinator")
     }
 }
 

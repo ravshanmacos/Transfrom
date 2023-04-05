@@ -11,15 +11,14 @@ import Combine
 class EditWorkoutPartViewModel: ObservableObject{
     
     let workoutPart: WorkoutPart
-    var updatedData: ((_ data: [String: Any])->Void)?
-    
+    @Published var isDataUpdated: [String: Any] = [:]
     
     init(workoutPart: WorkoutPart) {
         self.workoutPart = workoutPart
     }
     
     func saveTapped(_ data: [String:Any]){
-        updatedData?(data)
+        isDataUpdated = data
     }
     
     func getWorkoutPartName()->String{

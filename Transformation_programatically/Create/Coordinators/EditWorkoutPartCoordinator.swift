@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class EditWorkoutPartCoordinator: CoordinatorProtocol{
     var navigationController: UINavigationController
     var childCoordinators: [CoordinatorProtocol] = []
     private let viewModel: EditWorkoutPartViewModel
+    private var cancellables: [AnyCancellable] = []
     weak var parentCoordinator: UpdateCoordinatorProtocol?
     
     init(presenter: UINavigationController, workoutPart: WorkoutPart) {
@@ -20,9 +22,10 @@ class EditWorkoutPartCoordinator: CoordinatorProtocol{
     }
     
     func setupPublishers(){
-        viewModel.updatedData = {[self] data in
+        viewModel.$isDataUpdated.dropFirst(1).sink {[weak self] data in
+            guard let self else { return }
             parentCoordinator?.workoutPartDidUpdate(viewModel.workoutPart, data: data)
-        }
+        }.store(in: &cancellables)
     }
     
     func start() {
@@ -30,4 +33,6 @@ class EditWorkoutPartCoordinator: CoordinatorProtocol{
         vc.viewModel = viewModel
         navigationController.present(vc, animated: true)
     }
+    
+    
 }
