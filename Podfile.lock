@@ -1,0 +1,25 @@
+PODS:
+  - Swinject (2.8.3)
+  - SwinjectAutoregistration (2.8.3):
+    - Swinject (~> 2.8.3)
+  - TinyConstraints (4.0.2)
+
+DEPENDENCIES:
+  - Swinject (= 2.8.3)
+  - SwinjectAutoregistration (= 2.8.3)
+  - TinyConstraints
+
+SPEC REPOS:
+  trunk:
+    - Swinject
+    - SwinjectAutoregistration
+    - TinyConstraints
+
+SPEC CHECKSUMS:
+  Swinject: 893c9a543000ac2f10ee4cbaf0933c6992c935d5
+  SwinjectAutoregistration: e3ee378dc458acf78d176fc7fec3902603452667
+  TinyConstraints: 7b7ccc0c485bb3bb47082138ff28bc33cd49897f
+
+PODFILE CHECKSUM: c6c51dee8785fb52082a40f274bb5af6691a3915
+
+COCOAPODS: 1.11.3
