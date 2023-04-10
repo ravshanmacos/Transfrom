@@ -23,7 +23,6 @@ class CoreDataHelper{
        let workout = Workout(context: coreDataStack.managedContext)
         workout.name = name
         workout.duration = duration
-        workout.done = false
         for index in 0..<numberOfParts{
             let workoutPart = WorkoutPart(context: coreDataStack.managedContext)
             let formattedDuration = averageMinute(minutes: duration, numberOfParts: numberOfParts)
