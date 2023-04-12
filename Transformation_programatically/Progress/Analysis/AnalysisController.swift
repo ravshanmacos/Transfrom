@@ -33,13 +33,15 @@ class AnalysisController: UIViewController {
     }()
     
     private lazy var weeklyCalendarView: UIView = {
-       return WeeklyCalendarView()
+        guard let viewModel else {return WeeklyCalendarView()}
+        return WeeklyCalendarView(viewModel.getWeeklyDoneWorkoutsPercentages())
     }()
     
     private lazy var circlularProgressView: UIView = {
         let view = CircularProgressView()
         view.lineWidth = 17.0
-        view.progress = 0.7
+        guard let viewModel else {return view}
+        view.progress = viewModel.getCurrentDoneWorkoutPercentage()
        return view
     }()
     

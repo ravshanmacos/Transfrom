@@ -242,6 +242,8 @@
 		B7744E9529B05F1A0014DB3E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B7AB24D329AF216D00310151 /* LaunchScreen.storyboard */,
+				B7AB24D129AF216D00310151 /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -451,8 +453,6 @@
 				B7744E9529B05F1A0014DB3E /* Resources */,
 				B7744EA429B1B1FA0014DB3E /* UIComponents */,
 				B7D00F7329B1C96100CED308 /* Constants.swift */,
-				B7AB24D329AF216D00310151 /* LaunchScreen.storyboard */,
-				B7AB24D129AF216D00310151 /* Assets.xcassets */,
 				B7AB24CE29AF216C00310151 /* Transformation.xcdatamodeld */,
 				B7AB24D629AF216D00310151 /* Info.plist */,
 			);

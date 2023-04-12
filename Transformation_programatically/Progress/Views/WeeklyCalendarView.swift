@@ -12,7 +12,7 @@ class WeeklyCalendarView: UIView{
     
     private let components = UIComponents.shared
     private let cldHelper = CalendarHelper.shared
-    private let progresses = [0.3, 0.6, 0.2, 0.9, 0.5, 0.8, 0.3]
+    private var progresses:[CGFloat] = []
     
     private var baseFontSize: CGFloat{
         return Constants.baseFontSize
@@ -24,15 +24,17 @@ class WeeklyCalendarView: UIView{
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupViews()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init() {
+    convenience init(_ progresses: [CGFloat]) {
         self.init(frame: CGRect.zero)
+        self.progresses = progresses
+        setupViews()
     }
     
     private func setupViews(){

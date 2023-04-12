@@ -12,6 +12,12 @@ struct CalendarHelper {
     private let calendar = Calendar(identifier: .gregorian)
     private let dateFormatter = DateFormatter()
     
+    func getFormattedDateString(_ date: Date = Date())->String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "Y/LL/dd"
+        return dateFormatter.string(from: date)
+    }
+    
     func getWeekdaySymbols()->[String]{
         return calendar.shortWeekdaySymbols.map{String($0.prefix(1))}
     }
@@ -56,4 +62,24 @@ struct CalendarHelper {
     }
 
     
+}
+
+extension CalendarHelper{
+    func compareYear(date1: Date, date2: Date)->Bool{
+        let year1 = getYearName(date: date1)
+        let year2 = getYearName(date: date2)
+        return year1 == year2 ? true : false
+    }
+    
+    func compareMonth(date1: Date, date2: Date)->Bool{
+    let month1 = getMonthName(date: date1)
+    let month2 = getMonthName(date: date2)
+        return month1 == month2 ? true : false
+    }
+    
+    func compareDay(date1: Date, date2: Date)->Bool{
+        let day1 = getWeekday(date: date1)
+        let day2 = getWeekday(date: date2)
+            return day1 == day2 ? true : false
+    }
 }

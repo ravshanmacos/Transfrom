@@ -11,6 +11,7 @@ import Combine
 class TimerViewModel{
     
     //MARK: - Properties
+    private let calendarHelper = CalendarHelper.shared
     private var index = 0{didSet{updateTimer()}}
     private var cancellables: [AnyCancellable] = []
     private var workoutParts: [WorkoutPart] = []
@@ -71,10 +72,30 @@ class TimerViewModel{
     
     func updateWorkout(){
         guard let coreDataManager, let workout ,let selectedImage else {return}
-        let imageData = selectedImage.pngData()
-        let doneWorkout = coreDataManager.createDoneWorkout(Date(),imageData, 0.5)
-        workout.addToDoneWorkouts(doneWorkout)
-        coreDataManager.coreDataStack.saveContext()
+        let currentDateString = calendarHelper.getFormattedDateString()
+        guard let doneWorkouts = workout.doneWorkouts, let imageData = selectedImage.pngData() else {return}
+        if doneWorkouts.set.isEmpty{
+            let doneWorkout = coreDataManager.createDoneWorkout(Date(),imageData, 0.5)
+            workout.addToDoneWorkouts(doneWorkout)
+            coreDataManager.coreDataStack.saveContext()
+        }else{
+            doneWorkouts.forEach { element in
+                let doneWorkout = element as! DoneWorkout
+                let date = doneWorkout.date!
+                let doneWorkoutString = calendarHelper.getFormattedDateString(date)
+                if currentDateString != doneWorkoutString{
+                    let doneWorkout = coreDataManager.createDoneWorkout(Date(),imageData, 0.5)
+                    workout.addToDoneWorkouts(doneWorkout)
+                    coreDataManager.coreDataStack.saveContext()
+                }else{
+                    let data: [String: Any] = [
+                        "image": imageData,
+                        "percentage": 0.5
+                    ]
+                    coreDataManager.update(doneWorkout, data: data)
+                }
+            }
+        }
         isUpdatingDidFinish = true
     }
 }

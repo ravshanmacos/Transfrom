@@ -190,7 +190,7 @@ extension TimerViewController{
     private func configureImagePicker()->UIImagePickerController{
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
-        imagePickerController.sourceType = .camera
+        imagePickerController.sourceType = .savedPhotosAlbum
         imagePickerController.allowsEditing = true
         return imagePickerController
     }
@@ -205,7 +205,8 @@ extension TimerViewController{
 extension TimerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let viewModel ,let pickedImage = info[.originalImage] as? UIImage else { return }
-        viewModel.selectedImage = pickedImage
+        let orientedImage = UIImage(cgImage: pickedImage.cgImage!, scale: pickedImage.scale, orientation: pickedImage.imageOrientation)
+        viewModel.selectedImage = orientedImage
         imagePickerController.dismiss(animated: true)
     }
 }
