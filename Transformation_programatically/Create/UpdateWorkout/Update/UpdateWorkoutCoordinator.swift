@@ -14,7 +14,7 @@ class UpdateWorkoutCoordinator: UpdateBasedCoordinator{
     private var cancellables: [AnyCancellable] = []
     private var viewModel: UpdateWorkoutViewModel?
     private var updateWorkoutVC: UpdateWorkoutController?
-    var coredataHelper: CoreDataHelper?
+    var coreDataManager: CoreDataManager?
     var workout: Workout?
     
     func setupPublishers(){
@@ -39,8 +39,8 @@ class UpdateWorkoutCoordinator: UpdateBasedCoordinator{
     override func start() {
         
         //initializing View Model
-        guard let workout, let coredataHelper else { return }
-        let viewModel = UpdateWorkoutViewModel(workout, coredataHelper: coredataHelper)
+        guard let workout, let coreDataManager else { return }
+        let viewModel = UpdateWorkoutViewModel(workout, coredataManager: coreDataManager)
         self.viewModel = viewModel
         setupPublishers()
         

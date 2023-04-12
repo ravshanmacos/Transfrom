@@ -11,18 +11,22 @@ import CoreData
 
 class CreateWorkoutViewModel: ObservableObject{
     //core data properties
-    lazy var coredataHelper = CoreDataHelper.shared
-    lazy var fetchedResultsController: NSFetchedResultsController<Workout> = getWorkoutFetchedResultsController()
+    private var workouts: [Workout] = []
+    var fetchedResultsController: NSFetchedResultsController<Workout>?
+    private let coreDataManager: CoreDataManager
+    
     @Published var workout: Workout?
     @Published var isAddTapped:Bool = false
     
-    init() {
+    init(_ coredataManager: CoreDataManager) {
+        self.coreDataManager = coredataManager
+        fetchedResultsController = coreDataManager.getWorkoutFetchedResultsControllerRequest()
         loadWorkouts()
     }
     
     func loadWorkouts(){
         do {
-            try fetchedResultsController.performFetch()
+            try fetchedResultsController?.performFetch()
         } catch let error as NSError {
             print("failed performing fetch workouts\(error.localizedDescription)")
         }
@@ -38,29 +42,10 @@ extension CreateWorkoutViewModel{
     }
     
     func workoutDidDelete(_ workout: Workout){
-        coredataHelper.delete(workout)
+        coreDataManager.delete(workout)
     }
     
     func addWorkoutDidTap(){
         self.isAddTapped = true
-    }
-}
-
-
-
-
-
-//MARK: - Helper Methods
-extension CreateWorkoutViewModel{
-    private func getWorkoutFetchedResultsController()-> NSFetchedResultsController<Workout>{
-        let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
-        let sort = NSSortDescriptor(key: #keyPath(Workout.date), ascending: true)
-        fetchRequest.sortDescriptors = [sort]
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: coredataHelper.getManagedContext(),
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        return fetchedResultsController
     }
 }

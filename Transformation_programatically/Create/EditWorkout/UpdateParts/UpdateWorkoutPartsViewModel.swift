@@ -10,7 +10,7 @@ import Combine
 
 class UpdateWorkoutPartsViewModel: ObservableObject{
     private var workoutParts: [WorkoutPart] = []
-    var coreDataHelper: CoreDataHelper?
+    var coreDataManager: CoreDataManager?
     var workout: Workout?{didSet{configureWorkoutParts()}}
     @Published var selectedWorkoutPart: WorkoutPart? = nil
     @Published var isWorkoutUpdateDidFinish: Bool = false
@@ -64,8 +64,8 @@ class UpdateWorkoutPartsViewModel: ObservableObject{
             "duration": getWorkoutPartsTotalDuration(),
             "workoutParts": orederedSet
         ]
-        guard let coreDataHelper, let workout else { return "coredataHelper or workout is nil"}
-        coreDataHelper.update(workout, data: data)
+        guard let coreDataManager, let workout else { return "coredataHelper or workout is nil"}
+        coreDataManager.update(workout, data: data)
         isWorkoutUpdateDidFinish = true
         return nil
     }

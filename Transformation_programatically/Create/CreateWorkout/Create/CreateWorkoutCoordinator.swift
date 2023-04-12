@@ -11,21 +11,21 @@ import Combine
 class CreateWorkoutCoordinator: BaseCoordinator{
     
     //MARK: - Properties
-    private let viewModel: CreateWorkoutViewModel
+    private var viewModel: CreateWorkoutViewModel?
     private var cancellables: [AnyCancellable] = []
     
     //optionals
-    var createWorkoutVC:  CreateWorkoutController?
+    private var createWorkoutVC:  CreateWorkoutController?
+    var coreDataManager: CoreDataManager?
     
     //MARK: - Life Cycle
     init(presenter: UINavigationController) {
-        self.viewModel = CreateWorkoutViewModel()
         super.init()
         self.navigationController = presenter
-        setupPublishers()
     }
     
     private func setupPublishers(){
+        guard let viewModel else {return}
         viewModel.$workout.dropFirst(1).sink {[weak self] value in
             guard let self, let value else {return}
             self.updateWorkout(for: value)
@@ -41,8 +41,14 @@ class CreateWorkoutCoordinator: BaseCoordinator{
     
     //MARK: - Actions
     override func start() {
-        //initializing view controller
-        let vc = CreateWorkoutController(nibName: nil, bundle: nil)
+        guard let coreDataManager else {return}
+        //setup view model
+        let viewModel = CreateWorkoutViewModel(coreDataManager)
+        self.viewModel = viewModel
+        setupPublishers()
+        
+        //setup view controller
+        let vc = CreateWorkoutController()
         vc.title = "Workouts"
         vc.viewModel = viewModel
         navigationController.pushViewController(vc, animated: true)
@@ -60,14 +66,14 @@ extension CreateWorkoutCoordinator{
     func addWorkout(){
         let child = AddWorkoutCoordinator()
         child.navigationController = navigationController
-        child.coredataHelper = viewModel.coredataHelper
+        child.coreDataManager = coreDataManager
         start(coordinator: child)
     }
     
     func updateWorkout(for workout: Workout){
         let child = UpdateWorkoutCoordinator()
         child.navigationController = navigationController
-        child.coredataHelper = viewModel.coredataHelper
+        child.coreDataManager = coreDataManager
         child.workout = workout
         start(coordinator: child)
     }

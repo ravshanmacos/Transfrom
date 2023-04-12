@@ -18,6 +18,13 @@
 		B70B939F29D9526600702A6F /* EditWorkoutPartCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70B939E29D9526600702A6F /* EditWorkoutPartCoordinator.swift */; };
 		B713A6B229C9C45200DCAD95 /* UpdateWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713A6B129C9C45200DCAD95 /* UpdateWorkoutController.swift */; };
 		B713A6B429C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B713A6B329C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift */; };
+		B723224929E431FD0002BBCB /* TabbarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224829E431FD0002BBCB /* TabbarViewModel.swift */; };
+		B723225029E434870002BBCB /* DoneWorkout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224A29E434870002BBCB /* DoneWorkout+CoreDataClass.swift */; };
+		B723225129E434870002BBCB /* WorkoutPart+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224B29E434870002BBCB /* WorkoutPart+CoreDataClass.swift */; };
+		B723225229E434870002BBCB /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224C29E434870002BBCB /* Workout+CoreDataClass.swift */; };
+		B723225329E434870002BBCB /* WorkoutPart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224D29E434870002BBCB /* WorkoutPart+CoreDataProperties.swift */; };
+		B723225429E434870002BBCB /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224E29E434870002BBCB /* Workout+CoreDataProperties.swift */; };
+		B723225529E434870002BBCB /* DoneWorkout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224F29E434870002BBCB /* DoneWorkout+CoreDataProperties.swift */; };
 		B7432DD029B5C0140041A8AB /* ProgressWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */; };
 		B7432DD329B625F60041A8AB /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DD229B625F60041A8AB /* CalendarHelper.swift */; };
 		B7432DD529B628180041A8AB /* AnalysisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DD429B628180041A8AB /* AnalysisController.swift */; };
@@ -36,7 +43,7 @@
 		B77AC5F929CC250A005F87ED /* UIHelperFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77AC5F829CC250A005F87ED /* UIHelperFunctions.swift */; };
 		B77AC5FB29CC3796005F87ED /* UpdateCoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77AC5FA29CC3796005F87ED /* UpdateCoordinatorProtocol.swift */; };
 		B7861D4429C81B6800A680E6 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7861D4329C81B6800A680E6 /* CoreDataStack.swift */; };
-		B7861D5929C8232E00A680E6 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7861D5829C8232E00A680E6 /* CoreDataHelper.swift */; };
+		B7861D5929C8232E00A680E6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7861D5829C8232E00A680E6 /* CoreDataManager.swift */; };
 		B789E94329C17DF900384BAD /* UpdateWorkoutPartsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789E94229C17DF900384BAD /* UpdateWorkoutPartsCoordinator.swift */; };
 		B789E94729C186C500384BAD /* AnalysisCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B789E94629C186C500384BAD /* AnalysisCoordinator.swift */; };
 		B78D3B6429DEE6F0002CF912 /* IntroViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78D3B6329DEE6F0002CF912 /* IntroViewModel.swift */; };
@@ -63,12 +70,6 @@
 		B7D00F7B29B1DFCD00CED308 /* AddWorkoutController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F7A29B1DFCD00CED308 /* AddWorkoutController.swift */; };
 		B7D00F8229B2107900CED308 /* UpdateWorkoutPartsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D00F8129B2107900CED308 /* UpdateWorkoutPartsController.swift */; };
 		B7F86FBB29E3DB7100CCA694 /* AnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86FBA29E3DB7100CCA694 /* AnalysisViewModel.swift */; };
-		B7F86FEC29E3EFD600CCA694 /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86FE629E3EFD600CCA694 /* Workout+CoreDataProperties.swift */; };
-		B7F86FED29E3EFD600CCA694 /* DoneWorkouts+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86FE729E3EFD600CCA694 /* DoneWorkouts+CoreDataProperties.swift */; };
-		B7F86FEE29E3EFD600CCA694 /* WorkoutPart+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86FE829E3EFD600CCA694 /* WorkoutPart+CoreDataClass.swift */; };
-		B7F86FEF29E3EFD600CCA694 /* DoneWorkouts+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86FE929E3EFD600CCA694 /* DoneWorkouts+CoreDataClass.swift */; };
-		B7F86FF029E3EFD600CCA694 /* WorkoutPart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86FEA29E3EFD600CCA694 /* WorkoutPart+CoreDataProperties.swift */; };
-		B7F86FF129E3EFD600CCA694 /* Workout+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F86FEB29E3EFD600CCA694 /* Workout+CoreDataClass.swift */; };
 		B7FEB05B29C09F9F003C7766 /* TabbarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FEB05A29C09F9F003C7766 /* TabbarCoordinator.swift */; };
 		B7FEB06529C0AB1A003C7766 /* TimerViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7FEB06429C0AB1A003C7766 /* TimerViewCoordinator.swift */; };
 		B8C18F960D0268532019D3DD /* Pods_Transformation_programatically.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC4FE1D9675DE4551507664F /* Pods_Transformation_programatically.framework */; };
@@ -89,6 +90,13 @@
 		B70B939E29D9526600702A6F /* EditWorkoutPartCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditWorkoutPartCoordinator.swift; sourceTree = "<group>"; };
 		B713A6B129C9C45200DCAD95 /* UpdateWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutController.swift; sourceTree = "<group>"; };
 		B713A6B329C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutCoordinator.swift; sourceTree = "<group>"; };
+		B723224829E431FD0002BBCB /* TabbarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarViewModel.swift; sourceTree = "<group>"; };
+		B723224A29E434870002BBCB /* DoneWorkout+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DoneWorkout+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B723224B29E434870002BBCB /* WorkoutPart+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WorkoutPart+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B723224C29E434870002BBCB /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B723224D29E434870002BBCB /* WorkoutPart+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WorkoutPart+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B723224E29E434870002BBCB /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B723224F29E434870002BBCB /* DoneWorkout+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DoneWorkout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWorkoutCell.swift; sourceTree = "<group>"; };
 		B7432DD229B625F60041A8AB /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		B7432DD429B628180041A8AB /* AnalysisController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisController.swift; sourceTree = "<group>"; };
@@ -107,7 +115,7 @@
 		B77AC5F829CC250A005F87ED /* UIHelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelperFunctions.swift; sourceTree = "<group>"; };
 		B77AC5FA29CC3796005F87ED /* UpdateCoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateCoordinatorProtocol.swift; sourceTree = "<group>"; };
 		B7861D4329C81B6800A680E6 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
-		B7861D5829C8232E00A680E6 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
+		B7861D5829C8232E00A680E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B789E94229C17DF900384BAD /* UpdateWorkoutPartsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutPartsCoordinator.swift; sourceTree = "<group>"; };
 		B789E94629C186C500384BAD /* AnalysisCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisCoordinator.swift; sourceTree = "<group>"; };
 		B78D3B6329DEE6F0002CF912 /* IntroViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewModel.swift; sourceTree = "<group>"; };
@@ -135,12 +143,6 @@
 		B7D00F7A29B1DFCD00CED308 /* AddWorkoutController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutController.swift; sourceTree = "<group>"; };
 		B7D00F8129B2107900CED308 /* UpdateWorkoutPartsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateWorkoutPartsController.swift; sourceTree = "<group>"; };
 		B7F86FBA29E3DB7100CCA694 /* AnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisViewModel.swift; sourceTree = "<group>"; };
-		B7F86FE629E3EFD600CCA694 /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B7F86FE729E3EFD600CCA694 /* DoneWorkouts+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DoneWorkouts+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B7F86FE829E3EFD600CCA694 /* WorkoutPart+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WorkoutPart+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B7F86FE929E3EFD600CCA694 /* DoneWorkouts+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DoneWorkouts+CoreDataClass.swift"; sourceTree = "<group>"; };
-		B7F86FEA29E3EFD600CCA694 /* WorkoutPart+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WorkoutPart+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B7F86FEB29E3EFD600CCA694 /* Workout+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataClass.swift"; sourceTree = "<group>"; };
 		B7FEB05A29C09F9F003C7766 /* TabbarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarCoordinator.swift; sourceTree = "<group>"; };
 		B7FEB06429C0AB1A003C7766 /* TimerViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerViewCoordinator.swift; sourceTree = "<group>"; };
 		CC4FE1D9675DE4551507664F /* Pods_Transformation_programatically.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Transformation_programatically.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -266,12 +268,12 @@
 		B7861D5529C81FCF00A680E6 /* CoreDataClasses */ = {
 			isa = PBXGroup;
 			children = (
-				B7F86FE929E3EFD600CCA694 /* DoneWorkouts+CoreDataClass.swift */,
-				B7F86FE729E3EFD600CCA694 /* DoneWorkouts+CoreDataProperties.swift */,
-				B7F86FEB29E3EFD600CCA694 /* Workout+CoreDataClass.swift */,
-				B7F86FE629E3EFD600CCA694 /* Workout+CoreDataProperties.swift */,
-				B7F86FE829E3EFD600CCA694 /* WorkoutPart+CoreDataClass.swift */,
-				B7F86FEA29E3EFD600CCA694 /* WorkoutPart+CoreDataProperties.swift */,
+				B723224A29E434870002BBCB /* DoneWorkout+CoreDataClass.swift */,
+				B723224F29E434870002BBCB /* DoneWorkout+CoreDataProperties.swift */,
+				B723224B29E434870002BBCB /* WorkoutPart+CoreDataClass.swift */,
+				B723224D29E434870002BBCB /* WorkoutPart+CoreDataProperties.swift */,
+				B723224C29E434870002BBCB /* Workout+CoreDataClass.swift */,
+				B723224E29E434870002BBCB /* Workout+CoreDataProperties.swift */,
 			);
 			path = CoreDataClasses;
 			sourceTree = "<group>";
@@ -279,7 +281,7 @@
 		B7861D5A29C836EF00A680E6 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				B7861D5829C8232E00A680E6 /* CoreDataHelper.swift */,
+				B7861D5829C8232E00A680E6 /* CoreDataManager.swift */,
 				B7861D4329C81B6800A680E6 /* CoreDataStack.swift */,
 			);
 			path = CoreData;
@@ -290,6 +292,7 @@
 			children = (
 				B7D00F7529B1CDDD00CED308 /* TabBarController.swift */,
 				B7FEB05A29C09F9F003C7766 /* TabbarCoordinator.swift */,
+				B723224829E431FD0002BBCB /* TabbarViewModel.swift */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -404,8 +407,8 @@
 		B78D3B6129DEE62A002CF912 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
-				B70B938E29D7F0F600702A6F /* ProgressTableviewViewModel.swift */,
 				B7D00F7729B1DE4F00CED308 /* ProgressTableViewController.swift */,
+				B70B938E29D7F0F600702A6F /* ProgressTableviewViewModel.swift */,
 				B7704C7D29BDB8420046FE80 /* WorkoutProgressCoordinator.swift */,
 			);
 			path = TableView;
@@ -434,8 +437,8 @@
 		B7AB24C429AF216C00310151 /* Transformation_programatically */ = {
 			isa = PBXGroup;
 			children = (
-				B7861D5A29C836EF00A680E6 /* CoreData */,
 				B7861D5529C81FCF00A680E6 /* CoreDataClasses */,
+				B7861D5A29C836EF00A680E6 /* CoreData */,
 				B7B1D04429B447D4006DF2C0 /* CoordinatorsProtocol */,
 				B7744E9429B05F0E0014DB3E /* App */,
 				B78D3B5629DEDD3B002CF912 /* Intro */,
@@ -588,14 +591,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7744E9B29B065E90014DB3E /* TimerViewModel.swift in Sources */,
+				B723225229E434870002BBCB /* Workout+CoreDataClass.swift in Sources */,
 				B79D289D29C96D48000E7CFB /* AddWorkoutCoordinator.swift in Sources */,
 				B7744EA129B102F30014DB3E /* WorkoutCategoryController.swift in Sources */,
 				B78D3B6A29DFE4BB002CF912 /* BaseCoordinator.swift in Sources */,
 				B7D00F7629B1CDDD00CED308 /* TabBarController.swift in Sources */,
 				B7432DD529B628180041A8AB /* AnalysisController.swift in Sources */,
 				B7D00F7B29B1DFCD00CED308 /* AddWorkoutController.swift in Sources */,
+				B723225529E434870002BBCB /* DoneWorkout+CoreDataProperties.swift in Sources */,
 				B70B939529D817DE00702A6F /* UpdateWorkoutViewModel.swift in Sources */,
 				B78D3B6829DFDC4F002CF912 /* UIImage +.swift in Sources */,
+				B723225429E434870002BBCB /* Workout+CoreDataProperties.swift in Sources */,
 				B713A6B229C9C45200DCAD95 /* UpdateWorkoutController.swift in Sources */,
 				B7D00F8229B2107900CED308 /* UpdateWorkoutPartsController.swift in Sources */,
 				B7AB24D029AF216C00310151 /* Transformation.xcdatamodeld in Sources */,
@@ -607,13 +613,13 @@
 				B7861D4429C81B6800A680E6 /* CoreDataStack.swift in Sources */,
 				B7744E9929B063710014DB3E /* TimerModel.swift in Sources */,
 				B70B939F29D9526600702A6F /* EditWorkoutPartCoordinator.swift in Sources */,
+				B723224929E431FD0002BBCB /* TabbarViewModel.swift in Sources */,
+				B723225129E434870002BBCB /* WorkoutPart+CoreDataClass.swift in Sources */,
 				B7744EA629B1B2270014DB3E /* UIComponents.swift in Sources */,
-				B7F86FEE29E3EFD600CCA694 /* WorkoutPart+CoreDataClass.swift in Sources */,
 				B713A6B429C9C4AA00DCAD95 /* UpdateWorkoutCoordinator.swift in Sources */,
 				B789E94729C186C500384BAD /* AnalysisCoordinator.swift in Sources */,
 				B7432DD329B625F60041A8AB /* CalendarHelper.swift in Sources */,
 				B77AC5FB29CC3796005F87ED /* UpdateCoordinatorProtocol.swift in Sources */,
-				B7F86FED29E3EFD600CCA694 /* DoneWorkouts+CoreDataProperties.swift in Sources */,
 				B7B1D04A29B44933006DF2C0 /* IntroViewCoordinator.swift in Sources */,
 				B70B939B29D8449000702A6F /* UIView +.swift in Sources */,
 				B78D3B6629DFDB70002CF912 /* WorkoutCategoryViewModel.swift in Sources */,
@@ -621,25 +627,23 @@
 				B789E94329C17DF900384BAD /* UpdateWorkoutPartsCoordinator.swift in Sources */,
 				B7432DD029B5C0140041A8AB /* ProgressWorkoutCell.swift in Sources */,
 				B79D289B29C96CAD000E7CFB /* CreateWorkoutController.swift in Sources */,
+				B723225029E434870002BBCB /* DoneWorkout+CoreDataClass.swift in Sources */,
 				B7D00F7429B1C96100CED308 /* Constants.swift in Sources */,
 				B7D00F7829B1DE4F00CED308 /* ProgressTableViewController.swift in Sources */,
 				B70B939D29D8452500702A6F /* UIStackView +.swift in Sources */,
-				B7F86FF129E3EFD600CCA694 /* Workout+CoreDataClass.swift in Sources */,
 				B7B1D04629B447EC006DF2C0 /* CoordinatorProtocol.swift in Sources */,
-				B7F86FEC29E3EFD600CCA694 /* Workout+CoreDataProperties.swift in Sources */,
 				B7F86FBB29E3DB7100CCA694 /* AnalysisViewModel.swift in Sources */,
 				B7AB24C629AF216C00310151 /* AppDelegate.swift in Sources */,
+				B723225329E434870002BBCB /* WorkoutPart+CoreDataProperties.swift in Sources */,
 				B7AB24C829AF216C00310151 /* SceneDelegate.swift in Sources */,
-				B7F86FF029E3EFD600CCA694 /* WorkoutPart+CoreDataProperties.swift in Sources */,
 				B7B1D00A29B30EAA006DF2C0 /* EditWorkoutPartController.swift in Sources */,
-				B7861D5929C8232E00A680E6 /* CoreDataHelper.swift in Sources */,
+				B7861D5929C8232E00A680E6 /* CoreDataManager.swift in Sources */,
 				B7B1D00829B30566006DF2C0 /* WorkoutPartsCell.swift in Sources */,
 				B7704C7C29BDB82B0046FE80 /* CreateWorkoutCoordinator.swift in Sources */,
 				B7744E9F29B102B70014DB3E /* TimerViewController.swift in Sources */,
 				B70B939129D817B200702A6F /* CreateWorkoutViewModel.swift in Sources */,
 				B7FEB06529C0AB1A003C7766 /* TimerViewCoordinator.swift in Sources */,
 				B70B938F29D7F0F600702A6F /* ProgressTableviewViewModel.swift in Sources */,
-				B7F86FEF29E3EFD600CCA694 /* DoneWorkouts+CoreDataClass.swift in Sources */,
 				B77AC5F929CC250A005F87ED /* UIHelperFunctions.swift in Sources */,
 				B7704C7E29BDB8420046FE80 /* WorkoutProgressCoordinator.swift in Sources */,
 				B7432DD729B62B930041A8AB /* CircularProgressView.swift in Sources */,
@@ -791,10 +795,11 @@
 				DEVELOPMENT_TEAM = 6Q244YNG4J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Transformation_programatically/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "need to access camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -820,10 +825,11 @@
 				DEVELOPMENT_TEAM = 6Q244YNG4J;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Transformation_programatically/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "need to access camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

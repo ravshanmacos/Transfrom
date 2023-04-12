@@ -44,8 +44,13 @@ class AnalysisController: UIViewController {
     }()
     
     private lazy var imageCollectionView: UIView = {
+        if let viewModel{
+            let imageCollectionView = ImageCollectionView(viewModel.getImages())
+            return imageCollectionView
+        }
        return ImageCollectionView()
     }()
+    
     var viewModel: AnalysisViewModel?
     
     override func loadView() {

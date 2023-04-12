@@ -16,7 +16,7 @@ class AddWorkoutCoordinator: BaseCoordinator{
     //MARK: - Properties
     private var cancellables: [AnyCancellable] = []
     private var viewModel: AddWorkoutViewModel?
-    var coredataHelper: CoreDataHelper?
+    var coreDataManager: CoreDataManager?
     var addWorkoutVC: AddWorkoutController?
     
     
@@ -30,10 +30,13 @@ class AddWorkoutCoordinator: BaseCoordinator{
     
     //MARK: - Actions
     override func start() {
+        //setup view model
         let viewModel = AddWorkoutViewModel()
-        viewModel.coredataHelper = coredataHelper
+        viewModel.coreDataManager = coreDataManager
         self.viewModel = viewModel
         setupPublishers()
+        
+        //setup view controller
         let vc = AddWorkoutController()
         vc.viewModel = viewModel
         navigationController.pushViewController(vc, animated: true)
@@ -48,7 +51,7 @@ extension AddWorkoutCoordinator{
         let child = UpdateWorkoutPartsCoordinator()
         child.navigationController = navigationController
         child.workout = workout
-        child.coredataHelper = coredataHelper
+        child.coreDataManager = coreDataManager
         start(coordinator: child)
     }
 }

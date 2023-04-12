@@ -9,14 +9,15 @@ import UIKit
 
 class AnalysisCoordinator: BaseCoordinator{
     //MARK: - Properties
-    var coredataHelper: CoreDataHelper?
+    var coreDataManager: CoreDataManager?
     var workout: Workout?
     
     //MARK: - Actions
     override func start() {
         guard let workout else {return}
-        let viewModel = AnalysisViewModel(workout)
-        viewModel.coredataHelper = coredataHelper
+        let viewModel = AnalysisViewModel()
+        viewModel.coreDataManager = coreDataManager
+        viewModel.workout = workout
         
         let vc = AnalysisController()
         vc.viewModel = viewModel

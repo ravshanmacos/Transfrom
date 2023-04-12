@@ -14,6 +14,8 @@ class TabbarCoordinator: BaseCoordinator{
     private let createWorkout = CreateWorkoutCoordinator(presenter: UINavigationController())
     private let workoutProgress = WorkoutProgressCoordinator(presenter: UINavigationController())
     
+    private let coreDataManager = CoreDataManager.shared
+    
     //MARK: - Actions
     override func start() {
         let tabbarVC = TabBarController()
@@ -28,6 +30,10 @@ class TabbarCoordinator: BaseCoordinator{
 extension TabbarCoordinator{
     
     private func setupStarters(){
+        startWorkout.coreDataManager = coreDataManager
+        createWorkout.coreDataManager = coreDataManager
+        workoutProgress.coreDataManager = coreDataManager
+        
         start(coordinator: startWorkout)
         start(coordinator: createWorkout)
         start(coordinator: workoutProgress)

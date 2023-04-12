@@ -36,6 +36,7 @@ class TimerViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = true
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(saveTapped))
     }
     
     //MARK: - Setting Publishers
@@ -59,6 +60,16 @@ class TimerViewController: UIViewController {
                 return
             }
             self?.secondsLabel.text = String(value)
+        }.store(in: &cancellables)
+        
+        viewModel.$selectedImage.dropFirst(1).sink {[weak self] image in
+            guard let self else { return }
+            if let image {
+                self.takePictureBtn.setTitle("Photo Selected", for: .normal)
+                self.takePictureBtn.layer.backgroundColor = UIColor.green.cgColor
+            }else {
+                self.takePictureBtn.setTitle("Take Photo", for: .normal)
+            }
         }.store(in: &cancellables)
     }
     
@@ -120,6 +131,11 @@ class TimerViewController: UIViewController {
     }
     
     //MARK: - Actions
+    @objc private func saveTapped(){
+        guard let viewModel else { return }
+        viewModel.updateWorkout()
+    }
+    
     @objc private func startTapped(){
         guard let viewModel else {return}
         viewModel.startTimer()
@@ -181,10 +197,15 @@ extension TimerViewController{
     
 }
 
+//MARK: - Helper Methods
+extension TimerViewController{
+}
+
 //MARK: - UIImagePickerController Delegate
 extension TimerViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate{
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let pickedImage = info[.originalImage] as? UIImage else { return }
-        //do something
+        guard let viewModel ,let pickedImage = info[.originalImage] as? UIImage else { return }
+        viewModel.selectedImage = pickedImage
+        imagePickerController.dismiss(animated: true)
     }
 }

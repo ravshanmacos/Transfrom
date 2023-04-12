@@ -6,36 +6,40 @@
 //
 
 import UIKit
+import Combine
 
 class TimerViewCoordinator: BaseCoordinator{
     //MARK: - Properties
-    var coredataHelper: CoreDataHelper?
+    
+    private var cancellables: [AnyCancellable] = []
+    private var viewModel:TimerViewModel?
+    var coreDataManager: CoreDataManager?
     var selectedWorkout: Workout?
     
-    private lazy var viewModel = {
-       let viewModel = TimerViewModel(workoutParts: configureWorkout())
-        viewModel.coredataHelper = coredataHelper
-        return viewModel
-    }()
+    private func setupPublishers(){
+        guard let viewModel else { return }
+        viewModel.$isUpdatingDidFinish.sink {[weak self] value in
+            guard let self else { return }
+            if value{
+                self.navigationController.popToRootViewController(animated: true)
+            }
+        }.store(in: &cancellables)
+    }
     
     //MARK: - Actions
     override func start() {
+        //setup view model
+        let viewModel = TimerViewModel()
+        viewModel.coreDataManager = coreDataManager
+        viewModel.workout = selectedWorkout
+        self.viewModel = viewModel
+        setupPublishers()
+        
+        //setup view controller
         let vc = TimerViewController()
         vc.viewModel = viewModel
         vc.title = "Start"
         vc.selectedWorkout = selectedWorkout
         navigationController.pushViewController(vc, animated: true)
-    }
-}
-
-extension TimerViewCoordinator{
-    private func configureWorkout()-> [WorkoutPart]{
-        var workoutParts: [WorkoutPart] = []
-        guard let selectedWorkout, let workoutPartsSet = selectedWorkout.workoutParts else{return workoutParts}
-        workoutPartsSet.forEach({ el in
-            let workoutPart = el as! WorkoutPart
-            workoutParts.append(workoutPart)
-        })
-        return workoutParts
     }
 }

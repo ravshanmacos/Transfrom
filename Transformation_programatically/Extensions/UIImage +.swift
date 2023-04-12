@@ -33,4 +33,10 @@ extension UIImage{
     static var startButtonImageFilled: UIImage{
         return UIImage.init(systemName: "play.fill")!
     }
+    
+    static var photoImage:(filled:UIImage, plain: UIImage) {
+        let filled = UIImage.init(systemName: "photo.circle.fill")!
+        let plain = UIImage.init(systemName: "photo.circle")!
+        return (filled: filled, plain: plain)
+    }
 }

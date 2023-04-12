@@ -63,7 +63,7 @@ class CreateWorkoutController: UIViewController {
     }
     
     private func setupDelegates(){
-        if let viewModel {viewModel.fetchedResultsController.delegate = self}
+        if let viewModel {viewModel.fetchedResultsController?.delegate = self}
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "workoutCell")
@@ -79,14 +79,14 @@ class CreateWorkoutController: UIViewController {
 //MARK: - UITableView Datasource
 extension CreateWorkoutController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.fetchedResultsController.fetchedObjects?.count ?? 0
+        viewModel?.fetchedResultsController?.fetchedObjects?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath)
         guard let viewModel else {return cell}
-        let workout = viewModel.fetchedResultsController.object(at: indexPath)
-        cell.textLabel?.text = workout.name
+        let workout = viewModel.fetchedResultsController?.object(at: indexPath)
+        cell.textLabel?.text = workout?.name
         return cell
     }
 }
@@ -96,13 +96,13 @@ extension CreateWorkoutController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         defer{tableView.deselectRow(at: indexPath, animated: true)}
         guard let viewModel else {return}
-        let workout = viewModel.fetchedResultsController.object(at: indexPath)
+        guard let workout = viewModel.fetchedResultsController?.object(at: indexPath) else {return}
         viewModel.workoutDidSelect(workout)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete, let viewModel else {return}
-        let workout = viewModel.fetchedResultsController.object(at: indexPath)
+        guard let workout = viewModel.fetchedResultsController?.object(at: indexPath) else {return}
         viewModel.workoutDidDelete(workout)
         tableView.reloadData()
     }

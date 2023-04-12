@@ -14,7 +14,7 @@ class ProgressTableViewController: UIViewController {
     private let reuseIdentifier = "progressCell"
     var viewModel: ProgressTableviewViewModel?{
         didSet{
-            viewModel!.getFRController().delegate = self
+            viewModel!.fetchedResultsController?.delegate = self
         }
     }
     

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E252" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
-    <entity name="DoneWorkouts" representedClassName="DoneWorkouts" syncable="YES">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22E261" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="DoneWorkout" representedClassName="DoneWorkout" syncable="YES">
         <attribute name="date" attributeType="Date" usesScalarValueType="NO"/>
-        <attribute name="images" optional="YES" attributeType="Binary"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="percentage" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <relationship name="workout" optional="YES" maxCount="1" deletionRule="Nullify" ordered="YES" destinationEntity="Workout" inverseName="doneWorkouts" inverseEntity="Workout"/>
     </entity>
@@ -10,7 +10,7 @@
         <attribute name="date" attributeType="Date" defaultDateTimeInterval="701171400" usesScalarValueType="NO"/>
         <attribute name="duration" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" attributeType="String"/>
-        <relationship name="doneWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DoneWorkouts" inverseName="workout" inverseEntity="DoneWorkouts"/>
+        <relationship name="doneWorkouts" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="DoneWorkout" inverseName="workout" inverseEntity="DoneWorkout"/>
         <relationship name="workoutParts" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="WorkoutPart" inverseName="workout" inverseEntity="WorkoutPart"/>
     </entity>
     <entity name="WorkoutPart" representedClassName="WorkoutPart" syncable="YES">

@@ -10,20 +10,24 @@ import CoreData
 import Combine
 
 class WorkoutCategoryViewModel: ObservableObject{
-    private let coredataHelper = CoreDataHelper.shared
-    private lazy var fetchedResultsController: NSFetchedResultsController<Workout> = getWorkoutFetchedResultsController()
+    
     private var workouts: [Workout] = []
     private lazy var selectedWorkout: Workout = {
        return workouts[0]
     }()
+    
     @Published var isWorkoutsEmpty: Bool = true
     @Published var isNextBtnTapped: Bool = false
-    
-    init() {
-        loadData()
+    private var fetchedResultsController: NSFetchedResultsController<Workout>?
+    var coredataManager: CoreDataManager?{
+        didSet{
+            self.fetchedResultsController = coredataManager?.getWorkoutFetchedResultsControllerRequest()
+            loadData()
+        }
     }
     
     func loadData(){
+        guard let fetchedResultsController else {return}
         do {
             try fetchedResultsController.performFetch()
             if let fetchedObjects = fetchedResultsController.fetchedObjects, !fetchedObjects.isEmpty{
@@ -64,25 +68,8 @@ class WorkoutCategoryViewModel: ObservableObject{
 }
 
 //MARK: - Helper Methods
-extension WorkoutCategoryViewModel{
-    func getCoreDataHelper()->CoreDataHelper{
-        return coredataHelper
-    }
-    
-    func getFRController()->NSFetchedResultsController<Workout>{
+extension WorkoutCategoryViewModel{    
+    func getFRController()->NSFetchedResultsController<Workout>?{
         return fetchedResultsController
     }
-    
-    private func getWorkoutFetchedResultsController()-> NSFetchedResultsController<Workout>{
-        let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
-        let sort = NSSortDescriptor(key: #keyPath(Workout.date), ascending: true)
-        fetchRequest.sortDescriptors = [sort]
-        let fetchedResultsController = NSFetchedResultsController(
-            fetchRequest: fetchRequest,
-            managedObjectContext: coredataHelper.getManagedContext(),
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        return fetchedResultsController
-    }
-    
 }

@@ -11,18 +11,18 @@ import CoreData
 
 class AddWorkoutViewModel{
     @Published var workout: Workout?
-    var coredataHelper: CoreDataHelper?
+    var coreDataManager: CoreDataManager?
     
     func workoutDidCreate(_ name: String, _ duration: Double, _ numberOfParts: Int){
-        guard let coredataHelper else { return }
-        workout = coredataHelper.create(name, duration, numberOfParts)
+        guard let coreDataManager else { return }
+        workout = coreDataManager.createWorkout(name, duration, numberOfParts)
     }
     
     func duplicating(with name: String)-> Bool{
         let fetchRequest: NSFetchRequest<Workout> = Workout.fetchRequest()
         let predicate: NSPredicate = NSPredicate(format: "%K == %@", #keyPath(Workout.name), name)
         fetchRequest.predicate = predicate
-        let workouts = coredataHelper?.fetchWithPredicate(predicate: predicate)
+        let workouts = coreDataManager?.fetchWithPredicate(predicate: predicate)
         if workouts != nil && !workouts!.isEmpty{
          return true
         }

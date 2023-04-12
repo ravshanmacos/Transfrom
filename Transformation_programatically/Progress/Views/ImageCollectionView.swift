@@ -13,13 +13,7 @@ class ImageCollectionView: UIView{
     private let layout = UICollectionViewFlowLayout()
     private var collectionView: UICollectionView
     private let reuseIdentifier = "imageCollectionViewCell"
-    private var images: [UIImage] = {
-        var imgs:[UIImage] = []
-        for index in 0...10{
-            imgs.append(UIImage(named: "img-\(index+1)")!)
-        }
-        return imgs
-    }()
+    private var images: [UIImage] = []
     
     override init(frame: CGRect) {
         collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -32,8 +26,9 @@ class ImageCollectionView: UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init() {
+    convenience init(_ images: [UIImage]) {
         self.init(frame: CGRect.zero)
+        self.images = images
     }
     
     private func setupCollectionView(){

@@ -19,8 +19,43 @@ extension Workout {
     @NSManaged public var date: Date?
     @NSManaged public var duration: Double
     @NSManaged public var name: String?
-    @NSManaged public var workoutParts: NSOrderedSet?
     @NSManaged public var doneWorkouts: NSOrderedSet?
+    @NSManaged public var workoutParts: NSOrderedSet?
+
+}
+
+// MARK: Generated accessors for doneWorkouts
+extension Workout {
+
+    @objc(insertObject:inDoneWorkoutsAtIndex:)
+    @NSManaged public func insertIntoDoneWorkouts(_ value: DoneWorkout, at idx: Int)
+
+    @objc(removeObjectFromDoneWorkoutsAtIndex:)
+    @NSManaged public func removeFromDoneWorkouts(at idx: Int)
+
+    @objc(insertDoneWorkouts:atIndexes:)
+    @NSManaged public func insertIntoDoneWorkouts(_ values: [DoneWorkout], at indexes: NSIndexSet)
+
+    @objc(removeDoneWorkoutsAtIndexes:)
+    @NSManaged public func removeFromDoneWorkouts(at indexes: NSIndexSet)
+
+    @objc(replaceObjectInDoneWorkoutsAtIndex:withObject:)
+    @NSManaged public func replaceDoneWorkouts(at idx: Int, with value: DoneWorkout)
+
+    @objc(replaceDoneWorkoutsAtIndexes:withDoneWorkouts:)
+    @NSManaged public func replaceDoneWorkouts(at indexes: NSIndexSet, with values: [DoneWorkout])
+
+    @objc(addDoneWorkoutsObject:)
+    @NSManaged public func addToDoneWorkouts(_ value: DoneWorkout)
+
+    @objc(removeDoneWorkoutsObject:)
+    @NSManaged public func removeFromDoneWorkouts(_ value: DoneWorkout)
+
+    @objc(addDoneWorkouts:)
+    @NSManaged public func addToDoneWorkouts(_ values: NSOrderedSet)
+
+    @objc(removeDoneWorkouts:)
+    @NSManaged public func removeFromDoneWorkouts(_ values: NSOrderedSet)
 
 }
 
@@ -56,40 +91,5 @@ extension Workout {
 
     @objc(removeWorkoutParts:)
     @NSManaged public func removeFromWorkoutParts(_ values: NSOrderedSet)
-
-}
-
-// MARK: Generated accessors for doneWorkouts
-extension Workout {
-
-    @objc(insertObject:inDoneWorkoutsAtIndex:)
-    @NSManaged public func insertIntoDoneWorkouts(_ value: DoneWorkouts, at idx: Int)
-
-    @objc(removeObjectFromDoneWorkoutsAtIndex:)
-    @NSManaged public func removeFromDoneWorkouts(at idx: Int)
-
-    @objc(insertDoneWorkouts:atIndexes:)
-    @NSManaged public func insertIntoDoneWorkouts(_ values: [DoneWorkouts], at indexes: NSIndexSet)
-
-    @objc(removeDoneWorkoutsAtIndexes:)
-    @NSManaged public func removeFromDoneWorkouts(at indexes: NSIndexSet)
-
-    @objc(replaceObjectInDoneWorkoutsAtIndex:withObject:)
-    @NSManaged public func replaceDoneWorkouts(at idx: Int, with value: DoneWorkouts)
-
-    @objc(replaceDoneWorkoutsAtIndexes:withDoneWorkouts:)
-    @NSManaged public func replaceDoneWorkouts(at indexes: NSIndexSet, with values: [DoneWorkouts])
-
-    @objc(addDoneWorkoutsObject:)
-    @NSManaged public func addToDoneWorkouts(_ value: DoneWorkouts)
-
-    @objc(removeDoneWorkoutsObject:)
-    @NSManaged public func removeFromDoneWorkouts(_ value: DoneWorkouts)
-
-    @objc(addDoneWorkouts:)
-    @NSManaged public func addToDoneWorkouts(_ values: NSOrderedSet)
-
-    @objc(removeDoneWorkouts:)
-    @NSManaged public func removeFromDoneWorkouts(_ values: NSOrderedSet)
 
 }

@@ -5,38 +5,30 @@
 //  Created by Ravshanbek Tursunbaev on 2023/03/02.
 //
 
-import Foundation
+import UIKit
 import Combine
 
 class TimerViewModel{
     
     //MARK: - Properties
-    private let coreDataStack = CoreDataStack(modelName: "Transformation")
     private var index = 0{didSet{updateTimer()}}
     private var cancellables: [AnyCancellable] = []
-    private var workoutParts: [WorkoutPart]
-    private lazy var currentWorkout: WorkoutPart = {
-        return workoutParts[index]
-    }()
-    private lazy var nextWorkout: WorkoutPart = {
-        return workoutParts[index + 1]
-    }()
-    lazy var timerModel: TimerModel = {
-        let workoutPart = workoutParts[index]
-        let duration = configureDuration(duration: Int(workoutPart.duration))
-        let timerModel =
-        TimerModel(minutes: duration.minutes, seconds: duration.seconds, length: workoutParts.count)
-        return timerModel
-    }()
+    private var workoutParts: [WorkoutPart] = []
+    private lazy var currentWorkoutPart: WorkoutPart = configureCurrentWorkout()
+    private lazy var nextWorkoutPart: WorkoutPart = configureNextWorkout()
+    lazy var timerModel: TimerModel = configureTimer()
     
-    var coredataHelper: CoreDataHelper?
+    @Published var selectedImage: UIImage?
+    @Published var isUpdatingDidFinish: Bool = false
+    var coreDataManager: CoreDataManager?
+    var workout: Workout?{
+        didSet{
+            self.configureWorkout()
+            setupPublishers()
+        }
+    }
     
     //MARK: - LifeCycle
-    
-    init(workoutParts: [WorkoutPart]) {
-        self.workoutParts = workoutParts
-        setupPublishers()
-    }
     
     private func setupPublishers(){
         timerModel.$index.sink {[weak self] value in
@@ -63,11 +55,11 @@ class TimerViewModel{
     }
     
     func getCurrentWorkout()->String{
-        return currentWorkout.name!
+        return currentWorkoutPart.name!
     }
     
     func getNextWorkout()->String{
-        return nextWorkout.name!
+        return nextWorkoutPart.name!
     }
     
     func startTimer(){
@@ -75,6 +67,15 @@ class TimerViewModel{
     }
     func stopTimer(){
         timerModel.stopTimer()
+    }
+    
+    func updateWorkout(){
+        guard let coreDataManager, let workout ,let selectedImage else {return}
+        let imageData = selectedImage.pngData()
+        let doneWorkout = coreDataManager.createDoneWorkout(Date(),imageData, 0.5)
+        workout.addToDoneWorkouts(doneWorkout)
+        coreDataManager.coreDataStack.saveContext()
+        isUpdatingDidFinish = true
     }
 }
 
@@ -86,14 +87,14 @@ extension TimerViewModel{
             timerModel.timer.invalidate();
             return
         }
-        currentWorkout = workoutParts[index]
+        currentWorkoutPart = workoutParts[index]
         if index + 1 > workoutParts.count-1{
-            guard let coredataHelper else{return}
-            nextWorkout = coredataHelper.createWorkoutPart("End", 0)
+            guard let coreDataManager else{return}
+            nextWorkoutPart = coreDataManager.createWorkoutPart("End", 0)
         } else{
-            nextWorkout = workoutParts[index+1]
+            nextWorkoutPart = workoutParts[index+1]
         }
-        let duration = configureDuration(duration: Int(currentWorkout.duration))
+        let duration = configureDuration(duration: Int(currentWorkoutPart.duration))
         timerModel.updateWorkout(minutes: duration.minutes, seconds: duration.seconds)
     }
     
@@ -103,5 +104,31 @@ extension TimerViewModel{
         }else{
             return (minutes: duration / 60, seconds: 60 * (duration % 60))
         }
+    }
+}
+
+extension TimerViewModel{
+    private func configureWorkout(){
+        guard let workout, let workoutPartsSet = workout.workoutParts else { return }
+        workoutPartsSet.forEach({ el in
+            let workoutPart = el as! WorkoutPart
+            workoutParts.append(workoutPart)
+        })
+    }
+    
+    private func configureCurrentWorkout()->WorkoutPart{
+        return workoutParts[index]
+    }
+    
+    private func configureNextWorkout()->WorkoutPart{
+        return workoutParts[index + 1]
+    }
+    
+    private func configureTimer()->TimerModel{
+        let workoutPart = workoutParts[index]
+        let duration = configureDuration(duration: Int(workoutPart.duration))
+        let timerModel =
+        TimerModel(minutes: duration.minutes, seconds: duration.seconds, length: workoutParts.count)
+        return timerModel
     }
 }

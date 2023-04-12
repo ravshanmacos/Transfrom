@@ -11,34 +11,37 @@ import Combine
 class WorkoutCategoryCoordinator: BaseCoordinator{
     
     //MARK: - Properties
-    private let viewModel: WorkoutCategoryViewModel
+    private var viewModel: WorkoutCategoryViewModel?
     private var cancellables: [AnyCancellable] = []
+    
+    var coreDataManager: CoreDataManager?
 
     //MARK: - Life Cycle
     init(presenter: UINavigationController) {
-        viewModel = WorkoutCategoryViewModel()
         super.init()
         navigationController = presenter
-        setupPublishers()
     }
     
     private func setupPublishers(){
+        guard let viewModel else {return}
         viewModel.$isNextBtnTapped.sink {[weak self] isTapped in
             guard let self, isTapped else {return}
-            self.workoutDidSelect(self.viewModel.getSelectedWorkout())
+            self.workoutDidSelect(viewModel.getSelectedWorkout())
         }.store(in: &cancellables)
     }
     
     //MARK: - Actions
     override func start() {
-        //init
+        //setup view model
+        viewModel = WorkoutCategoryViewModel()
+        viewModel?.coredataManager = coreDataManager
+        setupPublishers()
+        
+        //setup view controller
         let vc = WorkoutCategoryController()
         vc.viewModel = viewModel
         vc.title = "Category"
         navigationController.pushViewController(vc, animated: true)
-    }
-    deinit {
-        print("deinit")
     }
 }
 
@@ -47,7 +50,7 @@ extension WorkoutCategoryCoordinator{
     func workoutDidSelect(_ workout: Workout){
         let child = TimerViewCoordinator()
         child.navigationController = navigationController
-        child.coredataHelper = viewModel.getCoreDataHelper()
+        child.coreDataManager = coreDataManager
         child.selectedWorkout = workout
         start(coordinator: child)
     }

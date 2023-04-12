@@ -10,17 +10,18 @@ import Combine
 import CoreData
 
 class UpdateWorkoutViewModel: ObservableObject{
-    lazy var fetchedResultsController: NSFetchedResultsController<WorkoutPart>? = getFetchedResultsController()
+    var fetchedResultsController: NSFetchedResultsController<WorkoutPart>?
     private let workout: Workout
-    private let coredataHelper: CoreDataHelper
+    private let coredataManager: CoreDataManager
     
     var workoutParts: [WorkoutPart] = []
     @Published var workoutPart: WorkoutPart?
     @Published var isAddWorkoutTapped: Bool = false
     
-    init(_ workout: Workout, coredataHelper: CoreDataHelper) {
+    init(_ workout: Workout, coredataManager: CoreDataManager) {
         self.workout = workout
-        self.coredataHelper = coredataHelper
+        self.coredataManager = coredataManager
+        fetchedResultsController = coredataManager.getWorkoutPartFetchedResultsControllerRequest(with: workout)
         loadData()
     }
     
@@ -67,20 +68,11 @@ class UpdateWorkoutViewModel: ObservableObject{
 extension UpdateWorkoutViewModel{
     
     func workoutDidUpdate(data: [String: Any]){
-        coredataHelper.update(workout, data: data)
+        coredataManager.update(workout, data: data)
         isAddWorkoutTapped = true
     }
     
     func workoutPartDidSelect(workoutPart: WorkoutPart){
         self.workoutPart = workoutPart
-    }
-    
-    private func getFetchedResultsController()-> NSFetchedResultsController<WorkoutPart>?{
-        let fetchRequest: NSFetchRequest<WorkoutPart> = WorkoutPart.fetchRequest()
-        let predicate = NSPredicate(format: "%K == %@", #keyPath(WorkoutPart.workout), workout)
-        let sort = NSSortDescriptor(key: #keyPath(WorkoutPart.date), ascending: true)
-        fetchRequest.predicate = predicate
-        fetchRequest.sortDescriptors = [sort]
-        return NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: coredataHelper.getManagedContext(), sectionNameKeyPath: nil, cacheName: nil)
     }
 }

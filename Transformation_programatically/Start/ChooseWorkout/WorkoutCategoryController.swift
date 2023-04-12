@@ -24,7 +24,7 @@ class WorkoutCategoryController: UIViewController {
     //MARK: - Properties
     var viewModel: WorkoutCategoryViewModel?{
         didSet{
-            viewModel!.getFRController().delegate = self
+            viewModel!.getFRController()?.delegate = self
         }
     }
 
