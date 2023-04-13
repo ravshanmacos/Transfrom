@@ -36,7 +36,7 @@ class EditWorkoutPartController: UIViewController {
     
     //MARK: - Setups
     private func setupViews(){
-        view.backgroundColor = .white
+        view.backgroundColor = .bckColor_4
         //setup input field
         let workoutTypeTitle = uiComponents.createHeaderTitle(title: "Workout Type")
         let workoutTypeStack = uiComponents.createStack(axis: .vertical, spacing: baseSize)

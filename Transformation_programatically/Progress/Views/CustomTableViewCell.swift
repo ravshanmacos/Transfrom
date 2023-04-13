@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProgressWorkoutCell: UITableViewCell{
+class CustomTableViewCell: UITableViewCell{
     
     private let components = UIComponents.shared
     private var baseFontSize: CGFloat{
@@ -15,13 +15,14 @@ class ProgressWorkoutCell: UITableViewCell{
     }
     
     lazy var title: UILabel = {
-        return components.createLabel(with: "")
+        let label = UILabel()
+        label.textColor = .white
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
-        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -33,8 +34,12 @@ class ProgressWorkoutCell: UITableViewCell{
         title.centerYToSuperview()
         title.leftToSuperview(offset: 20)
     }
-    
-    private func setupConstraints(){
-        
+}
+
+extension CustomTableViewCell{
+    func configureCellUI(_ color: UIColor?){
+        self.backgroundColor = color
+        self.tintColor = .white
+        self.accessoryView = UIImageView(image: .chevronImage)
     }
 }

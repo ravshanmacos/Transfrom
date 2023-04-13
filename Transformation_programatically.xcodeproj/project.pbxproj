@@ -25,7 +25,8 @@
 		B723225329E434870002BBCB /* WorkoutPart+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224D29E434870002BBCB /* WorkoutPart+CoreDataProperties.swift */; };
 		B723225429E434870002BBCB /* Workout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224E29E434870002BBCB /* Workout+CoreDataProperties.swift */; };
 		B723225529E434870002BBCB /* DoneWorkout+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723224F29E434870002BBCB /* DoneWorkout+CoreDataProperties.swift */; };
-		B7432DD029B5C0140041A8AB /* ProgressWorkoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */; };
+		B723226A29E7BB8D0002BBCB /* UIColor +.swift in Sources */ = {isa = PBXBuildFile; fileRef = B723226929E7BB8D0002BBCB /* UIColor +.swift */; };
+		B7432DD029B5C0140041A8AB /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DCF29B5C0140041A8AB /* CustomTableViewCell.swift */; };
 		B7432DD329B625F60041A8AB /* CalendarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DD229B625F60041A8AB /* CalendarHelper.swift */; };
 		B7432DD529B628180041A8AB /* AnalysisController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DD429B628180041A8AB /* AnalysisController.swift */; };
 		B7432DD729B62B930041A8AB /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7432DD629B62B930041A8AB /* CircularProgressView.swift */; };
@@ -97,7 +98,8 @@
 		B723224D29E434870002BBCB /* WorkoutPart+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "WorkoutPart+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B723224E29E434870002BBCB /* Workout+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Workout+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B723224F29E434870002BBCB /* DoneWorkout+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "DoneWorkout+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWorkoutCell.swift; sourceTree = "<group>"; };
+		B723226929E7BB8D0002BBCB /* UIColor +.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor +.swift"; sourceTree = "<group>"; };
+		B7432DCF29B5C0140041A8AB /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		B7432DD229B625F60041A8AB /* CalendarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHelper.swift; sourceTree = "<group>"; };
 		B7432DD429B628180041A8AB /* AnalysisController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisController.swift; sourceTree = "<group>"; };
 		B7432DD629B62B930041A8AB /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
@@ -214,7 +216,7 @@
 				B7432DD629B62B930041A8AB /* CircularProgressView.swift */,
 				B7432DDB29B62CA40041A8AB /* ImageCollectionView.swift */,
 				B7432DDD29B71F540041A8AB /* ImageCollectionViewCell.swift */,
-				B7432DCF29B5C0140041A8AB /* ProgressWorkoutCell.swift */,
+				B7432DCF29B5C0140041A8AB /* CustomTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -263,6 +265,7 @@
 				B70B939A29D8449000702A6F /* UIView +.swift */,
 				B70B939C29D8452500702A6F /* UIStackView +.swift */,
 				B78D3B6729DFDC4F002CF912 /* UIImage +.swift */,
+				B723226929E7BB8D0002BBCB /* UIColor +.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -450,8 +453,8 @@
 				B70B938329D7ED4E00702A6F /* Progress */,
 				B7744EA929B1BE4E0014DB3E /* Extensions */,
 				B7432DD129B624590041A8AB /* Helpers */,
-				B7744E9529B05F1A0014DB3E /* Resources */,
 				B7744EA429B1B1FA0014DB3E /* UIComponents */,
+				B7744E9529B05F1A0014DB3E /* Resources */,
 				B7D00F7329B1C96100CED308 /* Constants.swift */,
 				B7AB24CE29AF216C00310151 /* Transformation.xcdatamodeld */,
 				B7AB24D629AF216D00310151 /* Info.plist */,
@@ -608,6 +611,7 @@
 				B7AB24CA29AF216C00310151 /* IntroViewController.swift in Sources */,
 				B7432DDE29B71F540041A8AB /* ImageCollectionViewCell.swift in Sources */,
 				B70B939929D8180600702A6F /* UpdateWorkoutPartsViewModel.swift in Sources */,
+				B723226A29E7BB8D0002BBCB /* UIColor +.swift in Sources */,
 				B70B939329D817C500702A6F /* AddWorkoutViewModel.swift in Sources */,
 				B7432DDA29B62C880041A8AB /* WeeklyCalendarView.swift in Sources */,
 				B7861D4429C81B6800A680E6 /* CoreDataStack.swift in Sources */,
@@ -625,7 +629,7 @@
 				B78D3B6629DFDB70002CF912 /* WorkoutCategoryViewModel.swift in Sources */,
 				B78D3B6C29E15049002CF912 /* UpdateBasedCoordinator.swift in Sources */,
 				B789E94329C17DF900384BAD /* UpdateWorkoutPartsCoordinator.swift in Sources */,
-				B7432DD029B5C0140041A8AB /* ProgressWorkoutCell.swift in Sources */,
+				B7432DD029B5C0140041A8AB /* CustomTableViewCell.swift in Sources */,
 				B79D289B29C96CAD000E7CFB /* CreateWorkoutController.swift in Sources */,
 				B723225029E434870002BBCB /* DoneWorkout+CoreDataClass.swift in Sources */,
 				B7D00F7429B1C96100CED308 /* Constants.swift in Sources */,

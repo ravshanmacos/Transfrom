@@ -65,14 +65,14 @@ extension ImageCollectionView: UICollectionViewDelegate{}
 
 extension ImageCollectionView: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let collectionWidth = collectionView.bounds.width
-        return CGSize(width: collectionWidth / 3, height: collectionWidth / 3)
+        let size = (collectionView.bounds.width - 16) / 3
+        return CGSize(width: size, height: size)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        0
+        8
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        0
+        8
     }
 }
 

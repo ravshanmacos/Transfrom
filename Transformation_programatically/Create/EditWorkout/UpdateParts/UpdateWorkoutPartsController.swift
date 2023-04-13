@@ -77,7 +77,8 @@ class UpdateWorkoutPartsController: UIViewController {
 extension UpdateWorkoutPartsController{
     private func configureView(){
         navigationItem.title = "Edit Workout Parts"
-        view.backgroundColor = .white
+        view.backgroundColor = .bckColor_4
+        tableview.backgroundColor = .bckColor_4
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(updatingDidFinish))
     }
     
@@ -107,7 +108,7 @@ extension UpdateWorkoutPartsController: UITableViewDataSource{
         guard let viewModel else { return cell}
         let workoutPart = viewModel.getWorkoutPart(at: indexPath)
         cell.title.text = workoutPart.name
-        cell.secondaryTitle.text = "\(workoutPart.duration/60) minutes"
+        cell.secondaryTitle.text = "\(workoutPart.duration/60) min"
         return cell
     }
 

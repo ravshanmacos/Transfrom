@@ -93,13 +93,14 @@ class UpdateWorkoutController: UIViewController, NSFetchedResultsControllerDeleg
 //MARK: - Configuring UI Elements
 extension UpdateWorkoutController{
     private func configureMainView(){
-        view.backgroundColor = .white
+        view.backgroundColor = .bckColor_4
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             barButtonSystemItem: .save, target: self, action: #selector(updatingDidFinish))
     }
     
     private func configureTableView()->UITableView{
         let tableview = UITableView()
+        tableview.backgroundColor = .bckColor_4
         tableview.delegate = self
         tableview.dataSource = self
         tableview.register(EditWorkoutPartsCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -132,7 +133,7 @@ extension UpdateWorkoutController: UITableViewDataSource{
         as! EditWorkoutPartsCell
         guard let workoutPart = viewModel?.getWorkout(indexPath) else {return cell}
         cell.title.text = workoutPart.name
-        cell.secondaryTitle.text = "\(workoutPart.duration/60) minutes"
+        cell.secondaryTitle.text = "\(workoutPart.duration/60) min"
         return cell
     }
     

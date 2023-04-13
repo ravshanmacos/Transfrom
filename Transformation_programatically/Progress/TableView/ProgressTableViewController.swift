@@ -10,7 +10,8 @@ import TinyConstraints
 import CoreData
 
 class ProgressTableViewController: UIViewController {
-    private let tableView = UITableView()
+    private lazy var imageView = configureImageView()
+    private lazy var tableView = configureTableView()
     private let reuseIdentifier = "progressCell"
     var viewModel: ProgressTableviewViewModel?{
         didSet{
@@ -18,8 +19,9 @@ class ProgressTableViewController: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
+        super.loadView()
+        configureMainUI()
         setupTableView()
     }
     
@@ -27,15 +29,21 @@ class ProgressTableViewController: UIViewController {
         super.viewWillAppear(animated)
         tabBarController?.navigationItem.title = "Workout Progress"
         tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.backgroundColor = .white
     }
     
     private func setupTableView(){
-        view.backgroundColor = .white
-        view.addSubview(tableView)
-        tableView.edgesToSuperview(usingSafeArea: true)
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(ProgressWorkoutCell.self, forCellReuseIdentifier: reuseIdentifier)
+        view.addSubviews([imageView, tableView])
+        
+        imageView.centerYToSuperview(multiplier: 0.7)
+        imageView.centerXToSuperview()
+        imageView.width(300)
+        imageView.height(200)
+        
+        tableView.topToBottom(of: imageView, offset: 20)
+        tableView.leftToSuperview(offset: 20,usingSafeArea: true)
+        tableView.rightToSuperview(offset: -20,usingSafeArea: true)
+        tableView.bottomToSuperview(offset: -20,usingSafeArea: true)
     }
 }
 
@@ -47,7 +55,8 @@ extension ProgressTableViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ProgressWorkoutCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! CustomTableViewCell
+        cell.configureCellUI(.bckColor_3)
         guard let viewModel else {return cell}
         if viewModel.isWorkoutsEmpty(){
             cell.isUserInteractionEnabled = false
@@ -57,6 +66,29 @@ extension ProgressTableViewController: UITableViewDataSource{
         let name = viewModel.getWorkoutName(at: indexPath)
         cell.title.text = name
         return cell
+    }
+}
+
+//MARK: - Configure UI Elements
+
+extension ProgressTableViewController{
+    private func configureMainUI(){
+        view.backgroundColor = .bckColor_3
+        tableView.backgroundColor = .bckColor_3
+    }
+    
+    private func configureImageView()->UIImageView{
+        let imageView = UIImageView(image: .pandaExhaustedImage)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }
+    
+    private func configureTableView()->UITableView{
+        let tableView = UITableView()
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
+        return tableView
     }
 }
 

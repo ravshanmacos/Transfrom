@@ -18,7 +18,7 @@ class EditWorkoutPartsCell: UITableViewCell{
     }()
     
     lazy var secondaryTitle: UILabel = {
-        return components.createLabel(type: .small, with: "")
+        return components.createLabel(type: .medium, with: "")
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -31,6 +31,7 @@ class EditWorkoutPartsCell: UITableViewCell{
     }
     
     private func setupViews(){
+        backgroundColor = .bckColor_4
         let vrStack = components.createStack(axis: .horizontal)
         vrStack.layoutMargins = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 20)
         vrStack.isLayoutMarginsRelativeArrangement = true

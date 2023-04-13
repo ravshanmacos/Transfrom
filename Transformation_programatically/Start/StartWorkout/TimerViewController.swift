@@ -82,7 +82,7 @@ class TimerViewController: UIViewController {
     }
     
     private func setupViews(){
-        view.backgroundColor = .white
+        view.backgroundColor = .bckColor_2
         //labels stack
         let labelsStackWrapper = UIView()
         let colonLabel = components.createLabel(type: .extraLarge, with: ":")

@@ -16,6 +16,7 @@ class WorkoutCategoryController: UIViewController {
     private var baseSize = Constants.baseSize
     
     //lazy properties
+    private lazy var imageView: UIImageView = configureImageView()
     private lazy var pickerView: UIPickerView = configurePickerView()
     private lazy var startWorkoutButton: UIButton = configureButton()
     
@@ -42,6 +43,7 @@ class WorkoutCategoryController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.backgroundColor = .bckColor_2
     }
     
     private func setupPublishers(){
@@ -60,15 +62,23 @@ class WorkoutCategoryController: UIViewController {
     //MARK: - Setups Views
     
     private func setupViews(){
-        view.backgroundColor = .white
+        view.backgroundColor = .bckColor_2
         let buttonsStack = components.createStack()
         buttonsStack.addArrangedSubview(startWorkoutButton)
         
         //adding
-        view.addSubviews([pickerView, buttonsStack])
+        view.addSubviews([imageView, pickerView, buttonsStack])
         
         //constrains
-        pickerView.centerInSuperview()
+        imageView.centerXToSuperview()
+        imageView.centerYToSuperview()
+        imageView.width(300)
+        imageView.height(200)
+        
+        pickerView.topToBottom(of: imageView)
+        pickerView.centerXToSuperview()
+        pickerView.height(150)
+        
         buttonsStack.leftToSuperview(offset: 20)
         buttonsStack.rightToSuperview(offset: -20)
         buttonsStack.height(50)
@@ -84,6 +94,12 @@ class WorkoutCategoryController: UIViewController {
 
 //MARK: - Configuring UI Elements
 extension WorkoutCategoryController{
+    private func configureImageView()->UIImageView{
+        let imageView = UIImageView(image: .pandaLiftingBarbelImage)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }
+    
     private func configurePickerView()-> UIPickerView{
         let pickerView = UIPickerView()
         pickerView.delegate = self

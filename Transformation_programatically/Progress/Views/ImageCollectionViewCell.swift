@@ -12,7 +12,7 @@ class ImageCollectionViewCell: UICollectionViewCell{
     
     lazy var imageView: UIImageView = {
         let imgView = UIImageView()
-        imgView.contentMode = .scaleAspectFill
+        imgView.contentMode = .scaleToFill
         return imgView
     }()
     
@@ -30,11 +30,7 @@ class ImageCollectionViewCell: UICollectionViewCell{
     }
     
     private func setupViews(){
-        let view = UIView()
-        view.addSubview(imageView)
+        addSubview(imageView)
         imageView.edgesToSuperview()
-        addSubview(view)
-        view.edgesToSuperview(insets: TinyEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
-        view.layer.cornerRadius = 10
     }
 }

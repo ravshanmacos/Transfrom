@@ -16,57 +16,52 @@ class CreateWorkoutController: UIViewController {
     private let baseSize = Constants.baseSize
     private let baseFontSize = Constants.baseFontSize
     private let uiComponents = UIComponents.shared
-    private lazy var headerView: UIView = {
-        let view = UIView()
-        return view
-    }()
     
-    private lazy var tableView: UITableView = {
-       let tableView = UITableView()
-        return tableView
-    }()
+    private lazy var imageView: UIImageView = configureImageView()
+    private lazy var tableView: UITableView = configureTableView()
+    private lazy var addWorkoutBtn: UIButton = configureAddWorkoutBtn()
     
-    private lazy var addWorkoutBtn: UIButton = {
-        let button = uiComponents.createButton(text: "Add Workout")
-        button.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
-        return button
-    }()
-    
-    var viewModel: CreateWorkoutViewModel?
+    var viewModel: CreateWorkoutViewModel?{
+        didSet{
+            viewModel?.fetchedResultsController?.delegate = self
+        }
+    }
 
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureMainUI()
         setupViews()
-        setupDelegates()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.backgroundColor = .white
     }
     
     //MARK: - Setups
     private func setupViews(){
-        view.backgroundColor = .white
-        let verticalStack = uiComponents.createStack(axis: .vertical, spacing: 0)
-        
         //Inserting
-        headerView.addSubview(addWorkoutBtn)
-        verticalStack.addArrangedSubviews([tableView, headerView])
-        view.addSubview(verticalStack)
+        view.addSubviews([imageView, tableView, addWorkoutBtn])
         
-        //constraints
-        headerView.height(60)
-        addWorkoutBtn.edgesToSuperview(insets: TinyEdgeInsets(
-            top: baseSize / 2,left: baseSize * 2, bottom: baseSize / 2, right: baseSize * 2))
-        verticalStack.edgesToSuperview(insets: TinyEdgeInsets(top: 0, left: 0, bottom: baseSize * 2, right: 0), usingSafeArea: true)
-    }
-    
-    private func setupDelegates(){
-        if let viewModel {viewModel.fetchedResultsController?.delegate = self}
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "workoutCell")
+        //imageView Constraints
+        imageView.centerXToSuperview()
+        imageView.centerYToSuperview(multiplier: 0.7)
+        imageView.width(250)
+        imageView.height(250)
+        
+        //tableView Constraints
+        tableView.topToBottom(of: imageView)
+        tableView.leftToSuperview()
+        tableView.rightToSuperview()
+        tableView.bottomToTop(of: addWorkoutBtn)
+        
+        //addWorkoutBtn Constraints
+        addWorkoutBtn.height(50)
+        addWorkoutBtn.leftToSuperview(offset: 20)
+        addWorkoutBtn.rightToSuperview(offset: -20)
+        addWorkoutBtn.bottomToSuperview(offset: -20, usingSafeArea: true)
+        
     }
     
     //MARK: - Actions
@@ -76,6 +71,38 @@ class CreateWorkoutController: UIViewController {
     }
 }
 
+//MARK: - Configuring UI Elements
+extension CreateWorkoutController{
+    private func configureMainUI(){
+        view.backgroundColor = .bckColor_4
+    }
+    
+    private func configureImageView()->UIImageView{
+        let imageView = UIImageView(image: .pandaLyingImage)
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }
+    
+    private func configureTableView()->UITableView{
+        let tableView = UITableView()
+        tableView.backgroundColor = .bckColor_4
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "workoutCell")
+        return tableView
+    }
+    
+    private func configureAddWorkoutBtn()->UIButton{
+        let button = UIButton()
+        button.setTitle("Add Workout", for: .normal)
+        button.backgroundColor = .btnBckColor_1
+        button.addTarget(self, action: #selector(addTapped), for: .touchUpInside)
+        return button
+    }
+    
+}
+
 //MARK: - UITableView Datasource
 extension CreateWorkoutController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -83,7 +110,8 @@ extension CreateWorkoutController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "workoutCell", for: indexPath) as! CustomTableViewCell
+        cell.configureCellUI(.bckColor_4)
         guard let viewModel else {return cell}
         let workout = viewModel.fetchedResultsController?.object(at: indexPath)
         cell.textLabel?.text = workout?.name

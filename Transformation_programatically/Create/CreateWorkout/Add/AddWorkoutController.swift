@@ -51,7 +51,7 @@ class AddWorkoutController: UIViewController {
     }
     
     private func setupViews(){
-        view.backgroundColor = .white
+        view.backgroundColor = .bckColor_4
         //setup input field
         let workoutTypeTitle = components.createHeaderTitle(title: "Workout Type")
         let workoutTypeStack = components.createStack(axis: .vertical, spacing: baseSize)
