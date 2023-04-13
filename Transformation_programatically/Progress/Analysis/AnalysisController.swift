@@ -21,7 +21,9 @@ class AnalysisController: UIViewController {
     }
     
     private lazy var headerTitle: UILabel = {
-        return components.createHeaderTitle(title: "Images")
+        let label = components.createHeaderTitle(title: "Images")
+        label.textColor = .white
+        return label
     }()
     
     private lazy var dateTitle: String = {
@@ -69,11 +71,14 @@ class AnalysisController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = dateTitle
+        navigationController?.navigationBar.tintColor = .white
+        let textAttributes = [NSAttributedString.Key.foregroundColor:UIColor.white]
+        navigationController?.navigationBar.titleTextAttributes = textAttributes
         tabBarController?.tabBar.isHidden = true
     }
     
     private func setupViews(){
-        view.backgroundColor = .white
+        view.backgroundColor = .bckColor_3
         [weeklyCalendarView, circlularProgressView, headerTitle, imageCollectionView].forEach{view.addSubview($0)}
     }
     

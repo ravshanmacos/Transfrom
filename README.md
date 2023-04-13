@@ -1,7 +1,7 @@
 # Transform
 Transform is Fitness app and it helps to build workout routine and change their body
 
-<img src = "https://github.com/ravshanmacos/Transfrom/blob/main/Resources/Transform.png" width = "500" />
+<img src = "https://github.com/ravshanmacos/Transfrom/blob/main/Resources/Transfrom_New_Version.png" width = "500" />
 
 This app is one of my favorite personal projects, and tried to use all my knowledge about swfit, UIkit. App's main purpose to help for those who need a good and simple fitness rountine app to organize everyday workout. 
 

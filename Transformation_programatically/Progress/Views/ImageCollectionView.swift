@@ -32,6 +32,7 @@ class ImageCollectionView: UIView{
     }
     
     private func setupCollectionView(){
+        collectionView.backgroundColor = .bckColor_3
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
@@ -64,6 +65,7 @@ extension ImageCollectionView: UICollectionViewDataSource{
 extension ImageCollectionView: UICollectionViewDelegate{}
 
 extension ImageCollectionView: UICollectionViewDelegateFlowLayout{
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let size = (collectionView.bounds.width - 16) / 3
         return CGSize(width: size, height: size)
