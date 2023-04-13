@@ -9,4 +9,11 @@ App's features:
  * CRUD operation on workout and workout parts
  * Timer and it show current and next workout 
  * Being aware of personal progress by seeing visauly beautiful charts and images that you taken after workout
+ 
+Used:
+ * Tiny Constraints for building UI Programmatically
+ * Core Data for storing data
+ * MVVM+C Architecture to keep flexible and Maintainable
+ * Combine to get benefits of reactive programming
+ 
 
